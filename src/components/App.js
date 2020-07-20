@@ -17,6 +17,7 @@ function App() {
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
           <Route exact path="/Login" component={() => <div>Meetups</div>} />
           <Route exact path="/SignUp" component={() => <div>Login</div>} />
+          <Route exact path="/CreateGitListing" component={() => <div>Create Git Listing</div>} />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

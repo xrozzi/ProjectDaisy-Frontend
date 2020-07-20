@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
-// import Typography from '@material-ui/core/Typography'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { makeStyles } from '@material-ui/styles'
 import Tabs from '@material-ui/core/tabs'
 import Tab from '@material-ui/core/tab'
 import Button from '@material-ui/core/button'
 import {Link} from 'react-router-dom'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 import logo from '../../assets/logo.svg'
 
@@ -37,7 +38,6 @@ function ElevationScroll(props) {
           "&:hover": {
               backgroundColor: "transparent"
           }
-
       },
       tabContainer: {
           marginLeft: 'auto'
@@ -53,16 +53,43 @@ function ElevationScroll(props) {
           marginLeft: "50 px",
           marginRight: "20px",
           height: "45 px"
+      },
+      menu: {
+          backgroundColor: theme.palette.common.arcPurple,
+          color: "white",
+          borderRadius: "0px"
+      }, 
+      menuItem: {
+          ...theme.typography.tab,
+          opacity: 0.7,
+          "&:hover": {
+              opacity: 1
+          }
       }
-  }))
+    
+  }));
   
 export default function Header(props) {
 
     const classes = useStyles()
-     const [value, setValue] = useState(0)
+    const [value, setValue] = useState(0)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [open, setOpen] = useState(false)
+    const [selectedIndex, setSelectedIndex] = useState(0)
+
 
     const handleChange = (e, value) => {
         setValue(value)
+    }
+
+    const handleClick = (e) => {
+        setAnchorEl(e.currentTarget)
+        setOpen(true)
+    }
+
+    const handleClose = (e) => {
+        setAnchorEl(null)
+        setOpen(false)
     }
 
     useEffect(() => {
@@ -83,6 +110,7 @@ export default function Header(props) {
             <ElevationScroll>
                 <AppBar position="fixed" color="primary">
                     <Toolbar disableGutters>
+
                         <Button component={Link} to="/"
                         disableRipple
                         onClick={() => 
@@ -90,14 +118,83 @@ export default function Header(props) {
                         className={classes.logoContainer}>
                         <img alt="company logo" className={classes.logo} src={logo} />
                         </Button>
-                      <Tabs value={value} onChange={handleChange}
-                       className={classes.tabContainer}>
-                         <Tab className={classes.tab} component={Link} to ="/" label="Home" /> 
-                         <Tab className={classes.tab} component={Link} to ="/GitCollaborations" label="Git Collaborations" /> 
-                         <Tab className={classes.tab} component={Link} to ="/Forums" label="Forums" /> 
-                         <Tab className={classes.tab} component={Link} to ="/Meetups" label="Meetups" /> 
+
+                      <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
+
+                         <Tab 
+                         className={classes.tab} 
+                         component={Link} to ="/" 
+                         label="Home" 
+                         /> 
+
+                         <Tab 
+                         aria-owns={anchorEl ? "simple menu" : undefined}
+                         aria-haspopup={anchorEl ? "true" : undefined}
+                         className={classes.tab} 
+                         component={Link} to ="/GitCollaborations" 
+                         onMouseOver={event => handleClick(event)}
+                         label="Git Collaborations" 
+                         /> 
+
+                         <Tab 
+                         className={classes.tab} 
+                         component={Link} to ="/Forums" 
+                         label="Forums" 
+                         /> 
+
+                         <Tab 
+                         className={classes.tab} 
+                         component={Link} to ="/Meetups" 
+                         label="Meetups"/> 
+
                       </Tabs>
-                      <Button variant="contained" color="secondary" className={classes.button}>Login</Button>
+
+                      <Button 
+                      variant="contained" 
+                      color="secondary" 
+                      className={classes.button}>
+                          Login
+                      </Button>
+
+                      <Menu
+                       id="simple-menu" 
+                       anchorEl={anchorEl} 
+                       open={open}
+                      onClose={handleClose}
+                      classes={{paper: classes.menu}}
+                      MenuListProps={{onMouseLeave: handleClose}}
+                      elevation={0}
+                      >
+
+                            <MenuItem 
+                          onClick={() => {handleClose(); setValue(1)}}
+                          component={Link} to='/GitCollaborations'
+                          classes={{root: classes.menuItem}}
+                          > 
+                          Git Collaborations
+                          </MenuItem>
+
+                          <MenuItem 
+                          onClick={() => {handleClose(); setValue(1)}}
+                          component={Link} to='/CreateGitListing'
+                          classes={{root: classes.menuItem}}
+                          > 
+                          Create a Collab
+                          </MenuItem>
+
+                          <MenuItem 
+                           onClick={() => {handleClose(); setValue(1)}}
+                          component={Link} to='/GitCollaborations'
+                          classes={{root: classes.menuItem}}
+                          > 
+                          See All Collabs
+                          </MenuItem>
+
+
+
+                      </Menu>
+
+
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
