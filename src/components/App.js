@@ -18,6 +18,10 @@ function App() {
           <Route exact path="/Login" component={() => <div>Meetups</div>} />
           <Route exact path="/SignUp" component={() => <div>Login</div>} />
           <Route exact path="/CreateGitListing" component={() => <div>Create Git Listing</div>} />
+          <Route exact path="/AboutGitCollabs" component={() => <div>What is a Git Collab?</div>} />
+
+
+      
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

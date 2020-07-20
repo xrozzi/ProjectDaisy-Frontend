@@ -87,10 +87,24 @@ export default function Header(props) {
         setOpen(true)
     }
 
+    const handleMenuItemClick = (e,i) => {
+        setAnchorEl(null)
+        setOpen(false)
+        setSelectedIndex(i)
+    }
+
     const handleClose = (e) => {
         setAnchorEl(null)
         setOpen(false)
     }
+
+    const menuOptions = [
+        {name: "Git Collaborations", link: "/GitCollaborations"}, 
+        {name: "Create Git Listing", link: "/CreateGitListing"},
+        {name: "What are Git Collabs?", link: "/AboutGitCollabs"}
+    ]
+
+
 
     useEffect(() => {
         if (window.location.pathname === '/' && value !== 0) {
@@ -102,7 +116,6 @@ export default function Header(props) {
     } else if (window.location.pathname === '/Meetups' && value !== 3) {
         setValue(3)
      }
-    
     }, [value])
 
     return (
@@ -157,40 +170,25 @@ export default function Header(props) {
                       </Button>
 
                       <Menu
-                       id="simple-menu" 
-                       anchorEl={anchorEl} 
-                       open={open}
-                      onClose={handleClose}
-                      classes={{paper: classes.menu}}
-                      MenuListProps={{onMouseLeave: handleClose}}
-                      elevation={0}
+                        id="simple-menu" 
+                        anchorEl={anchorEl} 
+                        open={open}
+                        onClose={handleClose}
+                        classes={{paper: classes.menu}}
+                        MenuListProps={{onMouseLeave: handleClose}}
+                        elevation={0}
                       >
 
-                            <MenuItem 
-                          onClick={() => {handleClose(); setValue(1)}}
-                          component={Link} to='/GitCollaborations'
-                          classes={{root: classes.menuItem}}
-                          > 
-                          Git Collaborations
-                          </MenuItem>
-
-                          <MenuItem 
-                          onClick={() => {handleClose(); setValue(1)}}
-                          component={Link} to='/CreateGitListing'
-                          classes={{root: classes.menuItem}}
-                          > 
-                          Create a Collab
-                          </MenuItem>
-
-                          <MenuItem 
-                           onClick={() => {handleClose(); setValue(1)}}
-                          component={Link} to='/GitCollaborations'
-                          classes={{root: classes.menuItem}}
-                          > 
-                          See All Collabs
-                          </MenuItem>
-
-
+                     {menuOptions.map((option, i) => (
+                             <MenuItem key={option} component={Link} to={option.link}
+                             classes={{root: classes.menuItem}}
+                             onClick={(event) => {handleMenuItemClick(event,i); setValue(1);
+                            handleClose()}}
+                             selected={i === selectedIndex && value === 1}
+                             >
+                             {option.name}
+                             </MenuItem>
+                     ))}
 
                       </Menu>
 
