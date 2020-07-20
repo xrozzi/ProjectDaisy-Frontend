@@ -116,6 +116,49 @@ export default function Header(props) {
     } else if (window.location.pathname === '/Meetups' && value !== 3) {
         setValue(3)
      }
+     switch (window.location.pathname) {
+         case "/":
+            if (value !== 0) {
+                setValue(0)
+            }
+            break
+         
+         case "/GitCollaborations": 
+            if (value !== 1) {
+                setValue(1)
+                setSelectedIndex(0)
+                }
+               break
+        
+        case "/CreateGitListing": 
+            if (value !== 1) {
+                setValue(1)
+                setSelectedIndex(1)
+            }
+            break
+        
+        case "/AboutGitCollabs": 
+            if (value !== 1) {
+                setValue(1)
+                setSelectedIndex(2)
+                }
+                break
+        
+        case "/Forums": 
+            if (value !== 2) {
+                setValue(2)
+            }
+            break
+        
+        case "/Meetups": 
+            if (value !== 3) {
+                setValue(3)
+            }
+            break
+        
+            default: 
+            break
+     }
     }, [value])
 
     return (
