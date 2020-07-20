@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 // import Typography from '@material-ui/core/Typography'
@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles'
 import Tabs from '@material-ui/core/tabs'
 import Tab from '@material-ui/core/tab'
 import Button from '@material-ui/core/button'
+import {Link} from 'react-router-dom'
 
 import logo from '../../assets/logo.svg'
 
@@ -30,6 +31,13 @@ function ElevationScroll(props) {
       },
       logo: {
           height: "4em"
+      },
+      logoContainer: {
+          padding: 0,
+          "&:hover": {
+              backgroundColor: "transparent"
+          }
+
       },
       tabContainer: {
           marginLeft: 'auto'
@@ -57,18 +65,37 @@ export default function Header(props) {
         setValue(value)
     }
 
+    useEffect(() => {
+        if (window.location.pathname === '/' && value !== 0) {
+            setValue(0)
+        } else if (window.location.pathname === '/GitCollaborations' && value !== 1) {
+            setValue(1)
+        }  else if (window.location.pathname === '/Forums' && value !== 2) {
+            setValue(2)
+    } else if (window.location.pathname === '/Meetups' && value !== 3) {
+        setValue(3)
+     }
+    
+    }, [value])
+
     return (
         <React.Fragment>
             <ElevationScroll>
                 <AppBar position="fixed" color="primary">
                     <Toolbar disableGutters>
-                      <img alt="company logo" className={classes.logo} src={logo} />
+                        <Button component={Link} to="/"
+                        disableRipple
+                        onClick={() => 
+                            setValue(0)}
+                        className={classes.logoContainer}>
+                        <img alt="company logo" className={classes.logo} src={logo} />
+                        </Button>
                       <Tabs value={value} onChange={handleChange}
                        className={classes.tabContainer}>
-                         <Tab className={classes.tab} label="Home" /> 
-                         <Tab className={classes.tab} label="Git Collaborations" /> 
-                         <Tab className={classes.tab} label="Forums" /> 
-                         <Tab className={classes.tab} label="Meetups" /> 
+                         <Tab className={classes.tab} component={Link} to ="/" label="Home" /> 
+                         <Tab className={classes.tab} component={Link} to ="/GitCollaborations" label="Git Collaborations" /> 
+                         <Tab className={classes.tab} component={Link} to ="/Forums" label="Forums" /> 
+                         <Tab className={classes.tab} component={Link} to ="/Meetups" label="Meetups" /> 
                       </Tabs>
                       <Button variant="contained" color="secondary" className={classes.button}>Login</Button>
                     </Toolbar>
