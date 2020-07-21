@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CreateGitListing from "./CreateGitListing";
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 
@@ -23,7 +24,11 @@ function App() {
           <Route
             exact
             path="/CreateGitListing"
-            component={() => <div>Create Git Listing</div>}
+            component={() => (
+              <div>
+                <CreateGitListing />
+              </div>
+            )}
           />
           <Route
             exact
