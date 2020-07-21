@@ -1,15 +1,16 @@
-
 import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
+import LogIn from "../components/ui/LogIn";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Header />
+        <LogIn />
         <Switch>
           <Route exact path="/" component={() => <div>Home</div>} />
           <Route
@@ -38,4 +39,3 @@ function App() {
 }
 
 export default App;
-
