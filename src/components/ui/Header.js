@@ -109,7 +109,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.arcOrange,
   },
   drawItemSelected: {
-    opacity: 1,
+    "& .MuiListItemText-root": {
+      opacity: 1,
+    },
+  },
+  appbar: {
+    zIndex: theme.zIndex.modal + 1,
   },
 }));
 
@@ -146,56 +151,56 @@ export default function Header(props) {
   };
 
   const menuOptions = [
-    { name: "Git Collaborations", link: "/GitCollaborations" },
-    { name: "Create Git Listing", link: "/CreateGitListing" },
-    { name: "What are Git Collabs?", link: "/AboutGitCollabs" },
+    {
+      name: "Git Collaborations",
+      link: "/GitCollaborations",
+      activeIndex: 1,
+      selectedIndex: 0,
+    },
+    {
+      name: "Create Git Listing",
+      link: "/CreateGitListing",
+      activeIndex: 1,
+      selectedIndex: 1,
+    },
+    {
+      name: "What are Git Collabs?",
+      link: "/AboutGitCollabs",
+      activeIndex: 1,
+      selectedIndex: 2,
+    },
+  ];
+
+  const routes = [
+    { name: "Home", link: "/", activeIndex: 0 },
+    {
+      name: "Git Collaborations",
+      link: "/GitCollaborations",
+      activeIndex: 1,
+      ariaOwns: anchorEl ? "simple menu" : undefined,
+      ariaPopup: anchorEl ? "true" : undefined,
+      mouseOver: (event) => handleClick(event),
+    },
+    { name: "Forums", link: "/Forums", activeIndex: 2 },
+    { name: "Meetups", link: "/Meetups", activeIndex: 3 },
   ];
 
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/":
-        if (value !== 0) {
-          setValue(0);
-        }
-        break;
-
-      case "/GitCollaborations":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(0);
-        }
-        break;
-
-      case "/CreateGitListing":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(1);
-        }
-        break;
-
-      case "/AboutGitCollabs":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(2);
-        }
-        break;
-
-      case "/Forums":
-        if (value !== 2) {
-          setValue(2);
-        }
-        break;
-
-      case "/Meetups":
-        if (value !== 3) {
-          setValue(3);
-        }
-        break;
-
-      default:
-        break;
-    }
-  }, [value]);
+    [...menuOptions, ...routes].forEach((route) => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  }, [value, menuOptions, selectedIndex, routes]);
 
   const tabs = (
     <React.Fragment>
@@ -204,31 +209,18 @@ export default function Header(props) {
         onChange={handleChange}
         className={classes.tabContainer}
       >
-        <Tab className={classes.tab} component={Link} to="/" label="Home" />
-
-        <Tab
-          aria-owns={anchorEl ? "simple menu" : undefined}
-          aria-haspopup={anchorEl ? "true" : undefined}
-          className={classes.tab}
-          component={Link}
-          to="/GitCollaborations"
-          onMouseOver={(event) => handleClick(event)}
-          label="Git Collaborations"
-        />
-
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/Forums"
-          label="Forums"
-        />
-
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/Meetups"
-          label="Meetups"
-        />
+        {routes.map((route, index) => (
+          <Tab
+            key={`${route}${index}`}
+            className={classes.tab}
+            component={Link}
+            to={route.link}
+            label={route.name}
+            aria-owns={route.ariaOwns}
+            aria-haspopup={route.ariaPopup}
+            onMouseOver={route.mouseOver}
+          />
+        ))}
       </Tabs>
 
       <Button variant="contained" color="secondary" className={classes.button}>
@@ -243,10 +235,12 @@ export default function Header(props) {
         classes={{ paper: classes.menu }}
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
+        style={{ zIndex: 1302 }}
+        keepMounted
       >
         {menuOptions.map((option, i) => (
           <MenuItem
-            key={option}
+            key={`${option}${i}`}
             component={Link}
             to={option.link}
             classes={{ root: classes.menuItem }}
@@ -274,107 +268,29 @@ export default function Header(props) {
         onOpen={() => setOpenDrawer(true)}
         classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbarMargin} />
+
         <List disablePadding>
-          <ListItem
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(0);
-            }}
-            divider
-            button
-            component={Link}
-            to="/"
-            selected={value === 0}
-          >
-            <ListItemText
-              className={
-                value === 0
-                  ? [classes.drawerItem, classes.drawItemSelected]
-                  : classes.drawerItem
-              }
-              disableTypography
+          {routes.map((route) => (
+            <ListItem
+              divider
+              key={`${route}${route.activeIndex}`}
+              button
+              component={Link}
+              to={route.link}
+              selected={value === route.activeIndex}
+              classes={{ selected: classes.drawItemSelected }}
+              onClick={() => {
+                setOpenDrawer(false);
+                setValue(route.activeIndex);
+              }}
             >
-              Home
-            </ListItemText>
-          </ListItem>
-        </List>
+              <ListItemText className={classes.drawerItem} disableTypography>
+                {route.name}
+              </ListItemText>
+            </ListItem>
+          ))}
 
-        <List>
-          <ListItem
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(1);
-            }}
-            divider
-            button
-            component={Link}
-            to="/GitCollaborations"
-            selected={value === 1}
-          >
-            <ListItemText
-              className={
-                value === 1
-                  ? [classes.drawerItem, classes.drawItemSelected]
-                  : classes.drawerItem
-              }
-              disableTypography
-            >
-              Git Collaborations
-            </ListItemText>
-          </ListItem>
-        </List>
-
-        <List>
-          <ListItem
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(2);
-            }}
-            divider
-            button
-            component={Link}
-            to="/Forums"
-            selected={value === 2}
-          >
-            <ListItemText
-              className={
-                value === 2
-                  ? [classes.drawerItem, classes.drawItemSelected]
-                  : classes.drawerItem
-              }
-              disableTypography
-            >
-              Forums
-            </ListItemText>
-          </ListItem>
-        </List>
-
-        <List>
-          <ListItem
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(3);
-            }}
-            divider
-            button
-            component={Link}
-            to="/Meetups"
-            selected={value === 3}
-          >
-            <ListItemText
-              className={
-                value === 3
-                  ? [classes.drawerItem, classes.drawItemSelected]
-                  : classes.drawerItem
-              }
-              disableTypography
-            >
-              Meetups
-            </ListItemText>
-          </ListItem>
-        </List>
-
-        <List>
           <ListItem
             onClick={() => {
               setOpenDrawer(false);
@@ -383,18 +299,14 @@ export default function Header(props) {
             divider
             button
             component={Link}
-            className={classes.drawItemLogin}
+            classes={{
+              root: classes.drawItemLogin,
+              selected: classes.drawerItemSelected,
+            }}
             to="/Login"
             selected={value === 4}
           >
-            <ListItemText
-              className={
-                value === 4
-                  ? [classes.drawerItem, classes.drawItemSelected]
-                  : classes.drawerItem
-              }
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               Login
             </ListItemText>
           </ListItem>
@@ -413,7 +325,7 @@ export default function Header(props) {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar position="fixed" color="primary">
+        <AppBar position="fixed" className={classes.appbar}>
           <Toolbar disableGutters>
             <Button
               component={Link}
