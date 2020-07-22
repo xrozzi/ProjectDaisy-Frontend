@@ -71,10 +71,11 @@ export default function CreateGitListing(props) {
   const [description, setDescription] = useState("");
   const [descriptionHelper, setDescriptionHelper] = useState("");
 
+  const [open, setOpen] = useState(false);
+
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onChange = (event) => {
@@ -206,9 +207,10 @@ export default function CreateGitListing(props) {
                 />
               </Grid>
             </Grid>
+
             <Grid item style={{ width: "25em" }}>
               <TextField
-                InputProps={{ disableUnderline: true }}
+                // InputProps={{ disableUnderline: true }}
                 value={description}
                 className={classes.description}
                 multiline
@@ -216,18 +218,105 @@ export default function CreateGitListing(props) {
                 helperText={descriptionHelper}
                 error={descriptionHelper.length !== 0}
                 rows={10}
-                id="message"
+                id="description"
                 onChange={onChange}
               />
             </Grid>
             <Grid item container style={{ marginTop: "2em" }}>
-              <Button variant="contained" className={classes.sendButton}>
+              <Button
+                disabled={description.length === 0 || titleHelper === 0}
+                variant="contained"
+                className={classes.sendButton}
+                onClick={() => setOpen(true)}
+              >
                 Post Collaboration
               </Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        PaperProps={{
+          style: {
+            paddingTop: matchesXS ? "1em" : "5em",
+            paddingBottom: matchesXS ? "1em" : "5em",
+            paddingLeft: matchesXS
+              ? 0
+              : matchesSM
+              ? "5em"
+              : matchesMD
+              ? "10em"
+              : "20em",
+            paddingRight: matchesXS
+              ? 0
+              : matchesSM
+              ? "5em"
+              : matchesMD
+              ? "10em"
+              : "20em",
+          },
+        }}
+      >
+        <DialogContent>
+          <Grid container direction="column">
+            <Grid item>
+              <Typography align="center" variant="h4" gutterBottom>
+                {" "}
+                Confirm Git Post
+              </Typography>
+            </Grid>
+
+            <Grid item style={{ marginBottom: "0.5em" }}>
+              <TextField
+                label="title"
+                direction="column"
+                id="title"
+                fullWidth
+                value={title}
+                error={titleHelper.length !== 0}
+                helperText={titleHelper}
+                onChange={onChange}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item style={{ width: "25em" }}>
+            <TextField
+              // InputProps={{ disableUnderline: true }}
+              value={description}
+              className={classes.description}
+              multiline
+              fullWidth
+              helperText={descriptionHelper}
+              error={descriptionHelper.length !== 0}
+              rows={10}
+              id="description"
+              onChange={onChange}
+            />
+          </Grid>
+
+          <Grid item container alignItems="center">
+            <Grid item>
+              <Button color="primary" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                disabled={description.length === 0 || titleHelper === 0}
+                variant="contained"
+                style={{ marginTop: 20, width: 200 }}
+                className={classes.sendButton}
+                onClick={() => setOpen(true)}
+              >
+                Post Collaboration
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 }
