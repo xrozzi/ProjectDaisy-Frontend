@@ -14,6 +14,7 @@ export default createMuiTheme({
     },
     secondary: {
       main: `${arcOrange}`,
+      fontFamily: "Josefin Sans",
     },
   },
   typography: {
@@ -28,6 +29,28 @@ export default createMuiTheme({
       fontSize: "1rem",
       textTransform: "none",
       color: "white",
+    },
+  },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: arcOrange,
+        fontSize: "1rem",
+      },
+    },
+    MuiInput: {
+      root: {
+        color: arcOrange,
+        fontWeight: 300,
+      },
+      underline: {
+        "&:before": {
+          borderBottom: `2px solid ${arcOrange}`,
+        },
+        "&:hover:not($disabled):not($focused):not($error):before": {
+          borderBottom: `2px solid ${arcOrange}`,
+        },
+      },
     },
   },
 });
