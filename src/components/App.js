@@ -2,6 +2,8 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
+import GitCollaborations from "./GitCollaborations";
+
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 
@@ -15,7 +17,11 @@ function App() {
           <Route
             exact
             path="/GitCollaborations"
-            component={() => <div>Git collaborations</div>}
+            component={() => (
+              <div>
+                <GitCollaborations />
+              </div>
+            )}
           />
           <Route exact path="/Forums" component={() => <div>Forums</div>} />
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />

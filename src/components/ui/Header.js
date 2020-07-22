@@ -19,7 +19,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import logo from "../../assets/logo.svg";
-// import { IconButton } from '@material-ui/core';
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -37,7 +36,7 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em",
+    marginBottom: "1em",
     [theme.breakpoints.down("nd")]: {
       marginBottom: "2em",
     },
