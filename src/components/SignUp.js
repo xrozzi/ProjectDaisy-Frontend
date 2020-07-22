@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from "react-router-dom"
+import axios from "axios"
 
 function Copyright() {
   return (
@@ -46,8 +48,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp({ loggedIn, onLogin }) {
+  
   const classes = useStyles();
+  const [formData, setFormData] = useState({})
+
+  const handleFormInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  async function handleSingUp(e){
+    e.preventDefault()
+    const res = await axios.post(`http://localhost:3000/user_token`, {
+        auth: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password
+        }
+      })
+    onLogin(res.data.jwt)
+}
+
+  if (loggedIn) {
+    return <Redirect to="/CreateGitListing" />
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,6 +98,8 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                onChange={handleFormInputChange}
+                value={formData.firstName}
                 autoFocus
               />
             </Grid>
@@ -82,6 +112,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={handleFormInputChange}
+                value={formData.lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +125,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleFormInputChange}
+                value={formData.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +139,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleFormInputChange}
+                value={formData.password}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,12 +156,13 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSingUp}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="../components/ui/LogIn" variant="body2">
+              <Link href="../login" variant="body2">
                 Already have an account? Log in
               </Link>
             </Grid>

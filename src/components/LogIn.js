@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router-dom"
 
 function Copyright() {
   return (
@@ -47,20 +48,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogIn({onLogin}) {
+export default function LogIn({onLogin, loggedIn}) {
   const classes = useStyles();
 
   const [emailValue, setEmailValue] = useState("")
     const [passwordValue, setPasswordValue] = useState("")
 
-    async function getToken(){
+    async function getToken(e){
+      e.preventDefault()
       const res = await axios.post(`http://localhost:3000/user_token`, {
           auth: {
               email: emailValue,
               password: passwordValue
           }
-      })
+        })
       onLogin(res.data.jwt)
+  }
+
+  if (loggedIn) {
+    return <Redirect to="/CreateGitListing" />
   }
 
   return (
@@ -117,7 +123,7 @@ export default function LogIn({onLogin}) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="../components/ui/SignUp" variant="body2">
+              <Link href="../signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
