@@ -6,6 +6,7 @@ import GitCollaborations from "./GitCollaborations";
 
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
+import Homepage from "../components/Homepage";
 
 function App() {
   return (
@@ -13,7 +14,15 @@ function App() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/" component={() => <div>Home</div>} />
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <div>
+                <Homepage />
+              </div>
+            )}
+          />
           <Route
             exact
             path="/GitCollaborations"
