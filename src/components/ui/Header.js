@@ -19,7 +19,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import logo from "../../assets/logo.svg";
-// import { IconButton } from '@material-ui/core';
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -37,7 +36,7 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em",
+    marginBottom: "1em",
     [theme.breakpoints.down("nd")]: {
       marginBottom: "2em",
     },
@@ -223,9 +222,20 @@ export default function Header(props) {
         ))}
       </Tabs>
 
-      <Button variant="contained" color="secondary" className={classes.button}>
-        Login
-      </Button>
+      { props.loggedIn ? (
+        <Button variant="contained" color="secondary" className={classes.button} onClick={props.handleLogout}>
+          Log out
+        </Button>
+      ) :
+      (
+        <Link to="/login">
+          <Button variant="contained" color="secondary" className={classes.button}>
+         Login
+        </Button>
+        </Link>
+        
+      )}
+      
 
       <Menu
         id="simple-menu"
