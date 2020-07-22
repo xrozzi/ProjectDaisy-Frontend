@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,15 +9,11 @@ import TextField from "@material-ui/core/TextField";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
 
 import axios from "axios";
-import background from "../assets/background.jpg";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    // backgroundImage: `url(${background})`,
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -28,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5em",
     borderRadius: 5,
     minWidth: 400,
-    maxWidth: 900,
+    maxWidth: 700,
   },
   sendButton: {
     borderRadius: 50,
@@ -61,6 +58,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// function createGitPost() {
+//   axios
+//     .post(``, {
+//       song: {
+//         title: description,
+//         description: title,
+//       },
+//     })
+//     .then(() => setIsCreated(true))
+//     .catch(() => setErrorMessage("The post was not created"));
+// }
+
 export default function CreateGitListing(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -72,6 +81,8 @@ export default function CreateGitListing(props) {
   const [descriptionHelper, setDescriptionHelper] = useState("");
 
   const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isCreated, setIsCreated] = useState(false);
 
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -151,24 +162,13 @@ export default function CreateGitListing(props) {
                   to="/revolution"
                   variant="outlined"
                   className={classes.learnButton}
-                  onClick={() => props.setValue(2)}
+                  // onClick={Redirect to='/AboutGitCollabs'}
                 >
                   <span style={{ marginRight: 5 }}>Learn More</span>
                 </Button>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item>
-          {/* <Button
-            component={Link}
-            to="/estimate"
-            variant="contained"
-            className={classes.estimateButton}
-            onClick={() => props.setValue(5)}
-          >
-            Sign Up
-          </Button> */}
         </Grid>
       </Grid>
 
@@ -236,7 +236,9 @@ export default function CreateGitListing(props) {
         </Grid>
       </Grid>
       <Dialog
+        style={{ zIndex: 1302 }}
         open={open}
+        fullScreen={matchesXS}
         onClose={() => setOpen(false)}
         PaperProps={{
           style: {
@@ -282,7 +284,7 @@ export default function CreateGitListing(props) {
             </Grid>
           </Grid>
 
-          <Grid item style={{ width: "25em" }}>
+          <Grid item style={{ width: matchesXS ? "80%" : "20em" }}>
             <TextField
               // InputProps={{ disableUnderline: true }}
               value={description}
@@ -297,9 +299,18 @@ export default function CreateGitListing(props) {
             />
           </Grid>
 
-          <Grid item container alignItems="center">
+          <Grid
+            item
+            container
+            direction={matchesSM ? "column" : "row"}
+            alignItems="center"
+          >
             <Grid item>
-              <Button color="primary" onClick={() => setOpen(false)}>
+              <Button
+                color="primary"
+                align="center"
+                onClick={() => setOpen(false)}
+              >
                 Cancel
               </Button>
             </Grid>
@@ -309,10 +320,10 @@ export default function CreateGitListing(props) {
                 variant="contained"
                 style={{ marginTop: 20, width: 200 }}
                 className={classes.sendButton}
-                onClick={() => setOpen(true)}
               >
-                Post Collaboration
+                Confirm Post
               </Button>
+              {/* {isCreated && <Redirect to='/' />} */}
             </Grid>
           </Grid>
         </DialogContent>
