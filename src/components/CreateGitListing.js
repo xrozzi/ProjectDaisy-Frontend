@@ -67,12 +67,41 @@ export default function CreateGitListing(props) {
 
   /// Rails backend title:string, description:text
   const [title, setTitle] = useState("");
+  const [titleHelper, settitleHelper] = useState("");
   const [description, setDescription] = useState("");
+  const [descriptionHelper, setDescriptionHelper] = useState("");
+
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const onChange = (event) => {
+    let valid;
+
+    switch (event.target.id) {
+      case "title":
+        setTitle(event.target.value);
+        valid = /[0-9a-zA-Z]{6,}/.test(event.target.value);
+
+        if (!valid) {
+          settitleHelper("Please enter a longer title");
+        } else {
+          settitleHelper("");
+        }
+        break;
+      case "description":
+        setDescription(event.target.value);
+        valid = /[0-9a-zA-Z]{15,}/.test(event.target.value);
+        if (!valid) {
+          setDescriptionHelper("");
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Grid
@@ -171,7 +200,9 @@ export default function CreateGitListing(props) {
                   id="title"
                   fullWidth
                   value={title}
-                  onChange={(event) => setTitle(event.target.value)}
+                  error={titleHelper.length !== 0}
+                  helperText={titleHelper}
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>
@@ -182,9 +213,11 @@ export default function CreateGitListing(props) {
                 className={classes.description}
                 multiline
                 fullWidth
+                helperText={descriptionHelper}
+                error={descriptionHelper.length !== 0}
                 rows={10}
                 id="message"
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={onChange}
               />
             </Grid>
             <Grid item container style={{ marginTop: "2em" }}>
