@@ -28,7 +28,9 @@ export default class NewItemForm extends React.Component {
     }
 
     render() {
-        return ( <
+        return (
+
+            <
             div className = "form" >
             <
             h1 > New Upload < /h1>   <
@@ -48,8 +50,8 @@ export default class NewItemForm extends React.Component {
             <
             input type = "submit" / >
             <
-            /form>   <
-            /div>
+            /form>   < /
+            div >
         )
     }
 }
