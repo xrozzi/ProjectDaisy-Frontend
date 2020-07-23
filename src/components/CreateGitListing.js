@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import App from "./App";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -58,18 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function createGitPost() {
-//   axios
-//     .post(``, {
-//       song: {
-//         title: description,
-//         description: title,
-//       },
-//     })
-//     .then(() => setIsCreated(true))
-//     .catch(() => setErrorMessage("The post was not created"));
-// }
-
 export default function CreateGitListing(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -114,6 +103,18 @@ export default function CreateGitListing(props) {
         break;
     }
   };
+
+  function createGitPost({ userToken }) {
+    axios
+      .post(`http://localhost:3000/git_collaborations`, {
+        git_collaboration: {
+          title,
+          description,
+        },
+      })
+      .then(() => setIsCreated(true))
+      .catch(() => setErrorMessage("The post was not created"));
+  }
 
   return (
     <Grid
@@ -320,10 +321,11 @@ export default function CreateGitListing(props) {
                 variant="contained"
                 style={{ marginTop: 20, width: 200 }}
                 className={classes.sendButton}
+                onClick={createGitPost}
               >
                 Confirm Post
               </Button>
-              {/* {isCreated && <Redirect to='/' />} */}
+              {/* {isCreated && <Redirect to="/" />} */}
             </Grid>
           </Grid>
         </DialogContent>
