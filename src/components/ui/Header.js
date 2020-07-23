@@ -222,9 +222,20 @@ export default function Header(props) {
         ))}
       </Tabs>
 
-      <Button variant="contained" color="secondary" className={classes.button}>
-        Login
-      </Button>
+      { props.loggedIn ? (
+        <Button variant="contained" color="secondary" className={classes.button} onClick={props.handleLogout}>
+          Log out
+        </Button>
+      ) :
+      (
+        <Link to="/login">
+          <Button variant="contained" color="secondary" className={classes.button}>
+         Login
+        </Button>
+        </Link>
+        
+      )}
+      
 
       <Menu
         id="simple-menu"
