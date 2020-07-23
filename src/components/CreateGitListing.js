@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, {
+  useState
+} from "react";
 import App from "./App";
-import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import {
+  Redirect
+} from "react-router-dom";
+import {
+  Link
+} from "react-router-dom";
+import {
+  makeStyles,
+  useTheme
+} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -12,6 +21,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import axios from "axios";
+
+import localApi from "../apis/localapi"
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -104,9 +115,8 @@ export default function CreateGitListing(props) {
     }
   };
 
-  function createGitPost({ userToken }) {
-    axios
-      .post(`http://localhost:3000/git_collaborations`, {
+  function createGitPost() {
+    localApi.post(`/git_collaborations`, {
         git_collaboration: {
           title,
           description,
@@ -116,220 +126,350 @@ export default function CreateGitListing(props) {
       .catch(() => setErrorMessage("The post was not created"));
   }
 
-  return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-      style={{ minHeight: "100vh" }}
-      lg={12}
-      xl={12}
-    >
-      <Grid
-        item
-        container
-        direction={matchesMD ? "column" : "row"}
-        className={classes.background}
-        alignItems="center"
-        justify={matchesMD ? "center" : undefined}
-        lg={8}
-        xl={9}
+  return ( <
+      Grid container direction = "column"
+      alignItems = "center"
+      justify = "center"
+      style = {
+        {
+          minHeight: "100vh"
+        }
+      }
+      lg = {
+        12
+      }
+      xl = {
+        12
+      } >
+      <
+      Grid item container direction = {
+        matchesMD ? "column" : "row"
+      }
+      className = {
+        classes.background
+      }
+      alignItems = "center"
+      justify = {
+        matchesMD ? "center" : undefined
+      }
+      lg = {
+        8
+      }
+      xl = {
+        9
+      } >
+      <
+      Grid item style = {
+        {
+          marginLeft: matchesMD ? 0 : "3em",
+          textAlign: matchesMD ? "center" : "inherit",
+        }
+      } >
+      <
+      Grid container direction = "column" >
+      <
+      Grid item >
+      <
+      Typography align = {
+        matchesMD ? "center" : undefined
+      }
+      variant = "h2" >
+      Creat A <
+      br / >
+      Git Collaboration <
+      /Typography> <
+      Typography align = {
+        matchesMD ? "center" : undefined
+      }
+      variant = "subtitle2"
+      style = {
+        {
+          fontSize: "1.5rem"
+        }
+      } >
+      Connect with like minded coders
+      for projects <
+      /Typography> <
+      Grid container justify = {
+        matchesMD ? "center" : undefined
+      }
+      item >
+      <
+      Button component = {
+        Link
+      }
+      to = "/revolution"
+      variant = "outlined"
+      className = {
+        classes.learnButton
+      }
+      // onClick={Redirect to='/AboutGitCollabs'}
       >
-        <Grid
-          item
-          style={{
-            marginLeft: matchesMD ? 0 : "3em",
-            textAlign: matchesMD ? "center" : "inherit",
-          }}
-        >
-          <Grid container direction="column">
-            <Grid item>
-              <Typography align={matchesMD ? "center" : undefined} variant="h2">
-                Creat A
-                <br />
-                Git Collaboration
-              </Typography>
-              <Typography
-                align={matchesMD ? "center" : undefined}
-                variant="subtitle2"
-                style={{ fontSize: "1.5rem" }}
-              >
-                Connect with like minded coders for projects
-              </Typography>
-              <Grid container justify={matchesMD ? "center" : undefined} item>
-                <Button
-                  component={Link}
-                  to="/revolution"
-                  variant="outlined"
-                  className={classes.learnButton}
-                  // onClick={Redirect to='/AboutGitCollabs'}
-                >
-                  <span style={{ marginRight: 5 }}>Learn More</span>
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <
+      span style = {
+        {
+          marginRight: 5
+        }
+      } > Learn More < /span> < /
+      Button > <
+      /Grid> < /
+      Grid > <
+      /Grid> < /
+      Grid > <
+      /Grid>
 
-      <Grid
-        item
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        style={{
+      <
+      Grid item container direction = "row"
+      justify = "center"
+      alignItems = "center"
+      style = {
+        {
           marginBottom: matchesMD ? "5em" : 0,
           marginTop: matchesSM ? "1em" : matchesMD ? "5em" : 0,
-        }}
-        lg={4}
-        xl={3}
-      >
-        <Grid item>
-          <Grid container justify="center" direction="column">
-            <Grid
-              item
-              container
-              direction="column"
-              justify="center"
-              style={{ width: "25em" }}
-            >
-              <Grid item style={{ marginBottom: "0.5em" }}>
-                <TextField
-                  label="title"
-                  direction="column"
-                  id="title"
-                  fullWidth
-                  value={title}
-                  error={titleHelper.length !== 0}
-                  helperText={titleHelper}
-                  onChange={onChange}
-                />
-              </Grid>
-            </Grid>
+        }
+      }
+      lg = {
+        4
+      }
+      xl = {
+        3
+      } >
+      <
+      Grid item >
+      <
+      Grid container justify = "center"
+      direction = "column" >
+      <
+      Grid item container direction = "column"
+      justify = "center"
+      style = {
+        {
+          width: "25em"
+        }
+      } >
+      <
+      Grid item style = {
+        {
+          marginBottom: "0.5em"
+        }
+      } >
+      <
+      TextField label = "title"
+      direction = "column"
+      id = "title"
+      fullWidth value = {
+        title
+      }
+      error = {
+        titleHelper.length !== 0
+      }
+      helperText = {
+        titleHelper
+      }
+      onChange = {
+        onChange
+      }
+      /> < /
+      Grid > <
+      /Grid>
 
-            <Grid item style={{ width: "25em" }}>
-              <TextField
-                // InputProps={{ disableUnderline: true }}
-                value={description}
-                className={classes.description}
-                multiline
-                fullWidth
-                helperText={descriptionHelper}
-                error={descriptionHelper.length !== 0}
-                rows={10}
-                id="description"
-                onChange={onChange}
-              />
-            </Grid>
-            <Grid item container style={{ marginTop: "2em" }}>
-              <Button
-                disabled={description.length === 0 || titleHelper === 0}
-                variant="contained"
-                className={classes.sendButton}
-                onClick={() => setOpen(true)}
-              >
-                Post Collaboration
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Dialog
-        style={{ zIndex: 1302 }}
-        open={open}
-        fullScreen={matchesXS}
-        onClose={() => setOpen(false)}
-        PaperProps={{
+      <
+      Grid item style = {
+        {
+          width: "25em"
+        }
+      } >
+      <
+      TextField
+      // InputProps={{ disableUnderline: true }}
+      value = {
+        description
+      }
+      className = {
+        classes.description
+      }
+      multiline fullWidth helperText = {
+        descriptionHelper
+      }
+      error = {
+        descriptionHelper.length !== 0
+      }
+      rows = {
+        10
+      }
+      id = "description"
+      onChange = {
+        onChange
+      }
+      /> < /
+      Grid > <
+      Grid item container style = {
+        {
+          marginTop: "2em"
+        }
+      } >
+      <
+      Button disabled = {
+        description.length === 0 || titleHelper === 0
+      }
+      variant = "contained"
+      className = {
+        classes.sendButton
+      }
+      onClick = {
+        () => setOpen(true)
+      } >
+      Post Collaboration <
+      /Button> < /
+      Grid > <
+      /Grid> < /
+      Grid > <
+      /Grid> <
+      Dialog style = {
+        {
+          zIndex: 1302
+        }
+      }
+      open = {
+        open
+      }
+      fullScreen = {
+        matchesXS
+      }
+      onClose = {
+        () => setOpen(false)
+      }
+      PaperProps = {
+        {
           style: {
             paddingTop: matchesXS ? "1em" : "5em",
             paddingBottom: matchesXS ? "1em" : "5em",
-            paddingLeft: matchesXS
-              ? 0
-              : matchesSM
-              ? "5em"
-              : matchesMD
-              ? "10em"
-              : "20em",
-            paddingRight: matchesXS
-              ? 0
-              : matchesSM
-              ? "5em"
-              : matchesMD
-              ? "10em"
-              : "20em",
+            paddingLeft: matchesXS ?
+              0 : matchesSM ?
+              "5em" : matchesMD ?
+              "10em" : "20em",
+            paddingRight: matchesXS ?
+              0 : matchesSM ?
+              "5em" : matchesMD ?
+              "10em" : "20em",
           },
-        }}
-      >
-        <DialogContent>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography align="center" variant="h4" gutterBottom>
-                {" "}
-                Confirm Git Post
-              </Typography>
-            </Grid>
+        }
+      } >
+      <
+      DialogContent >
+      <
+      Grid container direction = "column" >
+      <
+      Grid item >
+      <
+      Typography align = "center"
+      variant = "h4"
+      gutterBottom > {
+        " "
+      }
+      Confirm Git Post <
+      /Typography> < /
+      Grid >
 
-            <Grid item style={{ marginBottom: "0.5em" }}>
-              <TextField
-                label="title"
-                direction="column"
-                id="title"
-                fullWidth
-                value={title}
-                error={titleHelper.length !== 0}
-                helperText={titleHelper}
-                onChange={onChange}
-              />
-            </Grid>
-          </Grid>
+      <
+      Grid item style = {
+        {
+          marginBottom: "0.5em"
+        }
+      } >
+      <
+      TextField label = "title"
+      direction = "column"
+      id = "title"
+      fullWidth value = {
+        title
+      }
+      error = {
+        titleHelper.length !== 0
+      }
+      helperText = {
+        titleHelper
+      }
+      onChange = {
+        onChange
+      }
+      /> < /
+      Grid > <
+      /Grid>
 
-          <Grid item style={{ width: matchesXS ? "80%" : "20em" }}>
-            <TextField
-              // InputProps={{ disableUnderline: true }}
-              value={description}
-              className={classes.description}
-              multiline
-              fullWidth
-              helperText={descriptionHelper}
-              error={descriptionHelper.length !== 0}
-              rows={10}
-              id="description"
-              onChange={onChange}
-            />
-          </Grid>
+      <
+      Grid item style = {
+        {
+          width: matchesXS ? "80%" : "20em"
+        }
+      } >
+      <
+      TextField
+      // InputProps={{ disableUnderline: true }}
+      value = {
+        description
+      }
+      className = {
+        classes.description
+      }
+      multiline fullWidth helperText = {
+        descriptionHelper
+      }
+      error = {
+        descriptionHelper.length !== 0
+      }
+      rows = {
+        10
+      }
+      id = "description"
+      onChange = {
+        onChange
+      }
+      /> < /
+      Grid >
 
-          <Grid
-            item
-            container
-            direction={matchesSM ? "column" : "row"}
-            alignItems="center"
-          >
-            <Grid item>
-              <Button
-                color="primary"
-                align="center"
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                disabled={description.length === 0 || titleHelper === 0}
-                variant="contained"
-                style={{ marginTop: 20, width: 200 }}
-                className={classes.sendButton}
-                onClick={createGitPost}
-              >
-                Confirm Post
-              </Button>
-              {/* {isCreated && <Redirect to="/" />} */}
-            </Grid>
-          </Grid>
-        </DialogContent>
-      </Dialog>
-    </Grid>
-  );
+      <
+      Grid item container direction = {
+        matchesSM ? "column" : "row"
+      }
+      alignItems = "center" >
+      <
+      Grid item >
+      <
+      Button color = "primary"
+      align = "center"
+      onClick = {
+        () => setOpen(false)
+      } >
+      Cancel <
+      /Button> < /
+      Grid > <
+      Grid item >
+      <
+      Button disabled = {
+        description.length === 0 || titleHelper === 0
+      }
+      variant = "contained"
+      style = {
+        {
+          marginTop: 20,
+          width: 200
+        }
+      }
+      className = {
+        classes.sendButton
+      }
+      onClick = {
+        createGitPost
+      } >
+      Confirm Post <
+      /Button> {
+      /* {isCreated && <Redirect to="/" />} */
+    } <
+    /Grid> < /
+  Grid > <
+    /DialogContent> < /
+  Dialog > <
+    /Grid>
+);
 }
