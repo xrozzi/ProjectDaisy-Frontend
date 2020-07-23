@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
+import Homepage from "./Home/Homepage";
 
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
@@ -35,7 +37,15 @@ function App() {
       <BrowserRouter>
         <Header handleLogout={handleLogout} loggedIn={userToken} />
         <Switch>
-          <Route exact path="/" component={() => <div>Home</div>} />
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <div>
+                <Homepage />
+              </div>
+            )}
+          />
           <Route
             exact
             path="/GitCollaborations"
