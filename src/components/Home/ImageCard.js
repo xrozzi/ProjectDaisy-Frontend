@@ -26,8 +26,8 @@ const ImageCard = withStyles(styles)(({ classes }) => (
     <CardMedia className={classes.media} image="" title="Blogs" />
     <CardHeader
       className={classes.header}
-      title="Forums"
-      subheader="Check out our new forums"
+      title="Feature"
+      subheader="Check out our this feature >"
     />{" "}
   </Card>
 ));
