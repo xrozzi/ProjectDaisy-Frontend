@@ -15,6 +15,7 @@ import Avatar from "react-avatar";
 const useStyles = makeStyles((theme) => ({
   heading: {
     maxWidth: "40em",
+    marginTop: "10em",
   },
   arrowContainer: {
     marginTop: "0.5em",
