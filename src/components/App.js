@@ -3,16 +3,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
+import Inbox from ".Inbox";
 
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
-<<<<<<< HEAD
-import Homepage from "../components/Homepage";
-=======
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import PrivateRoute from "./PrivateRoute";
->>>>>>> 0c3298aaeca14c7feeb4067d24504a5a8980b0de
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -59,6 +56,8 @@ function App() {
           />
           <Route exact path="/Forums" component={() => <div>Forums</div>} />
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
+
+          <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
           <Route
             exact
             path="/Login"
