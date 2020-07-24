@@ -263,7 +263,7 @@ export default function Features(props) {
             </Grid>
           </Grid>
           <Grid item md>
-            <Avatar githubHandle="mikedane" size={150} round="20px" />
+            <Avatar githubHandle="" size={150} round="20px" />
           </Grid>
         </Grid>
         <Grid
@@ -274,12 +274,12 @@ export default function Features(props) {
           md
         >
           <Grid item md>
-            <Avatar githubHandle="mikedane" size={150} round="20px" />
+            <Avatar githubHandle="" size={150} round="20px" />
           </Grid>
           <Grid item container direction="column" md>
             <Grid item>
               <Typography variant="h4" align={matchesSM ? "center" : "right"}>
-                Things to fit Mikes needs
+                Things t... needs
               </Typography>
             </Grid>
             <Grid item>
@@ -302,7 +302,7 @@ export default function Features(props) {
         className={classes.rowContainer}
       >
         <Grid item container direction="column" alignItems="center">
-          <Avatar githubHandle="mikedane" size={150} round="20px" />
+          <Avatar githubHandle="" size={150} round="20px" />
 
           <Grid item className={classes.itemContainer}>
             <Typography variant="h4" align="center" gutterBottom>
