@@ -62,10 +62,10 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   async function handleSingUp(e){
     e.preventDefault()
-    const res = await axios.post(`http://localhost:3000/user_token`, {
-        auth: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
+    const res = await axios.post(`http://localhost:3000/users`, {
+        user: {
+            firstname: formData.firstname,
+            lastname: formData.lastname,
             email: formData.email,
             password: formData.password
         }
@@ -99,7 +99,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 id="firstName"
                 label="First Name"
                 onChange={handleFormInputChange}
-                value={formData.firstName}
+                value={formData.firstname}
                 autoFocus
               />
             </Grid>
@@ -113,7 +113,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastName"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-                value={formData.lastName}
+                value={formData.lastname}
               />
             </Grid>
             <Grid item xs={12}>

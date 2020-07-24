@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default UploadImage {
+export default UploadImage(props) {
+
+
 
     state = {
         image: {}
