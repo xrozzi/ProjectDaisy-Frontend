@@ -5,11 +5,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
+import Forum from "./Forums/Forum";
 import Inbox from "./Inbox";
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -55,7 +57,15 @@ function App() {
               </div>
             )}
           />
-          <Route exact path="/Forums" component={() => <div>Forums</div>} />
+          <Route
+            exact
+            path="/Forums"
+            component={() => (
+              <div>
+                <Forum />
+              </div>
+            )}
+          />
           <Route
             exact
             path="/Inbox"
