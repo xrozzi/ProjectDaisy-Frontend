@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
@@ -26,6 +25,7 @@ function App() {
 
   const handleAuth = (token) => {
     localStorage.setItem("token", token);
+    console.log("Auth runs", token);
     setUserToken(token);
   };
 
@@ -87,8 +87,8 @@ function App() {
           <Route
             exact
             path="/SignUp"
-            component={() => (
-              <SignUp loggedIn={userToken} onLogin={handleAuth} />
+            component={(props) => (
+              <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
           <PrivateRoute exact path="/CreateGitListing">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -14,6 +14,8 @@ import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
 import Avatar from "react-avatar";
 import MessageIcon from "@material-ui/icons/Message";
+import localApi from "../apis/localapi.js";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -36,6 +38,16 @@ const useStyles = makeStyles({
 
 const Inbox = () => {
   const classes = useStyles();
+  // const [conversations, setConversations] = useState([]);
+  // const [messages, setMessages] = useState([]);
+  // useEffect(() => {
+  //   localApi.get("/conversations").then((response) => {
+  //     console.log(response.data);
+  //     setConversations(response.data);
+  //   });
+  // }, []);
+
+  // localApi.get(/conversations/:id/messages)
 
   return (
     <div>
