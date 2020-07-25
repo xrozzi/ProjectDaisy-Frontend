@@ -3,7 +3,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
-import Inbox from ".Inbox";
+import Homepage from "./Home/Homepage";
+import Inbox from "./Inbox";
 
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
@@ -23,6 +24,7 @@ function App() {
 
   const handleAuth = (token) => {
     localStorage.setItem("token", token);
+    console.log("Auth runs", token);
     setUserToken(token);
   };
 
@@ -55,6 +57,16 @@ function App() {
             )}
           />
           <Route exact path="/Forums" component={() => <div>Forums</div>} />
+          <Route
+            exact
+            path="/Inbox"
+            component={() => (
+              <div>
+                <Inbox />
+              </div>
+            )}
+          />
+
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
 
           <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
@@ -68,8 +80,8 @@ function App() {
           <Route
             exact
             path="/SignUp"
-            component={() => (
-              <SignUp loggedIn={userToken} onLogin={handleAuth} />
+            component={(props) => (
+              <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
           <PrivateRoute exact path="/CreateGitListing">
