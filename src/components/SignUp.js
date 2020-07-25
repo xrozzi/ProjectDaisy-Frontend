@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
+import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -14,13 +15,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Project Daisy
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -50,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
   const [formData, setFormData] = useState({});
+  const [emailHelper, setEmailHelper] = useState("");
 
   const handleFormInputChange = (e) => {
     setFormData({
@@ -128,6 +131,8 @@ export default function SignUp({ loggedIn, onLogin }) {
                 required
                 fullWidth
                 id="email"
+                error={emailHelper.length !== 0}
+                helperText={emailHelper}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
@@ -160,9 +165,10 @@ export default function SignUp({ loggedIn, onLogin }) {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.submit}
             onClick={handleSingUp}
+            disabled={emailHelper.length === 0}
           >
             Sign Up
           </Button>
