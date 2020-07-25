@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   pageHeading: {
     fontFamily: "Josefin Sans",
-    fontSize: "5rem",
+    fontSize: "4rem",
+    bottomMargin: "3em",
   },
 }));
 
@@ -57,7 +58,9 @@ const GitCollaborations = () => {
     <>
       <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography className={classes.pageHeading}>Git Listings</Typography>
+          <Typography className={classes.pageHeading}>
+            Github Collaboration Listings
+          </Typography>
         </Grid>
       </Grid>
       {listings.map((listing) => (
