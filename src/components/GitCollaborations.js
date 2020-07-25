@@ -63,12 +63,12 @@ const GitCollaborations = () => {
       {listings.map((listing) => (
         <Grid
           container
-          spacing={2}
+          spacing={1}
           container
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: "20vh" }}
         >
           <Grid item xs={12} sm={9} md={10} lg={10}>
             <Paper className={classes.paper}>
