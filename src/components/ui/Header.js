@@ -157,6 +157,13 @@ export default function Header(props) {
     setOpenMenu(false);
   };
 
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpenDrawer(false);
+    }
+  }
+
   const menuOptions = [
     {
       name: "Git Collaborations",
@@ -275,6 +282,7 @@ export default function Header(props) {
                   disablePadding
                   // autoFocusItem={open}
                   id="simple-menu"
+                  onKeyDown={handleListKeyDown}
                 >
                   {menuOptions.map((option, i) => (
                     <MenuItem
