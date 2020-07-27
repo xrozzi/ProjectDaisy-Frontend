@@ -54,6 +54,8 @@ const Inbox = () => {
   const [reciever_email, setRecieverEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [currentConversation, setCurrentConversation] = useState("");
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -70,10 +72,13 @@ const Inbox = () => {
           reciever_email,
         },
       })
-      .then(() => setIsCreated(true))
+      .then((res) => {
+        setIsCreated(true);
+        setCurrentConversation(res.data.id);
+      })
       .catch(() => setErrorMessage("The post was not created"));
   }
-
+  console.log(currentConversation);
   return (
     <div>
       <Grid container>
@@ -130,7 +135,11 @@ const Inbox = () => {
         <Grid item xs={3} className={classes.borderRight500}>
           iiii
           <Divider />
-          <ConversationList />
+          <ConversationList
+            onSelectConversation={(id) => {
+              setCurrentConversation(id);
+            }}
+          />
         </Grid>
         <Grid item xs={9}>
           <List className={classes.messageArea}>
@@ -165,22 +174,7 @@ const Inbox = () => {
             </ListItem>
           </List>
           <Divider />
-          <Grid container style={{ padding: "20px" }}>
-            <Grid item xs={11}>
-              <TextField id="outlined-basic-email" label="type" fullWidth />
-            </Grid>
-            <Grid xs={1} align="right">
-              <Fab color="primary" aria-label="add">
-                <Button
-                  color="primary"
-                  align="center"
-                  onClick={() => setOpen(false)}
-                >
-                  <SendIcon />
-                </Button>
-              </Fab>
-            </Grid>
-          </Grid>
+          <Grid container style={{ padding: "20px" }}></Grid>
         </Grid>
       </Grid>
     </div>

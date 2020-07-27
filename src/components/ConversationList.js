@@ -25,7 +25,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const ConversationList = () => {
+const ConversationList = ({ onSelectConversation }) => {
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
@@ -39,7 +39,12 @@ const ConversationList = () => {
       {conversations.map((conversation) => (
         <Grid item xs={12} style={{ padding: "10px" }}>
           <List>
-            <ListItem button key="">
+            <ListItem
+              button
+              onClick={() => {
+                onSelectConversation(conversation.id);
+              }}
+            >
               <ListItemIcon>
                 <Avatar githubHandle="" size={50} round="20px" />
               </ListItemIcon>
