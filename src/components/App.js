@@ -10,6 +10,7 @@ import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import UserProfile from "./UserProfile"
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -97,6 +98,11 @@ function App() {
             exact
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
+          />
+          <Route
+            exact
+            path="/userProfile"
+            component={UserProfile}
           />
         </Switch>
       </BrowserRouter>
