@@ -10,6 +10,7 @@ import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import ImageUpload from "./ImageUpload";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -80,6 +81,11 @@ function App() {
             component={() => (
               <SignUp loggedIn={userToken} onLogin={handleAuth} />
             )}
+          />
+          <Route
+            exact
+            path="/Images"
+            component={() => <div>Upload Profile Picture ^.^</div>}
           />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import App from "./App";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import localApi from "../apis/localapi";
 
