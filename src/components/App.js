@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import CreateGitListing from "./CreateGitListing";
-import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-
 import PrivateRoute from "./PrivateRoute";
+
+import { ThemeProvider } from "@material-ui/core/styles";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CreateGitListing from "./CreateGitListing";
+import GitCollaborations from "./GitCollaborations";
 
 function App() {
   const [userToken, setUserToken] = useState(null);

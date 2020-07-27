@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CustomizedMenus from "./ProfileMenu";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
@@ -180,8 +181,8 @@ export default function Header(props) {
       ariaPopup: anchorEl ? "true" : undefined,
       mouseOver: (event) => handleClick(event),
     },
-    { name: "Forums", link: "/Forums", activeIndex: 2 },
-    { name: "Meetups", link: "/Meetups", activeIndex: 3 },
+    // { name: "Forums", link: "/Forums", activeIndex: 2 },
+    // { name: "Meetups", link: "/Meetups", activeIndex: 3 },
   ];
 
   useEffect(() => {
@@ -223,14 +224,15 @@ export default function Header(props) {
       </Tabs>
 
       {props.loggedIn ? (
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          onClick={props.handleLogout}
-        >
-          Log out
-        </Button>
+        // <Button
+        //   variant="contained"
+        //   color="secondary"
+        //   className={classes.button}
+        //   onClick={props.handleLogout}
+        // >
+        //   Log out
+        // </Button>
+        <CustomizedMenus />
       ) : (
         <Link to="/login">
           <Button
