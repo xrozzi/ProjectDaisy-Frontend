@@ -19,6 +19,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuList from "@material-ui/core/MenuList";
 import logo from "../../assets/logo.svg";
 
 function ElevationScroll(props) {
@@ -79,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.arcPurple,
     color: "white",
     borderRadius: "0px",
+    zIndex: 1302,
   },
   menuItem: {
     ...theme.typography.tab,
@@ -87,7 +93,8 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
   },
-  drawerIcon: {
+
+  Icon: {
     height: "50px",
     width: "50px",
   },
@@ -181,6 +188,7 @@ export default function Header(props) {
       ariaPopup: anchorEl ? "true" : undefined,
       mouseOver: (event) => handleClick(event),
     },
+
     // { name: "Forums", link: "/Forums", activeIndex: 2 },
     // { name: "Meetups", link: "/Meetups", activeIndex: 3 },
   ];
@@ -245,7 +253,53 @@ export default function Header(props) {
         </Link>
       )}
 
-      <Menu
+      <Popper
+        open={openMenu}
+        anchorEl={anchorEl}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper classes={{ root: classes.menu }} elevation={0}>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  onMouseLeave={handleClose}
+                  disablePadding
+                  // autoFocusItem={open}
+                  id="simple-menu"
+                >
+                  {menuOptions.map((option, i) => (
+                    <MenuItem
+                      key={`${option}${i}`}
+                      component={Link}
+                      to={option.link}
+                      classes={{ root: classes.menuItem }}
+                      onClick={(event) => {
+                        handleMenuItemClick(event, i);
+                        setValue(1);
+                        handleClose();
+                      }}
+                      selected={i === selectedIndex && value === 1}
+                    >
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+
+      {/* <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         open={openMenu}
@@ -255,24 +309,7 @@ export default function Header(props) {
         elevation={0}
         style={{ zIndex: 1302 }}
         keepMounted
-      >
-        {menuOptions.map((option, i) => (
-          <MenuItem
-            key={`${option}${i}`}
-            component={Link}
-            to={option.link}
-            classes={{ root: classes.menuItem }}
-            onClick={(event) => {
-              handleMenuItemClick(event, i);
-              setValue(1);
-              handleClose();
-            }}
-            selected={i === selectedIndex && value === 1}
-          >
-            {option.name}
-          </MenuItem>
-        ))}
-      </Menu>
+      ></Menu> */}
     </React.Fragment>
   );
 

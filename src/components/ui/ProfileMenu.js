@@ -60,7 +60,7 @@ export default function CustomizedMenus() {
         color="primary"
         onClick={handleClick}
       >
-        Open Menu
+        User Dashboard
       </Button>
       <StyledMenu
         id="customized-menu"
