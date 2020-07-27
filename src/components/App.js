@@ -5,6 +5,7 @@ import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
+
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
@@ -73,6 +74,8 @@ function App() {
           />
 
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
+
+          <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
           <Route
             exact
             path="/Login"
