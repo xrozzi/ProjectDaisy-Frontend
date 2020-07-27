@@ -55,6 +55,8 @@ const Inbox = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [currentConversation, setCurrentConversation] = useState("");
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [text, setMessage] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,6 +65,17 @@ const Inbox = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (currentConversation) {
+      localApi
+        .get(`/messages?conversation_id=${currentConversation}`, {})
+        .then((res) => {
+          setCurrentMessages(res.data);
+          console.log(res.data);
+        });
+    }
+  }, [currentConversation]);
 
   function createConversation() {
     localApi
@@ -76,8 +89,21 @@ const Inbox = () => {
         setIsCreated(true);
         setCurrentConversation(res.data.id);
       })
-      .catch(() => setErrorMessage("The post was not created"));
+      .catch(() => setErrorMessage("The convo was not created"));
   }
+
+  function createMessage() {
+    localApi
+      .post(`/messages`, {
+        message: {
+          conversation_id: currentConversation,
+          text,
+        },
+      })
+      .then(() => setIsCreated(true))
+      .catch(() => setErrorMessage(""));
+  }
+
   console.log(currentConversation);
   return (
     <div>
@@ -107,7 +133,6 @@ const Inbox = () => {
                   type="text"
                   fullWidth
                 />
-
                 <TextField
                   autoFocus
                   margin="dense"
@@ -141,41 +166,79 @@ const Inbox = () => {
             }}
           />
         </Grid>
-        <Grid item xs={9}>
-          <List className={classes.messageArea}>
-            <ListItem key="1">
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText
-                    align="right"
-                    // primary="Hey girl!"
-                  ></ListItemText>
+        {/* MESSAGE AREA */}
+        {currentConversation && (
+          <Grid item xs={9}>
+            <List className={classes.messageArea}>
+              <ListItem key="1">
+                <Grid container>
+                  {currentMessages.map((message) => {
+                    return (
+                      <Grid item xs={12}>
+                        <ListItemText
+                          align="right"
+                          primary={message.text}
+                        ></ListItemText>
+                      </Grid>
+                    );
+                  })}
+                  <Grid item xs={12}>
+                    <ListItemText
+                      align="right"
+                      primary="Hey girl!"
+                    ></ListItemText>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ListItemText
+                      align="right"
+                      secondary="09:30"
+                    ></ListItemText>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align="right" secondary="09:30"></ListItemText>
+              </ListItem>
+              <ListItem key="2">
+                <Grid container>
+                  <Grid item xs={12}>
+                    <ListItemText
+                      align="left"
+                      // primary="Wanna collab?"
+                    ></ListItemText>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ListItemText align="left" secondary="04:21"></ListItemText>
+                  </Grid>
                 </Grid>
+              </ListItem>
+              <ListItem key="3">
+                <Grid container></Grid>
+              </ListItem>
+            </List>
+            <Divider />
+            <Grid container style={{ padding: "20px" }}>
+              <Grid item xs={11}>
+                <TextField
+                  id="text"
+                  label="type"
+                  fullWidth
+                  onChange={(e) => setMessage(e.target.value)}
+                />
               </Grid>
-            </ListItem>
-            <ListItem key="2">
-              <Grid container>
-                <Grid item xs={12}>
-                  <ListItemText
-                    align="left"
-                    // primary="Wanna collab?"
-                  ></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItemText align="left" secondary="04:21"></ListItemText>
-                </Grid>
+              <Grid xs={1} align="right">
+                <Fab color="primary" aria-label="add">
+                  <Button
+                    color="primary"
+                    align="center"
+                    onClick={createMessage}
+                  >
+                    <SendIcon />
+                  </Button>
+                </Fab>
               </Grid>
-            </ListItem>
-            <ListItem key="3">
-              <Grid container></Grid>
-            </ListItem>
-          </List>
-          <Divider />
-          <Grid container style={{ padding: "20px" }}></Grid>
-        </Grid>
+            </Grid>
+          </Grid>
+        )}
+
+        {/* MESSAGE AREA */}
       </Grid>
     </div>
   );
