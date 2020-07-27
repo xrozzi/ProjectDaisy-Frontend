@@ -12,7 +12,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-
 import PersonIcon from "@material-ui/icons/Person";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ConversationList from "./ConversationList";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -15,6 +16,14 @@ import SendIcon from "@material-ui/icons/Send";
 import Avatar from "react-avatar";
 import MessageIcon from "@material-ui/icons/Message";
 import localApi from "../apis/localapi.js";
+import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles({
   table: {
@@ -38,62 +47,90 @@ const useStyles = makeStyles({
 
 const Inbox = () => {
   const classes = useStyles();
-  // const [conversations, setConversations] = useState([]);
-  // const [messages, setMessages] = useState([]);
-  // useEffect(() => {
-  //   localApi.get("/conversations").then((response) => {
-  //     console.log(response.data);
-  //     setConversations(response.data);
-  //   });
-  // }, []);
 
-  // localApi.get(/conversations/:id/messages)
+  const [open, setOpen] = React.useState(false);
+  const [isCreated, setIsCreated] = useState(false);
+  const [title, setTitle] = useState("");
+  const [reciever_email, setRecieverEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function createConversation() {
+    localApi
+      .post(`/conversations`, {
+        conversation: {
+          title,
+          reciever_email,
+        },
+      })
+      .then(() => setIsCreated(true))
+      .catch(() => setErrorMessage("The post was not created"));
+  }
 
   return (
     <div>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h5" className="header-message">
+            <Button color="secondary" align="center" onClick={handleClickOpen}>
+              <MessageIcon />
+            </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">Create a Message</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Find a user to message and then write in a title
+                </DialogContentText>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="reciever_id"
+                  label="email"
+                  onChange={(e) => setRecieverEmail(e.target.value)}
+                  type="text"
+                  fullWidth
+                />
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="title"
+                  label="Title of Message"
+                  onChange={(e) => setTitle(e.target.value)}
+                  type="text"
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={createConversation} color="secondary">
+                  Send Message
+                </Button>
+              </DialogActions>
+            </Dialog>
             Chat
           </Typography>
         </Grid>
       </Grid>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={3} className={classes.borderRight500}>
-          <MessageIcon />
-
+          iiii
           <Divider />
-          <Grid item xs={12} style={{ padding: "10px" }}>
-            <List>
-              <ListItem button key="Helga">
-                <ListItemIcon>
-                  <Avatar githubHandle="" size={50} round="20px" />
-                </ListItemIcon>
-                <ListItemText primary="Helga"></ListItemText>
-              </ListItem>
-            </List>
-          </Grid>
-          <Divider />
-          <List>
-            <ListItem button key="RemySharp">
-              <ListItemIcon>
-                <Avatar githubHandle="" size={50} round="20px" />
-              </ListItemIcon>
-              <ListItemText primary="Esther">Remy Sharp</ListItemText>
-            </ListItem>
-            <ListItem button key="Esther">
-              <ListItemIcon>
-                <Avatar githubHandle="" size={50} round="20px" />
-              </ListItemIcon>
-              <ListItemText primary="Nikki"></ListItemText>
-            </ListItem>
-            <ListItem button key="CindyBaker">
-              <ListItemIcon>
-                <Avatar githubHandle="" size={50} round="20px" />
-              </ListItemIcon>
-              <ListItemText primary="Rose">Rose</ListItemText>
-            </ListItem>
-          </List>
+          <ConversationList />
         </Grid>
         <Grid item xs={9}>
           <List className={classes.messageArea}>
@@ -102,7 +139,7 @@ const Inbox = () => {
                 <Grid item xs={12}>
                   <ListItemText
                     align="right"
-                    primary="Hey girl!"
+                    // primary="Hey girl!"
                   ></ListItemText>
                 </Grid>
                 <Grid item xs={12}>
@@ -115,7 +152,7 @@ const Inbox = () => {
                 <Grid item xs={12}>
                   <ListItemText
                     align="left"
-                    primary="Wanna collab?"
+                    // primary="Wanna collab?"
                   ></ListItemText>
                 </Grid>
                 <Grid item xs={12}>
@@ -134,7 +171,13 @@ const Inbox = () => {
             </Grid>
             <Grid xs={1} align="right">
               <Fab color="primary" aria-label="add">
-                <SendIcon />
+                <Button
+                  color="primary"
+                  align="center"
+                  onClick={() => setOpen(false)}
+                >
+                  <SendIcon />
+                </Button>
               </Fab>
             </Grid>
           </Grid>

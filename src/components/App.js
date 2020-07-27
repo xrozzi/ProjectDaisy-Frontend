@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
-import Forum from "./Forum";
 import Inbox from "./Inbox";
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
@@ -60,12 +59,9 @@ function App() {
           <Route
             exact
             path="/Forum"
-            component={() => (
-              <div>
-                <Forum />
-              </div>
-            )}
+            component={() => <div>{/* <ViewForums /> */}</div>}
           />
+
           <Route
             exact
             path="/Inbox"
