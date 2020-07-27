@@ -32,16 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//   return (
-//     <>
-//
-
-//     </>
-//   );
-// }
-
 const GitCollaborations = () => {
   const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
   const classes = useStyles();
 
   // this.setState({listing: listing.description});

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: "60em",
+
     width: "100%",
   },
   description: {
@@ -165,7 +165,7 @@ export default function CreateGitListing(props) {
               <Grid container justify={matchesMD ? "center" : undefined} item>
                 <Button
                   component={Link}
-                  to="/revolution"
+                  to="/AboutGitCollabs"
                   variant="outlined"
                   className={classes.learnButton}
                   // onClick={Redirect to='/AboutGitCollabs'}
@@ -176,13 +176,13 @@ export default function CreateGitListing(props) {
                     }}
                   >
                     {" "}
-                    Learn More{" "}
-                  </span>{" "}
-                </Button>{" "}
-              </Grid>{" "}
-            </Grid>{" "}
-          </Grid>{" "}
-        </Grid>{" "}
+                    Learn More
+                  </span>
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid
         item

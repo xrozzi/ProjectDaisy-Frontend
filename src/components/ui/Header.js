@@ -22,8 +22,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-// import Grid from "@material-ui/icons/Grid";
-import ExpandMoreIcon from "@material-ui/icons";
+import Grid from "@material-ui/core/Grid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -327,25 +327,61 @@ export default function Header(props) {
         <div className={classes.toolbarMargin} />
 
         <List disablePadding>
-          {routes.map((route) => (
-            <ListItem
-              divider
-              key={`${route}${route.activeIndex}`}
-              button
-              component={Link}
-              to={route.link}
-              selected={value === route.activeIndex}
-              classes={{ selected: classes.drawItemSelected }}
-              onClick={() => {
-                setOpenDrawer(false);
-                setValue(route.activeIndex);
-              }}
-            >
-              <ListItemText className={classes.drawerItem} disableTypography>
-                {route.name}
-              </ListItemText>
-            </ListItem>
-          ))}
+          {routes.map((route) =>
+            route.name === "Git Collaboratons" ? (
+              <ExpansionPanel>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  {route.name}
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Grid container direction="column">
+                    {menuOptions.map((route) => (
+                      <Grid item>
+                        <ListItem
+                          divider
+                          key={`${route}${route.setselectedIndex}`}
+                          button
+                          component={Link}
+                          href={route.link}
+                          selected={props.value === route.activeIndex}
+                          classes={{ selected: classes.drawItemSelected }}
+                          onClick={() => {
+                            setOpenDrawer(false);
+                            props.setSelectedIndex(route.seletedIndex);
+                          }}
+                        >
+                          <ListItemText
+                            className={classes.drawerItem}
+                            disableTypography
+                          >
+                            {route.name}
+                          </ListItemText>
+                        </ListItem>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ) : (
+              <ListItem
+                divider
+                key={`${route}${route.activeIndex}`}
+                button
+                component={Link}
+                to={route.link}
+                selected={value === route.activeIndex}
+                classes={{ selected: classes.drawItemSelected }}
+                onClick={() => {
+                  setOpenDrawer(false);
+                  setValue(route.activeIndex);
+                }}
+              >
+                <ListItemText className={classes.drawerItem} disableTypography>
+                  {route.name}
+                </ListItemText>
+              </ListItem>
+            )
+          )}
 
           <ListItem
             onClick={() => {
