@@ -85,7 +85,7 @@ function App() {
           <Route
             exact
             path="/Images"
-            component={() => <div>Upload Profile Picture ^.^</div>}
+            component={() => <div><ImageUpload /></div>}
           />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
