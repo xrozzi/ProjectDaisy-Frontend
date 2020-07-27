@@ -12,6 +12,7 @@ import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import ImageUpload from "./ImageUpload";
 import PrivateRoute from "./PrivateRoute";
+import AboutGitCollabs from "./AboutGitCollabs";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -93,7 +94,7 @@ function App() {
           <Route
             exact
             path="/AboutGitCollabs"
-            component={() => <div>What is a Git Collab?</div>}
+            component={() => <div><AboutGitCollabs /></div>}
           />
         </Switch>
       </BrowserRouter>
