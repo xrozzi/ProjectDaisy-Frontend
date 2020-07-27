@@ -40,7 +40,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -85,7 +85,7 @@ export default function CustomizedMenus() {
           <ListItemIcon>
             <InboxIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="logout" />
         </StyledMenuItem>
       </StyledMenu>
     </div>

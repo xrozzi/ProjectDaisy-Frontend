@@ -19,6 +19,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+// import Grid from "@material-ui/icons/Grid";
+import ExpandMoreIcon from "@material-ui/icons";
+
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
@@ -38,7 +44,6 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0,
   });
 }
-
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
@@ -146,6 +151,11 @@ export default function Header(props) {
     setOpenMenu(true);
   };
 
+  const userClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setOpenMenu(true);
+  };
+
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
     setOpenMenu(false);
@@ -196,7 +206,7 @@ export default function Header(props) {
       mouseOver: (event) => handleClick(event),
     },
 
-    // { name: "Forums", link: "/Forums", activeIndex: 2 },
+    { name: "Account", link: "/Profile", activeIndex: 2 },
     // { name: "Meetups", link: "/Meetups", activeIndex: 3 },
   ];
 
@@ -239,22 +249,17 @@ export default function Header(props) {
       </Tabs>
 
       {props.loggedIn ? (
-        // <Button
-        //   variant="contained"
-        //   color="secondary"
-        //   className={classes.button}
-        //   onClick={props.handleLogout}
-        // >
-        //   Log out
-        // </Button>
-        <CustomizedMenus />
+        <Button
+          color="secondary"
+          className={classes.button}
+          onClick={props.handleLogout}
+        >
+          Log out
+        </Button>
       ) : (
+        // <CustomizedMenus />
         <Link to="/login">
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-          >
+          <Button color="secondary" className={classes.button}>
             Login
           </Button>
         </Link>
@@ -306,18 +311,6 @@ export default function Header(props) {
           </Grow>
         )}
       </Popper>
-
-      {/* <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        open={openMenu}
-        onClose={handleClose}
-        classes={{ paper: classes.menu }}
-        MenuListProps={{ onMouseLeave: handleClose }}
-        elevation={0}
-        style={{ zIndex: 1302 }}
-        keepMounted
-      ></Menu> */}
     </React.Fragment>
   );
 
