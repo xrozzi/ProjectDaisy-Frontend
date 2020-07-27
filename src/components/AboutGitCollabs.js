@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -45,13 +46,23 @@ export default function AboutGitCollab(props) {
         },
     };
 
+
+
     return (
         <Grid container direction="column">
             <Grid item container direction="row"
                 justify={matchesMD ? "center" : undefined}
-                className={classes.rowContainer}
-                style={{ marginTop: matchesXS ? "1em" : "2em" }}>
+                className={classes.rowContainer}>
             </Grid>
+
+            <Grid item container direction="column" className={classes.heading} style={{ marginLeft: "10em" }}>
+                <Grid item>
+                    <Typography align={matchesMD ? "center" : undefined} variant="h2">
+                        What is a Git Collaboration?
+                    </Typography>
+                </Grid>
+            </Grid>
+
         </Grid>
     )
 }
