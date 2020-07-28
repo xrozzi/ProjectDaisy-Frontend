@@ -98,6 +98,7 @@ export default function LogIn({ onLogin, loggedIn }) {
             value={formData.email}
             onChange={handleChange}
             name="email"
+            type="email"
             autoComplete="email"
             autoFocus
           />
