@@ -46,6 +46,33 @@ export default function AboutGitCollab(props) {
         },
     };
 
+    const documentsOptions = {
+        loop: true,
+        autoplay: false,
+
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
+    const automationOptions = {
+        loop: true,
+        autoplay: false,
+
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
+    const uxOptions = {
+        loop: true,
+        autoplay: false,
+
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
 
 
     return (
