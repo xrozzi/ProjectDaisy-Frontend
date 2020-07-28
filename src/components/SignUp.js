@@ -52,6 +52,7 @@ const passwordValidator = (password) => password.length >= 8
 
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
+  const [isFormValid, setFormValid] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -62,18 +63,12 @@ export default function SignUp({ loggedIn, onLogin }) {
     password: true
   })
 
-  const handleFormInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    if (!validationData[e.target.name]) {
-      setValidationData({
-        ...validationData,
-        [e.target.name]: true
-      })
-    }  
-  };
+useEffect(
+   () => {
+    setFormValid(validationData.email && validationData.password)
+   },
+   [validationData]
+)
 
   const validateFields = () => {
     setValidationData({
@@ -82,12 +77,20 @@ export default function SignUp({ loggedIn, onLogin }) {
     })
   }
 
-  const isFormValid = () => (validationData.email && validationData.password)
-
-  async function handleSingUp(e) {
-    e.preventDefault();
+  const handleFormInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
     validateFields()
-      if (!isFormValid()) {
+   
+  };
+
+ 
+  async function handleSignUp(e) {
+    e.preventDefault();
+   
+      if (!isFormValid) {
         return
       }
     const response = await axios.post(`http://localhost:3000/users`, {
@@ -106,7 +109,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
-  }
+  // }
+}
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -196,7 +200,7 @@ export default function SignUp({ loggedIn, onLogin }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSingUp}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>
