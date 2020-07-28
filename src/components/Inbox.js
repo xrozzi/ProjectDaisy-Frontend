@@ -25,6 +25,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
   table: {
@@ -133,6 +134,10 @@ const Inbox = () => {
   return (
     <div>
       <Grid container>
+        <Grid item>
+          {" "}
+          <ArrowBackIosIcon />
+        </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" className="header-message">
             <Button color="secondary" align="right" onClick={handleClickOpen}>
@@ -182,7 +187,6 @@ const Inbox = () => {
       </Grid>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={3} className={classes.borderRight500}>
-          iiii
           <Divider />
           <ConversationList
             onSelectConversation={(id) => {
