@@ -67,13 +67,33 @@ const Inbox = () => {
   };
 
   useEffect(() => {
+    if (currentMessages) {
+      const tempConversationId = currentConversation;
+      setTimeout(() => {
+        localApi
+          .get(`/messages?conversation_id=${currentConversation}`, {})
+          .then((res) => {
+            if (tempConversationId === currentConversation) {
+              setCurrentMessages(res.data);
+              console.log(res.data);
+            }
+          });
+      }, 3000);
+    }
+  }, [currentMessages]);
+
+  const getMessages = () => {
+    localApi
+      .get(`/messages?conversation_id=${currentConversation}`, {})
+      .then((res) => {
+        setCurrentMessages(res.data);
+        console.log(res.data);
+      });
+  };
+
+  useEffect(() => {
     if (currentConversation) {
-      localApi
-        .get(`/messages?conversation_id=${currentConversation}`, {})
-        .then((res) => {
-          setCurrentMessages(res.data);
-          console.log(res.data);
-        });
+      getMessages();
     }
   }, [currentConversation]);
 
@@ -100,7 +120,11 @@ const Inbox = () => {
           text,
         },
       })
-      .then(() => setIsCreated(true))
+      .then((res) => {
+        setCurrentMessages([...currentMessages, res.data]);
+
+        setIsCreated(true);
+      })
       .catch(() => setErrorMessage(""));
   }
 
@@ -162,6 +186,7 @@ const Inbox = () => {
           <Divider />
           <ConversationList
             onSelectConversation={(id) => {
+              setCurrentMessages([]);
               setCurrentConversation(id);
             }}
           />
@@ -178,36 +203,27 @@ const Inbox = () => {
                         <ListItemText
                           align="right"
                           primary={message.text}
+                          secondary={message.created_at}
                         ></ListItemText>
                       </Grid>
                     );
                   })}
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      primary="Hey girl!"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      secondary="09:30"
-                    ></ListItemText>
-                  </Grid>
                 </Grid>
               </ListItem>
               <ListItem key="2">
-                <Grid container>
+                {/* LEFT CONTAINER CHAT */}
+                {/* <Grid container>
                   <Grid item xs={12}>
                     <ListItemText
                       align="left"
-                      // primary="Wanna collab?"
+                      primary="static left side"
                     ></ListItemText>
                   </Grid>
                   <Grid item xs={12}>
-                    <ListItemText align="left" secondary="04:21"></ListItemText>
+                    <ListItemText align="left" secondary="04:20"></ListItemText>
                   </Grid>
-                </Grid>
+                </Grid> */}
+                {/* END LEFT CONTAINER CHAT */}
               </ListItem>
               <ListItem key="3">
                 <Grid container></Grid>
