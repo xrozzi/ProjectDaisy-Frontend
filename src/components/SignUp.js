@@ -47,19 +47,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const emailValidator = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email)
+const passwordValidator = (password) => password.length >= 8
+
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [ validationData, setValidationData ] = useState({
+    email: true,
+    password: true
+  })
 
   const handleFormInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    if (!validationData[e.target.name]) {
+      setValidationData({
+        ...validationData,
+        [e.target.name]: true
+      })
+    }  
   };
+
+  const validateFields = () => {
+    setValidationData({
+      email: emailValidator(formData.email),
+      password: passwordValidator(formData.password)
+    })
+  }
+
+  const isFormValid = () => (validationData.email && validationData.password)
 
   async function handleSingUp(e) {
     e.preventDefault();
+    validateFields()
+      if (!isFormValid()) {
+        return
+      }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
         firstname: formData.firstname,
@@ -103,6 +133,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                
                 onChange={handleFormInputChange}
                 value={formData.firstname}
                 autoFocus
@@ -129,6 +160,8 @@ export default function SignUp({ loggedIn, onLogin }) {
                 id="email"
                 label="Email Address"
                 name="email"
+                error={!validationData.email}
+                helperText={!validationData.email && "Invalid email format"}
                 autoComplete="email"
                 onChange={handleFormInputChange}
                 value={formData.email}
@@ -143,6 +176,8 @@ export default function SignUp({ loggedIn, onLogin }) {
                 label="Password"
                 type="password"
                 id="password"
+                error={!validationData.password}
+              helperText={!validationData.password && "Password must be at least 8 characters"}
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}

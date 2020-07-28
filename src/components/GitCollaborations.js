@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect} from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 import localapi from "../apis/localapi";
+
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -17,6 +21,7 @@ import ContactMailIcon from "@material-ui/icons/ContactMail";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 920,
@@ -32,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+const ExpandIcon = ({ expanded }) =>
+  expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />;
+export default function ExpandableCards() {
 //   return (
 //     <>
 //
@@ -40,11 +49,12 @@ const useStyles = makeStyles((theme) => ({
 //   );
 // }
 
-const GitCollaborations = () => {
-  const [listings, setListings] = useState([]);
+// const GitCollaborations = () => {
+   const [listings, setListings] = useState([]);
+
   const classes = useStyles();
 
-  // this.setState({listing: listing.description});
+  //this.setState({listing: listing.description});
   console.log(listings);
 
   useEffect(() => {
@@ -106,4 +116,4 @@ const GitCollaborations = () => {
   );
 };
 
-export default GitCollaborations;
+// export default GitCollaborations;
