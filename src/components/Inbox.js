@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import ConversationList from "./ConversationList";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -38,12 +40,18 @@ const useStyles = makeStyles({
   headBG: {
     backgroundColor: "#e0e0e0",
   },
-  borderRight500: {
+  userSidePanel: {
     borderRight: "1px solid #e0e0e0",
   },
   messageArea: {
     height: "70vh",
     overflowY: "auto",
+  },
+  textBubble: {
+    color: "black",
+    backgroundColor: "#F4F4F8",
+    borderRadius: "15px",
+    width: "20em",
   },
 });
 
@@ -135,12 +143,22 @@ const Inbox = () => {
     <div>
       <Grid container>
         <Grid item>
-          {" "}
-          <ArrowBackIosIcon />
+          <Button
+            color="secondary"
+            onClick={() => {}}
+            variant="outlined"
+            component={Link}
+            to={{ pathname: `/Profile` }}
+          >
+            <ArrowBackIosIcon />
+          </Button>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12}></Grid>
+      </Grid>
+      <Grid container component={Paper} className={classes.chatSection}>
+        <Grid item xs={3} className={classes.userSidePanel}>
           <Typography variant="h5" className="header-message">
-            <Button color="secondary" align="right" onClick={handleClickOpen}>
+            <Button color="secondary" align="center" onClick={handleClickOpen}>
               Write a message <CreateIcon />
             </Button>
             <Dialog
@@ -183,10 +201,6 @@ const Inbox = () => {
               </DialogActions>
             </Dialog>
           </Typography>
-        </Grid>
-      </Grid>
-      <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item xs={3} className={classes.borderRight500}>
           <Divider />
           <ConversationList
             onSelectConversation={(id) => {
@@ -199,38 +213,27 @@ const Inbox = () => {
         {currentConversation && (
           <Grid item xs={9}>
             <List className={classes.messageArea}>
-              <ListItem key="1">
+              <ListItem button key="1">
                 <Grid container>
-                  {currentMessages.map((message) => {
-                    return (
-                      <Grid item xs={12}>
-                        <ListItemText
-                          align="center"
-                          primary={message.text}
-                          secondary={message.created_at}
-                        ></ListItemText>
-                      </Grid>
-                    );
-                  })}
+                  <Grid
+                    container
+                    component={Paper}
+                    className={classes.chatSection}
+                  >
+                    {currentMessages.map((message) => {
+                      return (
+                        <Grid item xs={12}>
+                          <ListItemText
+                            className={classes.textBubble}
+                            align="center"
+                            primary={message.text}
+                            secondary={message.created_at}
+                          ></ListItemText>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
                 </Grid>
-              </ListItem>
-              <ListItem key="2">
-                {/* LEFT CONTAINER CHAT */}
-                {/* <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="left"
-                      primary="static left side"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText align="left" secondary="04:20"></ListItemText>
-                  </Grid>
-                </Grid> */}
-                {/* END LEFT CONTAINER CHAT */}
-              </ListItem>
-              <ListItem key="3">
-                <Grid container></Grid>
               </ListItem>
             </List>
             <Divider />

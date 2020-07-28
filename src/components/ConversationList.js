@@ -37,24 +37,24 @@ const ConversationList = ({ onSelectConversation }) => {
   return (
     <>
       {conversations.map((conversation) => (
-        <Grid item xs={12} style={{ padding: "10px" }}>
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                onSelectConversation(conversation.id);
-              }}
-            >
-              <ListItemIcon>
-                <Avatar githubHandle="" size={20} round="20px" />
-              </ListItemIcon>
-              <ListItemText
-                primary={conversation.title}
-                secondary={conversation.reciever_email}
-              ></ListItemText>
-            </ListItem>
-          </List>
-        </Grid>
+        // <Grid item xs={12} style={{ padding: "10px" }}>
+        <List>
+          <ListItem
+            button
+            onClick={() => {
+              onSelectConversation(conversation.id);
+            }}
+          >
+            <ListItemIcon>
+              <Avatar githubHandle="" size={20} round="20px" />
+            </ListItemIcon>
+            <ListItemText
+              primary={conversation.title}
+              secondary={conversation.reciever_email}
+            ></ListItemText>
+          </ListItem>
+        </List>
+        // </Grid>
       ))}
     </>
   );
