@@ -157,6 +157,7 @@ const Inbox = () => {
       </Grid>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={3} className={classes.userSidePanel}>
+          {/* INPUT CREATEINBOX MSG */}
           <Typography variant="h5" className="header-message">
             <Button color="secondary" align="center" onClick={handleClickOpen}>
               Write a message <CreateIcon />
@@ -195,6 +196,7 @@ const Inbox = () => {
                 <Button onClick={handleClose} color="secondary">
                   Cancel
                 </Button>
+
                 <Button onClick={createConversation} color="secondary">
                   Send Message
                 </Button>
@@ -268,4 +270,3 @@ const Inbox = () => {
 };
 
 export default Inbox;
-

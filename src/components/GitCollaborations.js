@@ -1,9 +1,9 @@
-
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CollabList from "./CollabList";
 import { Link } from "react-router-dom";
 
-import localapi from "../apis/localapi";
+import localApi from "../apis/localapi";
 
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
@@ -37,31 +37,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const ExpandIcon = ({ expanded }) =>
   expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />;
 export default function ExpandableCards() {
-//   return (
-//     <>
-//
+  //   return (
+  //     <>
+  //
 
-//     </>
-//   );
-// }
+  //     </>
+  //   );
+  // }
 
-// const GitCollaborations = () => {
-   const [listings, setListings] = useState([]);
-
+  // const GitCollaborations = () => {
+  const [listings, setListings] = useState([]);
   const classes = useStyles();
 
   //this.setState({listing: listing.description});
   console.log(listings);
-
-  useEffect(() => {
-    localapi.get(`/git_collaborations`).then((response) => {
-      setListings(response.data);
-    });
-  }, []);
 
   return (
     <>
@@ -72,48 +64,9 @@ export default function ExpandableCards() {
           </Typography>
         </Grid>
       </Grid>
-      {listings.map((listing) => (
-        <Grid
-          container
-          spacing={1}
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: "20vh" }}
-        >
-          <Grid item xs={12} sm={9} md={10} lg={10}>
-            <Paper className={classes.paper}>
-              <Card className={classes.card}>
-                <CardHeader
-                  title={listing.title}
-                  subheader={listing.user_id}
-                  avatar={
-                    <Avatar>
-                      <PersonIcon />
-                    </Avatar>
-                  }
-                />
-                <CardContent>
-                  <Typography variant="caption">
-                    Date Created: {listing.created_at}
-                  </Typography>
-                  <Typography>{listing.description}</Typography>
-                </CardContent>
-                <CardActions disableActionSpacing>
-                  <IconButton>
-                    <ContactMailIcon colorSecondary />
-                  </IconButton>
-                  <IconButton>{/* <ContactPhoneIcon /> */}</IconButton>
-                </CardActions>
-              </Card>
-            </Paper>
-          </Grid>
-          {/* stop */}
-        </Grid>
-      ))}
+      <CollabList />
     </>
   );
-};
+}
 
 // export default GitCollaborations;
