@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import axios from "axios"
+import React, { useState } from "react";
+import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -48,40 +48,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-export default function LogIn({onLogin, loggedIn}) {
+export default function LogIn({ onLogin, loggedIn }) {
   const classes = useStyles();
-  const [ formData, setFormData ] = useState({
+  const [formData, setFormData] = useState({
     email: "",
-    password: ""
-  })
-  
+    password: "",
+  });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-    
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-
-
-    async function getToken(e){
-      
-      e.preventDefault()
-      const res = await axios.post(`http://localhost:3000/user_token`, {
-          auth: {
-              email: formData.email,
-              password: formData.password
-          }
-        })
-      onLogin(res.data.jwt)
+  async function getToken(e) {
+    e.preventDefault();
+    const res = await axios.post(`http://localhost:3000/user_token`, {
+      auth: {
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    onLogin(res.data.jwt);
   }
 
   if (loggedIn) {
-    return <Redirect to="/CreateGitListing" />
+    return <Redirect to="/CreateGitListing" />;
   }
 
   return (
@@ -103,7 +96,6 @@ export default function LogIn({onLogin, loggedIn}) {
             id="email"
             label="Email Address"
             value={formData.email}
-            
             onChange={handleChange}
             name="email"
             autoComplete="email"
@@ -128,8 +120,9 @@ export default function LogIn({onLogin, loggedIn}) {
             label="Remember me"
           />
           <Button
-          onClick={getToken}
+            onClick={getToken}
             type="submit"
+            id="login"
             fullWidth
             variant="contained"
             color="primary"

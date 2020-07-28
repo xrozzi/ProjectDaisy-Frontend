@@ -1,0 +1,3 @@
+it("visits Project Daisy app", () => {
+  cy.visit("localhost:3001");
+});
