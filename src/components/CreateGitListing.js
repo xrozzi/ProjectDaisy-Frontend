@@ -365,7 +365,11 @@ export default function CreateGitListing(props) {
               >
                 Confirm Post{" "}
               </Button>{" "}
+
+              {}{" "}
+
               {/* {isCreated && <Redirect to="/" />} */}{" "}
+
             </Grid>{" "}
           </Grid>{" "}
         </DialogContent>{" "}

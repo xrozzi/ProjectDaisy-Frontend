@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
+
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+<<<<<<< HEAD
 import ImageUpload from "./ImageUpload";
+=======
+
+>>>>>>> db80434158c35cf2e0d65fe1b1cdaacf0c11245c
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -25,6 +29,7 @@ function App() {
 
   const handleAuth = (token) => {
     localStorage.setItem("token", token);
+    console.log("Auth runs", token);
     setUserToken(token);
   };
 
@@ -56,7 +61,12 @@ function App() {
               </div>
             )}
           />
-          <Route exact path="/Forums" component={() => <div>Forums</div>} />
+          <Route
+            exact
+            path="/Forum"
+            component={() => <div>{/* <ViewForums /> */}</div>}
+          />
+
           <Route
             exact
             path="/Inbox"
@@ -68,6 +78,8 @@ function App() {
           />
 
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
+
+          <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
           <Route
             exact
             path="/Login"
@@ -78,8 +90,8 @@ function App() {
           <Route
             exact
             path="/SignUp"
-            component={() => (
-              <SignUp loggedIn={userToken} onLogin={handleAuth} />
+            component={(props) => (
+              <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
           <Route

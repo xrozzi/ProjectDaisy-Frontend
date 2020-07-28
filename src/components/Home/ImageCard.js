@@ -21,14 +21,14 @@ const styles = (theme) => ({
   },
 });
 
-const ImageCard = withStyles(styles)(({ classes }) => (
+const ImageCard = withStyles(styles)(({ classes }, props) => (
   <Card className={classes.card}>
     <CardMedia className={classes.media} image="" title="Blogs" />
     <CardHeader
       className={classes.header}
-      title="Feature"
-      subheader="Check out our this feature >"
-    />{" "}
+      // title="Feature"
+      // subheader="Check out our this feature >"
+    />
   </Card>
 ));
 
