@@ -1,9 +1,9 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-//import localapi from "../apis/localapi";
+import localapi from "../apis/localapi";
 
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
@@ -50,11 +50,11 @@ export default function ExpandableCards() {
 // }
 
 // const GitCollaborations = () => {
-//   const [listings, setListings] = useState([]);
+   const [listings, setListings] = useState([]);
 
   const classes = useStyles();
 
-  // this.setState({listing: listing.description});
+  //this.setState({listing: listing.description});
   console.log(listings);
 
   useEffect(() => {
@@ -116,4 +116,4 @@ export default function ExpandableCards() {
   );
 };
 
-export default GitCollaborations;
+// export default GitCollaborations;
