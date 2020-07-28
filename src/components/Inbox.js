@@ -13,6 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+import CreateIcon from "@material-ui/icons/Create";
 import Avatar from "react-avatar";
 import MessageIcon from "@material-ui/icons/Message";
 import localApi from "../apis/localapi.js";
@@ -134,8 +135,8 @@ const Inbox = () => {
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h5" className="header-message">
-            <Button color="secondary" align="center" onClick={handleClickOpen}>
-              <MessageIcon />
+            <Button color="secondary" align="right" onClick={handleClickOpen}>
+              Write a message <CreateIcon />
             </Button>
             <Dialog
               open={open}
@@ -176,7 +177,6 @@ const Inbox = () => {
                 </Button>
               </DialogActions>
             </Dialog>
-            Chat
           </Typography>
         </Grid>
       </Grid>
@@ -201,7 +201,7 @@ const Inbox = () => {
                     return (
                       <Grid item xs={12}>
                         <ListItemText
-                          align="right"
+                          align="center"
                           primary={message.text}
                           secondary={message.created_at}
                         ></ListItemText>
@@ -242,7 +242,7 @@ const Inbox = () => {
               <Grid xs={1} align="right">
                 <Fab color="primary" aria-label="add">
                   <Button
-                    color="primary"
+                    color="secondary"
                     align="center"
                     onClick={createMessage}
                   >

@@ -46,7 +46,7 @@ const ConversationList = ({ onSelectConversation }) => {
               }}
             >
               <ListItemIcon>
-                <Avatar githubHandle="" size={50} round="20px" />
+                <Avatar githubHandle="" size={20} round="20px" />
               </ListItemIcon>
               <ListItemText
                 primary={conversation.title}
