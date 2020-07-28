@@ -48,18 +48,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function LogIn({onLogin, loggedIn}) {
   const classes = useStyles();
+  const [ formData, setFormData ] = useState({
+    email: "",
+    password: ""
+  })
+  
 
-  const [emailValue, setEmailValue] = useState("")
-    const [passwordValue, setPasswordValue] = useState("")
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+    
+  }
+
+
 
     async function getToken(e){
+      
       e.preventDefault()
       const res = await axios.post(`http://localhost:3000/user_token`, {
           auth: {
-              email: emailValue,
-              password: passwordValue
+              email: formData.email,
+              password: formData.password
           }
         })
       onLogin(res.data.jwt)
@@ -87,8 +102,9 @@ export default function LogIn({onLogin, loggedIn}) {
             fullWidth
             id="email"
             label="Email Address"
-            value={emailValue}
-            onChange={e => setEmailValue(e.target.value)}
+            value={formData.email}
+            
+            onChange={handleChange}
             name="email"
             autoComplete="email"
             autoFocus
@@ -100,8 +116,8 @@ export default function LogIn({onLogin, loggedIn}) {
             fullWidth
             name="password"
             label="Password"
-            value={passwordValue}
-            onChange={e => setPasswordValue(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             type="password"
             id="password"
             autoComplete="current-password"
