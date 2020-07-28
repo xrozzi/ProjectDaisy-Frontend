@@ -5,21 +5,14 @@ import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
-
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import ImageUpload from "./ImageUpload";
-=======
-=======
 import UserProfile from "./UserProfile"
->>>>>>> f695d8543aaeeb3556725d6b3d94c8ab9d608485
-
->>>>>>> db80434158c35cf2e0d65fe1b1cdaacf0c11245c
 import PrivateRoute from "./PrivateRoute";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 function App() {
   const [userToken, setUserToken] = useState(null);

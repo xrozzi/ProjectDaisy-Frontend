@@ -23,7 +23,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles({
   table: {
@@ -201,7 +200,7 @@ const Inbox = () => {
                   <Grid item xs={12}>
                     <ListItemText
                       align="left"
-                      // primary="Wanna collab?"
+                    // primary="Wanna collab?"
                     ></ListItemText>
                   </Grid>
                   <Grid item xs={12}>

@@ -9,12 +9,14 @@ import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(5, 1fr)',
-      gridGap: theme.spacing(3),
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        gridGap: theme.spacing(3),
     },
     sidebar: {
         height: '100vh',
@@ -29,32 +31,32 @@ const useStyles = makeStyles((theme) => ({
         height: '50vh',
         display: 'flex',
         flexDirection: 'column',
-        margin: theme.spacing(1,1),
+        margin: theme.spacing(1, 1),
         border: 1,
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor: '#f2f2f2',
         alignItems: "center"
-  
+
     },
     gitCollab: {
         eight: '50vh',
         display: 'flex',
         flexDirection: 'column',
-        margin: theme.spacing(1,1),
+        margin: theme.spacing(1, 1),
         borderRadius: 10,
         borderColor: '#fff',
         backgroundColor: '#f2f2f2',
         alignItems: "center",
     },
     divider: {
-      margin: theme.spacing(2, 1)
+        margin: theme.spacing(2, 1)
     },
 
 
-  }));
+}));
 
-  const labels = {
+const labels = {
     // 0.5: 'Complete Beginner',
     1: 'Complete Beginner+',
     // 1.5: 'Beginner',
@@ -65,55 +67,66 @@ const useStyles = makeStyles((theme) => ({
     4: 'Good',
     // 4.5: 'Excellent',
     5: 'Excellent',
-  };
+};
 
 
 const UserProfile = () => {
     const classes = useStyles()
     const [value, setValue] = React.useState(2);
     const [hover, setHover] = React.useState(-1);
-    
+
     return (
         <div>
-            
+
             <Grid container spacing={2}>
-            
-          
+
+
                 <Grid item xs={2} className={classes.sidebar}>
                     <div>User image</div>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"  />
-                    <br/>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <br />
+                    <Button
+                        component={Link}
+                        to=""
+                        variant="outlined"
+                        className={classes.learnButton}>
+                        <span
+                            style={{ marginRight: 5, }}>
+                            {" "}Upload Profile Picture{" "}
+                        </span>{" "}
+                    </Button>{" "}
+
                     <div>User name</div>
-                    <br/>
+                    <br />
                     <div>Short description</div>
-                   
+
                 </Grid>
-               
+
                 <Grid item xs={3} className={classes.skills}>
                     <div align="center">
                         Skills
                         </div>
-                         <br/>
-                        <Rating
-        name="hover-feedback"
-        value={value}
-        precision={0.5}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
-      />
-      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-    
+                    <br />
+                    <Rating
+                        name="hover-feedback"
+                        value={value}
+                        precision={0.5}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+                    />
+                    {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
 
-                    
-                    
+
+
+
                 </Grid>
                 <Grid item xs={2} className={classes.skills} >
-                    
+
                     <div>
                         Blogs posted
                     </div>
