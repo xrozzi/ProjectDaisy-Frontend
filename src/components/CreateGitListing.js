@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import App from "./App";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -11,6 +12,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import axios from "axios";
+
+import localApi from "../apis/localapi";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -58,18 +61,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function createGitPost() {
-//   axios
-//     .post(``, {
-//       song: {
-//         title: description,
-//         description: title,
-//       },
-//     })
-//     .then(() => setIsCreated(true))
-//     .catch(() => setErrorMessage("The post was not created"));
-// }
-
 export default function CreateGitListing(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -115,13 +106,27 @@ export default function CreateGitListing(props) {
     }
   };
 
+  function createGitPost() {
+    localApi
+      .post(`/git_collaborations`, {
+        git_collaboration: {
+          title,
+          description,
+        },
+      })
+      .then(() => setIsCreated(true))
+      .catch(() => setErrorMessage("The post was not created"));
+  }
+
   return (
     <Grid
       container
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
+      style={{
+        minHeight: "100vh",
+      }}
       lg={12}
       xl={12}
     >
@@ -145,17 +150,18 @@ export default function CreateGitListing(props) {
           <Grid container direction="column">
             <Grid item>
               <Typography align={matchesMD ? "center" : undefined} variant="h2">
-                Creat A
-                <br />
-                Git Collaboration
-              </Typography>
+                Creat A <br />
+                Git Collaboration{" "}
+              </Typography>{" "}
               <Typography
                 align={matchesMD ? "center" : undefined}
                 variant="subtitle2"
-                style={{ fontSize: "1.5rem" }}
+                style={{
+                  fontSize: "1.5rem",
+                }}
               >
-                Connect with like minded coders for projects
-              </Typography>
+                Connect with like minded coders for projects{" "}
+              </Typography>{" "}
               <Grid container justify={matchesMD ? "center" : undefined} item>
                 <Button
                   component={Link}
@@ -164,14 +170,20 @@ export default function CreateGitListing(props) {
                   className={classes.learnButton}
                   // onClick={Redirect to='/AboutGitCollabs'}
                 >
-                  <span style={{ marginRight: 5 }}>Learn More</span>
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+                  <span
+                    style={{
+                      marginRight: 5,
+                    }}
+                  >
+                    {" "}
+                    Learn More{" "}
+                  </span>{" "}
+                </Button>{" "}
+              </Grid>{" "}
+            </Grid>{" "}
+          </Grid>{" "}
+        </Grid>{" "}
       </Grid>
-
       <Grid
         item
         container
@@ -192,9 +204,16 @@ export default function CreateGitListing(props) {
               container
               direction="column"
               justify="center"
-              style={{ width: "25em" }}
+              style={{
+                width: "25em",
+              }}
             >
-              <Grid item style={{ marginBottom: "0.5em" }}>
+              <Grid
+                item
+                style={{
+                  marginBottom: "0.5em",
+                }}
+              >
                 <TextField
                   label="title"
                   direction="column"
@@ -204,11 +223,15 @@ export default function CreateGitListing(props) {
                   error={titleHelper.length !== 0}
                   helperText={titleHelper}
                   onChange={onChange}
-                />
-              </Grid>
+                />{" "}
+              </Grid>{" "}
             </Grid>
-
-            <Grid item style={{ width: "25em" }}>
+            <Grid
+              item
+              style={{
+                width: "25em",
+              }}
+            >
               <TextField
                 // InputProps={{ disableUnderline: true }}
                 value={description}
@@ -220,23 +243,31 @@ export default function CreateGitListing(props) {
                 rows={10}
                 id="description"
                 onChange={onChange}
-              />
-            </Grid>
-            <Grid item container style={{ marginTop: "2em" }}>
+              />{" "}
+            </Grid>{" "}
+            <Grid
+              item
+              container
+              style={{
+                marginTop: "2em",
+              }}
+            >
               <Button
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
                 className={classes.sendButton}
                 onClick={() => setOpen(true)}
               >
-                Post Collaboration
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+                Post Collaboration{" "}
+              </Button>{" "}
+            </Grid>{" "}
+          </Grid>{" "}
+        </Grid>{" "}
+      </Grid>{" "}
       <Dialog
-        style={{ zIndex: 1302 }}
+        style={{
+          zIndex: 1302,
+        }}
         open={open}
         fullScreen={matchesXS}
         onClose={() => setOpen(false)}
@@ -266,11 +297,15 @@ export default function CreateGitListing(props) {
             <Grid item>
               <Typography align="center" variant="h4" gutterBottom>
                 {" "}
-                Confirm Git Post
-              </Typography>
+                Confirm Git Post{" "}
+              </Typography>{" "}
             </Grid>
-
-            <Grid item style={{ marginBottom: "0.5em" }}>
+            <Grid
+              item
+              style={{
+                marginBottom: "0.5em",
+              }}
+            >
               <TextField
                 label="title"
                 direction="column"
@@ -280,11 +315,15 @@ export default function CreateGitListing(props) {
                 error={titleHelper.length !== 0}
                 helperText={titleHelper}
                 onChange={onChange}
-              />
-            </Grid>
+              />{" "}
+            </Grid>{" "}
           </Grid>
-
-          <Grid item style={{ width: matchesXS ? "80%" : "20em" }}>
+          <Grid
+            item
+            style={{
+              width: matchesXS ? "80%" : "20em",
+            }}
+          >
             <TextField
               // InputProps={{ disableUnderline: true }}
               value={description}
@@ -296,9 +335,8 @@ export default function CreateGitListing(props) {
               rows={10}
               id="description"
               onChange={onChange}
-            />
+            />{" "}
           </Grid>
-
           <Grid
             item
             container
@@ -311,23 +349,31 @@ export default function CreateGitListing(props) {
                 align="center"
                 onClick={() => setOpen(false)}
               >
-                Cancel
-              </Button>
-            </Grid>
+                Cancel{" "}
+              </Button>{" "}
+            </Grid>{" "}
             <Grid item>
               <Button
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
-                style={{ marginTop: 20, width: 200 }}
+                style={{
+                  marginTop: 20,
+                  width: 200,
+                }}
                 className={classes.sendButton}
+                onClick={createGitPost}
               >
-                Confirm Post
-              </Button>
-              {/* {isCreated && <Redirect to='/' />} */}
-            </Grid>
-          </Grid>
-        </DialogContent>
-      </Dialog>
+                Confirm Post{" "}
+              </Button>{" "}
+
+              {}{" "}
+
+              {/* {isCreated && <Redirect to="/" />} */}{" "}
+
+            </Grid>{" "}
+          </Grid>{" "}
+        </DialogContent>{" "}
+      </Dialog>{" "}
     </Grid>
   );
 }

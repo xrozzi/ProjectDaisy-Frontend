@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Redirect } from "react-router-dom"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -49,32 +48,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp({ loggedIn, onLogin }) {
-  
   const classes = useStyles();
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({});
 
   const handleFormInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  async function handleSingUp(e) {
+    e.preventDefault();
+    const response = await axios.post(`http://localhost:3000/users`, {
+      user: {
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    const res = await axios.post(`http://localhost:3000/user_token`, {
+      auth: {
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    console.log("response", res);
+    onLogin(res.data.jwt);
   }
 
-  async function handleSingUp(e){
-    e.preventDefault()
-    const res = await axios.post(`http://localhost:3000/user_token`, {
-        auth: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            password: formData.password
-        }
-      })
-    onLogin(res.data.jwt)
-}
-
   if (loggedIn) {
-    return <Redirect to="/CreateGitListing" />
+    return <Redirect to="/CreateGitListing" />;
   }
 
   return (
@@ -99,7 +104,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 id="firstName"
                 label="First Name"
                 onChange={handleFormInputChange}
-                value={formData.firstName}
+                value={formData.firstname}
                 autoFocus
               />
             </Grid>
@@ -113,7 +118,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastName"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-                value={formData.lastName}
+                value={formData.lastname}
               />
             </Grid>
             <Grid item xs={12}>
@@ -175,4 +180,3 @@ export default function SignUp({ loggedIn, onLogin }) {
     </Container>
   );
 }
-
