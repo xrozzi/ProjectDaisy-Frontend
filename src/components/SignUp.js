@@ -100,24 +100,13 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   async function handleSignUp(e) {
     e.preventDefault();
-<<<<<<< HEAD
-    validateFields()
-    if (!isFormValid()) {
+    if (!validateFields()) {
       return
     }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
-        firstname: formData.firstName,
-        lastname: formData.lastName,
-=======
-      if (!validateFields()) {
-        return
-      }
-    const response = await axios.post(`http://localhost:3000/users`, {
-      user: {
         firstName: formData.firstName,
         lastName: formData.lastName,
->>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
         email: formData.email,
         password: formData.password,
       },
@@ -130,8 +119,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
-  // }
-}
+    // }
+  }
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;

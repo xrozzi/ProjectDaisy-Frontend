@@ -66,8 +66,6 @@ const useStyles = makeStyles((theme) => ({
 const labels = {
 
     1: 'Complete Beginner',
-    2: 'Beginner',
-    3: 'Intermediate',
     4: 'Good',
     5: 'Excellent',
 };
