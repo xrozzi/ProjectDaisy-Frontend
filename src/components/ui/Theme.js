@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const arcPurple = "#ECEDED";
-const arcOrange = "#CE7685";
+const arcPurple = "#E6E1FB";
+const arcOrange = "#9330C6";
 
 export default createMuiTheme({
   palette: {
@@ -21,7 +21,7 @@ export default createMuiTheme({
     tab: {
       fontFamily: "Josefin Sans",
       textTransform: "none",
-      fontWeight: 700,
+      // fontWeight: 70,
       fontSize: "1rem",
     },
     signup: {

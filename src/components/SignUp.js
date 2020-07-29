@@ -58,11 +58,12 @@ export default function SignUp({ loggedIn, onLogin }) {
     lastname: ""
   });
 
-  const [ validationData, setValidationData ] = useState({
+  const [validationData, setValidationData] = useState({
     email: true,
     password: true,
     firstname: true,
     lastname: true
+
   })
 
   const validateFields = () => {
@@ -88,9 +89,10 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   async function handleSignUp(e) {
     e.preventDefault();
-      if (!validateFields()) {
-        return
-      }
+
+    if (!validateFields()) {
+      return
+    }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
         firstname: formData.firstname,
@@ -107,8 +109,9 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
-  // }
-}
+    // }
+  }
+
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -135,10 +138,11 @@ export default function SignUp({ loggedIn, onLogin }) {
                 fullWidth
                 id="firstname"
                 label="First Name"
-                
+
                 onChange={handleFormInputChange}
-                value={formData.firstname}
+                value={formData.firstName}
                 autoFocus
+
                 error={!validationData.firstname}
                 helperText={!validationData.firstname && "Must not be empty"}
               />
@@ -153,6 +157,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastname"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
+
                 value={formData.lastname}
                 error={!validationData.lastname}
                 helperText={!validationData.lastname && "Must not be empty"}
@@ -183,7 +188,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 type="password"
                 id="password"
                 error={!validationData.password}
-              helperText={!validationData.password && "Password must be at least 8 characters"}
+                helperText={!validationData.password && "Password must be at least 8 characters"}
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}
