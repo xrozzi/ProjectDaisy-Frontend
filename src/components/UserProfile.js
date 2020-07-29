@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -11,6 +11,11 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import localApi from "../apis/localapi";
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -74,6 +79,22 @@ const UserProfile = () => {
     const classes = useStyles()
     const [value, setValue] = React.useState(2);
     const [hover, setHover] = React.useState(-1);
+    const [currentUser, setCurrentUser] = useState(null)
+
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+
+        localApi.get("/myprofile")
+            .then((response) => {
+                setCurrentUser(response.data)
+            })
+
+
+
+    }, [])
+
+
 
     return (
         <div>
@@ -85,18 +106,24 @@ const UserProfile = () => {
                     <div>User image</div>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                     <br />
-                    <Button
-                        component={Link}
-                        to=""
-                        variant="outlined"
-                        className={classes.learnButton}>
-                        <span
-                            style={{ marginRight: 5, }}>
-                            {" "}Upload Profile Picture{" "}
-                        </span>{" "}
-                    </Button>{" "}
 
-                    <div>User name</div>
+                    <Grid item>
+                        <Button
+                            component={Link}
+                            to="/Images"
+                            variant="outlined"
+                            className={classes.learnButton}>
+
+                            <span style={{ marginRight: 5, }}>
+                                {" "}Upload Image{" "}
+                            </span>{" "}
+
+                        </Button>{" "}
+                    </Grid>{" "}
+
+
+
+                    {currentUser && <div> {currentUser.email} </div>}
                     <br />
                     <div>Short description</div>
 
@@ -137,6 +164,8 @@ const UserProfile = () => {
                     </div>
                 </Grid>
             </Grid>
+
+
         </div>
     )
 }

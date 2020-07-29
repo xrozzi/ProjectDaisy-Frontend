@@ -54,10 +54,12 @@ export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
+    firstName: "",
+    lastName: ""
   });
 
-  const [ validationData, setValidationData ] = useState({
+  const [validationData, setValidationData] = useState({
     email: true,
     password: true
   })
@@ -72,7 +74,7 @@ export default function SignUp({ loggedIn, onLogin }) {
         ...validationData,
         [e.target.name]: true
       })
-    }  
+    }
   };
 
   const validateFields = () => {
@@ -87,13 +89,13 @@ export default function SignUp({ loggedIn, onLogin }) {
   async function handleSingUp(e) {
     e.preventDefault();
     validateFields()
-      if (!isFormValid()) {
-        return
-      }
+    if (!isFormValid()) {
+      return
+    }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
         email: formData.email,
         password: formData.password,
       },
@@ -133,7 +135,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                
+
                 onChange={handleFormInputChange}
                 value={formData.firstname}
                 autoFocus
@@ -177,7 +179,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 type="password"
                 id="password"
                 error={!validationData.password}
-              helperText={!validationData.password && "Password must be at least 8 characters"}
+                helperText={!validationData.password && "Password must be at least 8 characters"}
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}

@@ -109,6 +109,10 @@ function App() {
             path="/userProfile"
             component={UserProfile}
           />
+          {/*
+            Setup a route for /users/:id
+            It should render a component which grabs that user's data from the rails api
+          */}
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
