@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import CreateGitListing from "./CreateGitListing";
-import GitCollaborations from "./GitCollaborations";
+
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
 import theme from "./ui/Theme";
@@ -16,6 +13,11 @@ import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import localApi from "../apis/localapi";
+
+import { ThemeProvider } from "@material-ui/core/styles";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CreateGitListing from "./CreateGitListing";
+import GitCollaborations from "./GitCollaborations";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -97,7 +99,11 @@ function App() {
           <Route
             exact
             path="/Images"
-            component={() => <div><ImageUpload /></div>}
+            component={() => (
+              <div>
+                <ImageUpload />
+              </div>
+            )}
           />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
@@ -107,16 +113,12 @@ function App() {
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
           />
+          <Route exact path="/userProfile" component={UserProfile} />
           <Route
             exact
-            path="/userProfile"
-            component={UserProfile}
+            path="/users/:id"
+            render={(props) => <MemberProfile userId={props.match.params.id} />}
           />
-          <Route
-            exact path="/users/:id"
-            render={props => (< MemberProfile userId={props.match.params.id} />)}
-          />
-
         </Switch>
       </BrowserRouter>
       <Footer />
