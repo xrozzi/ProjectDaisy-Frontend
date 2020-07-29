@@ -9,8 +9,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="mailto: admin@projectdaisy.com.au">
-        Project Daisy 🌼
+      <Link color="inherit" href="mailto:admin@projectdaisy.com.au" target="_blank">
+        Project Daisy <span role="img" aria-label="flower">🌼</span>
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
