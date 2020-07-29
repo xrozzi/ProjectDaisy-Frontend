@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import CreateGitListing from "./CreateGitListing";
-import GitCollaborations from "./GitCollaborations";
+
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
 import theme from "./ui/Theme";
@@ -16,7 +13,12 @@ import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import localApi from "../apis/localapi";
-import UserSearchBar from "./UserSearchBar";
+
+import { ThemeProvider } from "@material-ui/core/styles";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CreateGitListing from "./CreateGitListing";
+import GitCollaborations from "./GitCollaborations";
+
 function App() {
   const [userToken, setUserToken] = useState(null);
 

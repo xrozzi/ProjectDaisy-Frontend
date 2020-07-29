@@ -1,12 +1,12 @@
-
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistroy, Redirect } from "react-router-dom";
 
 import localapi from "../apis/localapi";
 
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 920,
     minWidth: 800,
+    border: "2px solid green",
+    backgroundColor: "#f2f2f2",
   },
   expand: {
     marginLeft: "auto",
@@ -35,24 +37,30 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
     bottomMargin: "3em",
   },
+  icons: {
+    width: "5em",
+    height: "5em",
+  },
+  paper: {
+    border: "1px solid red",
+  },
+  cardContent: {
+    marginLeft: "20em",
+  },
 }));
 
-
-const ExpandIcon = ({ expanded }) =>
-  expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />;
-export default function ExpandableCards() {
-//   return (
-//     <>
-//
-
-//     </>
-//   );
-// }
-
-// const GitCollaborations = () => {
-   const [listings, setListings] = useState([]);
+export default function GitCollaborations() {
+  const [listings, setListings] = useState([]);
+  const [userUrlId, setUserUrlId] = useState();
 
   const classes = useStyles();
+
+  // const redirectToUserProfile = () => {
+  //   console.log("button is clicked!");
+  //   // return <Redirect to={`http://localhost:3001/users/${userUrlId}`} />;
+  //   location.href = `http://localhost:3001/users/${userUrlId}`;
+
+  // };
 
   //this.setState({listing: listing.description});
   console.log(listings);
@@ -70,6 +78,9 @@ export default function ExpandableCards() {
           <Typography className={classes.pageHeading}>
             Github Collaboration Listings
           </Typography>
+          <Typography>
+            <Link to={`/CreateGitListing`}>Create A Listing</Link>
+          </Typography>
         </Grid>
       </Grid>
       {listings.map((listing) => (
@@ -77,7 +88,7 @@ export default function ExpandableCards() {
           container
           spacing={1}
           container
-          direction="column"
+          direction="row"
           alignItems="center"
           justify="center"
           style={{ minHeight: "20vh" }}
@@ -89,22 +100,27 @@ export default function ExpandableCards() {
                   title={listing.title}
                   subheader={listing.user_id}
                   avatar={
-                    <Avatar>
-                      <PersonIcon />
+                    <Avatar className={classes.icons}>
+                      <PersonIcon className={classes.icons} />
                     </Avatar>
                   }
                 />
-                <CardContent>
+                <CardContent direction="column" className={classes.cardContent}>
                   <Typography variant="caption">
                     Date Created: {listing.created_at}
                   </Typography>
-                  <Typography>{listing.description}</Typography>
+                  <Typography>
+                    Description of project:
+                    {listing.description}
+                  </Typography>
                 </CardContent>
                 <CardActions disableActionSpacing>
-                  <IconButton>
-                    <ContactMailIcon colorSecondary />
-                  </IconButton>
-                  <IconButton>{/* <ContactPhoneIcon /> */}</IconButton>
+                  <Grid item>
+                    <IconButton setUserUrlId={listing.user_id}>
+                      <ContactMailIcon setUserUrlId={listing.user_id} />
+                      <Link to={`/users/${listing.user_id}`}>View Profile</Link>
+                    </IconButton>
+                  </Grid>
                 </CardActions>
               </Card>
             </Paper>
@@ -114,6 +130,4 @@ export default function ExpandableCards() {
       ))}
     </>
   );
-};
-
-// export default GitCollaborations;
+}
