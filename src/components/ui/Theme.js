@@ -24,6 +24,9 @@ export default createMuiTheme({
       // fontWeight: 70,
       fontSize: "1rem",
     },
+    heading: {
+      color: "#A2ADD5",
+    },
     signup: {
       fontFamily: "Josefin Sans",
       fontSize: "1rem",
@@ -69,7 +72,5 @@ export default createMuiTheme({
     fontSize: "4rem",
     bottomMargin: "5em",
     color: "#4C6099",
-
-    // border: "2px solid blue",
   },
 });

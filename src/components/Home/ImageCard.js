@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import lightBulbIcon from "../../assets/icons/lightBulbIcon.png";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 const styles = (theme) => ({
   card: {
     maxWidth: 322,
+
+    backgroundColor: "#FCF8FC",
   },
   media: {
     width: 322,
@@ -23,11 +26,11 @@ const styles = (theme) => ({
 
 const ImageCard = withStyles(styles)(({ classes }, props) => (
   <Card className={classes.card}>
-    <CardMedia className={classes.media} image="" title="Blogs" />
+    <CardMedia className={classes.media} image={lightBulbIcon} title="Blogs" />
     <CardHeader
       className={classes.header}
-      // title="Feature"
-      // subheader="Check out our this feature >"
+      title="Feature"
+      subheader="Check out our this feature >"
     />
   </Card>
 ));

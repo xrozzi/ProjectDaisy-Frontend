@@ -9,6 +9,10 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Hidden from "@material-ui/core/Hidden";
 import ImageCard from "./ImageCard";
 import Avatar from "react-avatar";
+import lightBulbIcon from "../../assets/icons/lightBulbIcon.png";
+import binIcon from "../../assets/icons/binIcon.png";
+
+import homeBanner from "../../assets/img/homeBanner.jpg";
 
 // import featureimg from "./assets/img/2.svg";
 
@@ -30,6 +34,16 @@ const useStyles = makeStyles((theme) => ({
   },
   itemContainer: {
     maxWidth: "40em",
+  },
+  Icons: {
+    height: "100px",
+  },
+  bannerFeatures: {
+    // backgroundColor: "#E6E1FB",
+  },
+  bannerImage: {
+    height: "400px",
+    borderRadius: "40px",
   },
 }));
 
@@ -102,52 +116,7 @@ export default function Features(props) {
             </IconButton>
           </Grid>
         </Hidden>
-        <Grid item container direction="column" className={classes.heading}>
-          <Grid item>
-            <Typography align={matchesMD ? "center" : undefined} variant="h2">
-              Project Daisy
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              Whether we’re replacing old software or inventing new solutions,
-              Arc Development is here to help your business tackle technology.
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum."
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              <Button>Signup</Button>
-              <Button>Signin</Button>
-            </Typography>
-          </Grid>
-        </Grid>
+
         <Hidden mdDown>
           <Grid item className={classes.arrowContainer}>
             <IconButton
@@ -171,6 +140,7 @@ export default function Features(props) {
         justify="center"
         style={{ marginTop: "15em", marginBottom: "20em" }}
         className={classes.rowContainer}
+        className={classes.bannerFeatures}
       >
         <Grid
           item
@@ -213,96 +183,11 @@ export default function Features(props) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        item
-        container
-        alignItems={matchesMD ? "center" : undefined}
-        direction={matchesMD ? "column" : "row"}
-        justify="space-between"
-        className={classes.rowContainer}
-      >
-        <Grid
-          item
-          container
-          className={classes.itemContainer}
-          direction={matchesSM ? "column" : "row"}
-          style={{ marginBottom: matchesMD ? "15em" : 0 }}
-          md
-        >
-          <Grid item container direction="column" md>
-            <Grid item>
-              <Typography variant="h4" align={matchesSM ? "center" : undefined}>
-                Digital world at yr handsss
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography
-                variant="body1"
-                paragraph
-                align={matchesSM ? "center" : undefined}
-              >
-                something something
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-                align={matchesSM ? "center" : undefined}
-              >
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-                align={matchesSM ? "center" : undefined}
-              >
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item md>
-            <Avatar githubHandle="" size={150} round="20px" />
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          className={classes.itemContainer}
-          direction={matchesSM ? "column" : "row"}
-          md
-        >
-          <Grid item md>
-            <Avatar githubHandle="" size={150} round="20px" />
-          </Grid>
-          <Grid item container direction="column" md>
-            <Grid item>
-              <Typography variant="h4" align={matchesSM ? "center" : "right"}>
-                Things t... needs
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography
-                variant="body1"
-                align={matchesSM ? "center" : "right"}
-                paragraph
-              >
-                Whether you’re just starting out ... blah
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        container
-        direction="row"
-        style={{ marginTop: "20em", marginBottom: "20em" }}
-        className={classes.rowContainer}
-      >
+
+      <Grid item container direction="row" className={classes.rowContainer}>
         <Grid item container direction="column" alignItems="center">
-          <Avatar githubHandle="" size={150} round="20px" />
+          {/* <Avatar githubHandle="" size={150} round="20px" /> */}
+          <img src={homeBanner} className={classes.bannerImage} />
 
           <Grid item className={classes.itemContainer}>
             <Typography variant="h4" align="center" gutterBottom>
