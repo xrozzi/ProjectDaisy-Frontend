@@ -30,6 +30,10 @@ export default createMuiTheme({
       textTransform: "none",
       color: "white",
     },
+    subHeading: {
+      fontFamily: "Lato",
+      fontSize: "400rem",
+    },
   },
   overrides: {
     MuiInputLabel: {

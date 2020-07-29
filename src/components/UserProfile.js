@@ -14,51 +14,15 @@ import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
+import { useTheme } from "@material-ui/styles";
+
 import localApi from "../apis/localapi";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gridGap: theme.spacing(3),
-    border: "2px solid green",
+  containers: {
+    borderRadius: "3em",
   },
-  sidebar: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    // border: '1px solid',
-    borderRadius: 10,
-    // borderColor: '#AF3B6E',
-    backgroundColor: "#F8F2F6",
-    alignItems: "center",
-    border: "2px solid green",
-  },
-  skills: {
-    height: "50vh",
-    display: "flex",
-    flexDirection: "column",
-    margin: theme.spacing(1, 5),
-    // border: '1px solid',
-    borderRadius: 10,
-    // borderColor: '#AF3B6E',
-    backgroundColor: "#F8F2F6",
-    alignItems: "center",
-  },
-  gitCollab: {
-    height: "50vh",
-    display: "flex",
-    flexDirection: "column",
-    margin: theme.spacing(1, 1),
-    borderRadius: 10,
-    // border: '1px solid',
-    // borderColor: '#AF3B6E',
-    backgroundColor: "#F8F2F6",
-    alignItems: "center",
-  },
-  divider: {
-    margin: theme.spacing(2, 1),
-  },
+
   root: {
     flexGrow: 1,
   },
@@ -66,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    background: "#F0F0F3",
+    boxShadow:
+      "10px 10px 30px rgba(174, 174, 192, 0.4), -10px -10px 30px #FFFFFF",
+    borderRadius: "10px",
   },
 }));
 
@@ -82,6 +50,7 @@ const UserProfile = () => {
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState(null);
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
@@ -98,9 +67,8 @@ const UserProfile = () => {
     <>
       <div className={classes.root}>
         <Container spacing={4}>
-          <Item xs={12} sm={6} md={3}>
+          <Item xs={12} sm={6} md={3} className={classes.learnButton}>
             <Paper className={classes.paper}>
-              {/* <Grid item xs={2} className={classes.sidebar}> */}
               <div>User image</div>
               <Avatar alt="/static/images/avatar/1.jpg" src="" />
               <br />
@@ -111,26 +79,31 @@ const UserProfile = () => {
                   variant="outlined"
                   className={classes.learnButton}
                 >
-                  <span style={{ marginRight: 5 }}> Upload Image </span>{" "}
-                </Button>{" "}
-              </Grid>{" "}
+                  <span> Upload Image </span>
+                </Button>
+                <br />
+                <Button
+                  component={Link}
+                  to={`/inbox`}
+                  variant="contained"
+                  color="primary"
+                >
+                  Check inbox
+                </Button>
+              </Grid>
               {currentUser && <div> {currentUser.email} </div>}
               <br />
               <div>Short description</div>
-              {/* </Grid> */}
             </Paper>
           </Item>
-          <Item xs={12} sm={6} md={3}>
+          <Item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
-              <Grid item xs={3} className={classes.skills}>
-                <div align="center">
-                  <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>
-                    Skills
-                  </h1>
-                </div>
+              <Grid item xs={12} className={theme.palette.subHeading}>
+                <Typography className={theme.typography.subHeading}>
+                  Skills
+                </Typography>
 
                 <br />
-
                 <div>
                   <Rating
                     name="hover-feedback"
@@ -148,7 +121,6 @@ const UserProfile = () => {
                     <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
                   )}
                 </div>
-
                 <div>
                   <Rating
                     name="hover-feedback"
@@ -165,7 +137,6 @@ const UserProfile = () => {
                     <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
                   )}
                 </div>
-
                 <div>
                   <Rating
                     name="hover-feedback"
@@ -182,7 +153,6 @@ const UserProfile = () => {
                     <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
                   )}
                 </div>
-
                 <div>
                   <Rating
                     name="hover-feedback"
@@ -199,7 +169,6 @@ const UserProfile = () => {
                     <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
                   )}
                 </div>
-
                 <div>
                   <Rating
                     name="hover-feedback"
@@ -219,9 +188,9 @@ const UserProfile = () => {
               </Grid>
             </Paper>
           </Item>
-          <Item xs={12} sm={6} md={3}>
+          <Item xs={12} sm={6} md={4}>
             <Paper className={classes.paper}>
-              <Grid item xs={4} className={classes.gitCollab}>
+              <Grid item xs={12} className={classes.gitCollab}>
                 <div>
                   <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>
                     Git Collaborations
@@ -231,9 +200,9 @@ const UserProfile = () => {
             </Paper>
           </Item>
 
-          <Item xs={12} sm={6} md={3}>
+          {/* <Item xs={12} sm={6} md={3}>
             <Paper className={classes.paper}>extra coloum</Paper>
-          </Item>
+          </Item> */}
         </Container>
       </div>
     </>
