@@ -293,7 +293,12 @@ export default function CreateGitListing(props) {
               >
                 Post Collaboration
               </Button>
-              <Grid item justify="center">
+              <Grid
+                item
+                justify="center"
+                component={Link}
+                to={`/Gitcollaborations`}
+              >
                 {/* <Button
                   // borderColor="secondary"
                   
@@ -302,12 +307,7 @@ export default function CreateGitListing(props) {
                 >
                   Go back to viewing Collaborations
                 </Button> */}
-                <img
-                  src={binIcon}
-                  className={classes.Icons}
-                  component={Link}
-                  to={`/Gitcollaborations`}
-                />
+                <img src={binIcon} className={classes.Icons} />
               </Grid>
             </Grid>
           </Grid>
