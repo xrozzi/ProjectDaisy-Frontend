@@ -6,7 +6,12 @@ import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import ImageUpload from "./ImageUpload";
+import UserProfile from "./UserProfile";
+import MemberProfile from "./MemberProfile";
 import PrivateRoute from "./PrivateRoute";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import localApi from "../apis/localapi";
 
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -74,6 +79,8 @@ function App() {
           />
 
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
+
+          <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
           <Route
             exact
             path="/Login"
@@ -88,6 +95,15 @@ function App() {
               <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
+          <Route
+            exact
+            path="/Images"
+            component={() => (
+              <div>
+                <ImageUpload />
+              </div>
+            )}
+          />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
           </PrivateRoute>
@@ -95,6 +111,12 @@ function App() {
             exact
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
+          />
+          <Route exact path="/userProfile" component={UserProfile} />
+          <Route
+            exact
+            path="/users/:id"
+            render={(props) => <MemberProfile userId={props.match.params.id} />}
           />
         </Switch>
       </BrowserRouter>

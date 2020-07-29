@@ -47,23 +47,66 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const emailValidator = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email)
+const passwordValidator = (password) => password.length >= 8
+const nonEmptyValidator = (field) => !!field.length
+
+const validationMethods = {
+  email: emailValidator,
+  password: passwordValidator,
+  firstName: nonEmptyValidator,
+  lastName: nonEmptyValidator
+}
+
+const fields = ['email', 'password', 'firstName', 'lastName']
+
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
-  const [formData, setFormData] = useState({});
+  //const [isFormValid, setFormValid] = useState(false)
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: ""
+  });
+
+  const [validationData, setValidationData] = useState({
+    email: true,
+    password: true,
+    firstName: true,
+    lastName: true
+  })
+
+  const validateFields = () => {
+    const validationResult = fields.reduce((acc, val) => (
+      { ...acc, [val]: validationMethods[val](formData[val]) }
+    ), {})
+    setValidationData(validationResult)
+    return Object.values(validationResult).every(res => res)
+  }
 
   const handleFormInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    if (!validationData[e.target.name]) {
+      setValidationData({
+        ...validationData,
+        [e.target.name]: true
+      })
+    }
   };
 
-  async function handleSingUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
+    if (!validateFields()) {
+      return
+    }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
       },
@@ -76,6 +119,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
+    // }
   }
 
   if (loggedIn) {
@@ -103,9 +147,12 @@ export default function SignUp({ loggedIn, onLogin }) {
                 fullWidth
                 id="firstName"
                 label="First Name"
+
                 onChange={handleFormInputChange}
-                value={formData.firstname}
+                value={formData.firstName}
                 autoFocus
+                error={!validationData.firstName}
+                helperText={!validationData.firstName && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -118,7 +165,9 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastName"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-                value={formData.lastname}
+                value={formData.lastName}
+                error={!validationData.lastName}
+                helperText={!validationData.lastName && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12}>
@@ -129,6 +178,8 @@ export default function SignUp({ loggedIn, onLogin }) {
                 id="email"
                 label="Email Address"
                 name="email"
+                error={!validationData.email}
+                helperText={!validationData.email && "Invalid email format"}
                 autoComplete="email"
                 onChange={handleFormInputChange}
                 value={formData.email}
@@ -143,6 +194,8 @@ export default function SignUp({ loggedIn, onLogin }) {
                 label="Password"
                 type="password"
                 id="password"
+                error={!validationData.password}
+                helperText={!validationData.password && "Password must be at least 8 characters"}
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}
@@ -161,7 +214,7 @@ export default function SignUp({ loggedIn, onLogin }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSingUp}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>

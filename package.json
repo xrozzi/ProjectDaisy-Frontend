@@ -12,12 +12,14 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "clsx": "^1.1.1",
+    "cypress": "^4.11.0",
     "react": "^16.13.1",
     "react-avatar": "^3.9.7",
     "react-dom": "^16.13.1",
     "react-lottie": "^1.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "typescript": "^3.9.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^4.11.0"
   }
 }

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 import localapi from "../apis/localapi";
+
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -17,10 +21,12 @@ import ContactMailIcon from "@material-ui/icons/ContactMail";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 920,
     minWidth: 800,
+    border: "2px solid green",
   },
   expand: {
     marginLeft: "auto",
@@ -30,21 +36,25 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
     bottomMargin: "3em",
   },
+  icons: {
+    width: "5em",
+    height: "5em",
+  },
+  paper: {
+    border: "1px solid red",
+  },
+  cardContent: {
+    marginLeft: "20em",
+  },
 }));
 
-//   return (
-//     <>
-//
-
-//     </>
-//   );
-// }
-
-const GitCollaborations = () => {
+export default function GitCollaborations() {
   const [listings, setListings] = useState([]);
+  const [userRoute, setUserRoute] = useState();
+
   const classes = useStyles();
 
-  // this.setState({listing: listing.description});
+  //this.setState({listing: listing.description});
   console.log(listings);
 
   useEffect(() => {
@@ -60,6 +70,9 @@ const GitCollaborations = () => {
           <Typography className={classes.pageHeading}>
             Github Collaboration Listings
           </Typography>
+          <Typography>
+            <Button>Create a Listing</Button>
+          </Typography>
         </Grid>
       </Grid>
       {listings.map((listing) => (
@@ -67,7 +80,7 @@ const GitCollaborations = () => {
           container
           spacing={1}
           container
-          direction="column"
+          direction="row"
           alignItems="center"
           justify="center"
           style={{ minHeight: "20vh" }}
@@ -79,22 +92,23 @@ const GitCollaborations = () => {
                   title={listing.title}
                   subheader={listing.user_id}
                   avatar={
-                    <Avatar>
-                      <PersonIcon />
+                    <Avatar className={classes.icons}>
+                      <PersonIcon className={classes.icons} />
                     </Avatar>
                   }
                 />
-                <CardContent>
+                <CardContent direction="column" className={classes.cardContent}>
                   <Typography variant="caption">
                     Date Created: {listing.created_at}
                   </Typography>
                   <Typography>{listing.description}</Typography>
                 </CardContent>
                 <CardActions disableActionSpacing>
-                  <IconButton>
-                    <ContactMailIcon colorSecondary />
-                  </IconButton>
-                  <IconButton>{/* <ContactPhoneIcon /> */}</IconButton>
+                  <Grid item>
+                    <IconButton label={listing.user_id} value={listing.used_id}>
+                      <ContactMailIcon className={classes.icons} />
+                    </IconButton>
+                  </Grid>
                 </CardActions>
               </Card>
             </Paper>
@@ -104,6 +118,4 @@ const GitCollaborations = () => {
       ))}
     </>
   );
-};
-
-export default GitCollaborations;
+}
