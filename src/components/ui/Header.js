@@ -129,6 +129,7 @@ export default function Header(props) {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -307,10 +308,19 @@ export default function Header(props) {
             </ListItem>
           ))}
 
+
+            
           <ListItem
-            onClick={() => {
+            onClick={ (e) => {
+              if (props.loggedIn) {
+                e.preventDefault()
+                props.handleLogout()
+                setOpenDrawer(false);
+                return
+              }
               setOpenDrawer(false);
               setValue(4);
+              // setLoginStatus(!loginStatus)
             }}
             divider
             button
@@ -319,13 +329,16 @@ export default function Header(props) {
               root: classes.drawItemLogin,
               selected: classes.drawerItemSelected,
             }}
+           
             to="/Login"
             selected={value === 4}
           >
             <ListItemText className={classes.drawerItem} disableTypography>
-              Login
+               {props.loggedIn ? "Logout" : "Login"} 
             </ListItemText>
           </ListItem>
+
+
         </List>
       </SwipeableDrawer>
       <IconButton
