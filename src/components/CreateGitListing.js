@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     border: `2px solid ${theme.palette.common.arcOrange}`,
     marginTop: "5em",
     borderRadius: 5,
-    minWidth: 400,
     maxWidth: 700,
   },
   sendButton: {
@@ -238,7 +237,6 @@ export default function CreateGitListing(props) {
                 className={classes.description}
                 label="Enter a Description of your project. Please include the programming languages"
                 multiline
-                fullWidth
                 helperText={descriptionHelper}
                 error={descriptionHelper.length !== 0}
                 rows={10}
@@ -251,6 +249,7 @@ export default function CreateGitListing(props) {
               container
               style={{
                 marginTop: "2em",
+                marginBottom: "2em",
               }}
             >
               <Button
@@ -258,13 +257,28 @@ export default function CreateGitListing(props) {
                 variant="contained"
                 className={classes.sendButton}
                 onClick={() => setOpen(true)}
+                style={{
+                  marginTop: "2em",
+                  marginBottom: "2em",
+                }}
               >
-                Post Collaboration{" "}
-              </Button>{" "}
-            </Grid>{" "}
-          </Grid>{" "}
-        </Grid>{" "}
-      </Grid>{" "}
+                Post Collaboration
+              </Button>
+              <Grid item>
+                <Button
+                  borderColor="secondary"
+                  component={Link}
+                  to={`/Gitcollaborations`}
+                  variant="contained"
+                  className={classes.sendButton}
+                >
+                  Go back to viewing Collaborations
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
       <Dialog
         style={{
           zIndex: 1302,
