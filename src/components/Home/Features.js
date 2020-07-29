@@ -10,6 +10,7 @@ import Hidden from "@material-ui/core/Hidden";
 import ImageCard from "./ImageCard";
 import Avatar from "react-avatar";
 import lightBulbIcon from "../../assets/icons/lightBulbIcon.png";
+import binIcon from "../../assets/icons/binIcon.png";
 
 // import featureimg from "./assets/img/2.svg";
 
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
   itemContainer: {
     maxWidth: "40em",
+  },
+  Icons: {
+    height: "100px",
   },
 }));
 
@@ -216,7 +220,7 @@ export default function Features(props) {
             </Grid>
           </Grid>
           <Grid item md>
-            <Avatar githubHandle="" size={50} round="20px" />
+            <img src={binIcon} className={classes.Icons} />
           </Grid>
         </Grid>
         <Grid

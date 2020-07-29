@@ -7,7 +7,7 @@ import Background from "../../assets/img/backgroundImage.jpg";
 
 const useStyles = makeStyles((theme) => ({
   homepageBanner: {
-    border: "2px solid green",
+    // border: "2px solid green",
 
     backgroundColor: "#FDFDFD",
   },

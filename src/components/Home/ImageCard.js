@@ -39,8 +39,8 @@ const ImageCard = withStyles(styles)(({ classes }, props) => (
     <CardMedia className={classes.media} image={lightBulbIcon} title="Blogs" />
     <CardHeader
       className={classes.header}
-      // title="Feature"
-      // subheader="Check out our this feature >"
+      title="Feature"
+      subheader="Check out our this feature >"
     />
   </Card>
 ));

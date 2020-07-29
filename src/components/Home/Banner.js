@@ -44,8 +44,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     color: "#D3459E",
   },
   gradiantButton: {
-    backgroundImage: "url(" + buttonImg + ")",
-    color: "white",
+    // backgroundImage: "url(" + buttonImg + ")",
   },
 }));
 
@@ -99,7 +98,7 @@ const Banner = () => {
         justify="center"
         // style={{ border: "2px solid green" }}
       >
-        <img src={homeBanner} className={classes.bannerImage} />
+        {/* <img src={homeBanner} className={classes.bannerImage} /> */}
       </Grid>
     </Grid>
   );
