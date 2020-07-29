@@ -37,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
         height: '50vh',
         display: 'flex',
         flexDirection: 'column',
-
-        margin: theme.spacing(1,5),
+        margin: theme.spacing(1, 5),
         // border: '1px solid',
         borderRadius: 10,
         // borderColor: '#AF3B6E',
@@ -65,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
   const labels = {
     
     1: 'Complete Beginner',
@@ -84,14 +84,10 @@ const UserProfile = () => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-
         localApi.get("/myprofile")
             .then((response) => {
                 setCurrentUser(response.data)
             })
-
-
-
     }, [])
 
 
@@ -137,6 +133,7 @@ const UserProfile = () => {
                          <br/>
                     <div><Rating
                     
+
                         name="hover-feedback"
                         value={value}
                         precision={1}
@@ -147,30 +144,49 @@ const UserProfile = () => {
                         setHover(newHover);
                         }}
                     />
+
       {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
       </div>
 
       <div><Rating
                     
+
                         name="hover-feedback"
                         value={value}
                         precision={1}
                         onChange={(event, newValue) => {
+             
                         setValue(newValue);
                         }}
                         onChangeActive={(event, newHover) => {
-                        setHover(newHover);
+                            setHover(newHover);
                         }}
                     />
-      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-      </div>
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                    </div>
 
-      <div><Rating
-                    
+                    <div><Rating
+
                         name="hover-feedback"
                         value={value}
                         precision={1}
                         onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+                    />
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                    </div>
+
+                    <div><Rating
+
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+
                         setValue(newValue);
                         }}
                         onChangeActive={(event, newHover) => {
@@ -202,12 +218,17 @@ const UserProfile = () => {
                 <Grid item xs={4} className={classes.gitCollab}>
                     <div>
                         <h1 style={{color: "#162521", fontFamily: "Josefin Sans"}}>Git Collaborations</h1>
+
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+                    />
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
                     </div>
-                </Grid>
-            </Grid>
 
 
-        </div>
     )
 }
 

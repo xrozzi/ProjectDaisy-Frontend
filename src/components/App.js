@@ -10,9 +10,12 @@ import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import ImageUpload from "./ImageUpload";
-import UserProfile from "./UserProfile"
+import UserProfile from "./UserProfile";
+import MemberProfile from "./MemberProfile";
 import PrivateRoute from "./PrivateRoute";
+import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import localApi from "../apis/localapi";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -109,12 +112,14 @@ function App() {
             path="/userProfile"
             component={UserProfile}
           />
-          {/*
-            Setup a route for /users/:id
-            It should render a component which grabs that user's data from the rails api
-          */}
+          <Route
+            exact path="/users/:id"
+            render={props => (< MemberProfile userId={props.match.params.id} />)}
+          />
+
         </Switch>
       </BrowserRouter>
+      <Footer />
     </ThemeProvider>
   );
 }
