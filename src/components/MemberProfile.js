@@ -97,25 +97,9 @@ const MemberProfile = (props) => {
 
 
                 <Grid item xs={2} className={classes.sidebar}>
-                    <div>User image</div>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                     <br />
-
-                    <Grid item>
-                        <Button
-                            component={Link}
-                            to="/Images"
-                            variant="outlined"
-                            className={classes.learnButton}>
-
-                            <span style={{ marginRight: 5, }}>
-                                {" "}Upload Image{" "}
-                            </span>{" "}
-
-                        </Button>{" "}
-                    </Grid>{" "}
-
-
+                    <Avatar alt="/static/images/avatar/1.jpg" src={user.image} />
+                    <h3> {user.firstname} </h3>
 
                     {user && <div> {user.email} </div>}
                     <br />
