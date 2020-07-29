@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistroy, Redirect } from "react-router-dom";
+import logo from "../assets/icons/woman.svg";
 
 import localapi from "../apis/localapi";
 
 import { makeStyles, useTheme } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
+
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -39,19 +41,26 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Josefin Sans",
     fontSize: "4rem",
     bottomMargin: "5em",
-    border: "2px solid blue",
+    color: "#4C6099",
+    // border: "2px solid blue",
   },
   icons: {
     width: "5em",
     height: "5em",
   },
   paper: {
-    border: "1px solid red",
-    maxWidth: "50em",
-    // backgroundColor: "blue",
+    // border: "1px solid red",
+    maxWidth: "100em",
+    maxHeight: "30em",
+    borderRadius: "10px",
+    backgroundColor: "#FFFFFF",
+    marginBottom: "100px",
   },
   cardContent: {
     marginLeft: "20em",
+  },
+  topHeading: {
+    bottomMargin: "4em",
   },
 }));
 
@@ -71,13 +80,25 @@ export default function GitCollaborations() {
 
   return (
     <>
-      <Grid container direction="column" alignItems="center">
+      <Grid
+        container
+        direction="column"
+        alignItems="left"
+        className={classes.topHeading}
+      >
         <Grid item>
           <Typography className={classes.pageHeading}>
             Github Collaboration Listings
           </Typography>
           <Typography>
-            <Link to={`/CreateGitListing`}>Create A Listing</Link>
+            <Button
+              component={Link}
+              to={`/CreateGitListing`}
+              variant="contained"
+              color="primary"
+            >
+              Create A Listing To Connect
+            </Button>
           </Typography>
         </Grid>
 
@@ -91,7 +112,7 @@ export default function GitCollaborations() {
             justify="center"
             // style={{ minHeight: "20vh" }}
           >
-            <Grid alignItems="center" item xs={12} sm={9} md={10} lg={5}>
+            <Grid alignItems="center" item xs={12} sm={9} md={10} lg={10}>
               <Paper className={classes.paper}>
                 <CardHeader
                   title={listing.title}
@@ -114,9 +135,16 @@ export default function GitCollaborations() {
                 <CardActions disableActionSpacing>
                   <Grid item>
                     <IconButton setUserUrlId={listing.user_id}>
-                      <ContactMailIcon setUserUrlId={listing.user_id} />
-                      <Divider />
-                      <Link to={`/users/${listing.user_id}`}>View Profile</Link>
+                      <Button
+                        component={Link}
+                        to={`/users/${listing.user_id}`}
+                        variant="contained"
+                        color="primary"
+                      >
+                        About Page
+                      </Button>
+
+                      {/* <Link to={`/users/${listing.user_id}`}>View Profile</Link> */}
                     </IconButton>
                   </Grid>
                 </CardActions>
