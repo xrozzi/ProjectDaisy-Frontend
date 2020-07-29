@@ -97,7 +97,7 @@ const MemberProfile = (props) => {
 
 
                 <Grid item xs={2} className={classes.sidebar}>
-                    <div>User image</div>
+                    <div> `Welcome to user.firstname 's profile!'`</div>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                     <br />
 

@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-  const labels = {
-    
+const labels = {
+
     1: 'Complete Beginner',
     2: 'Beginner',
     3: 'Intermediate',
@@ -127,36 +127,36 @@ const UserProfile = () => {
 
                 <Grid item xs={3} className={classes.skills}>
                     <div align="center">
-                        <h1 style={{color: "#162521", fontFamily: "Josefin Sans"}}>Skills</h1>
-                        </div>
+                        <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>Skills</h1>
+                    </div>
 
-                         <br/>
+                    <br />
                     <div><Rating
-                    
+
 
                         name="hover-feedback"
                         value={value}
                         precision={1}
                         onChange={(event, newValue) => {
-                        setValue(newValue);
+                            setValue(newValue);
                         }}
                         onChangeActive={(event, newHover) => {
-                        setHover(newHover);
+                            setHover(newHover);
                         }}
                     />
 
-      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-      </div>
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                    </div>
 
-      <div><Rating
-                    
+                    <div><Rating
+
 
                         name="hover-feedback"
                         value={value}
                         precision={1}
                         onChange={(event, newValue) => {
-             
-                        setValue(newValue);
+
+                            setValue(newValue);
                         }}
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
@@ -187,49 +187,53 @@ const UserProfile = () => {
                         precision={1}
                         onChange={(event, newValue) => {
 
-                        setValue(newValue);
+                            setValue(newValue);
                         }}
                         onChangeActive={(event, newHover) => {
-                        setHover(newHover);
+                            setHover(newHover);
                         }}
                     />
-      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-      </div>
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                    </div>
 
-      <div><Rating
-                    
-                    name="hover-feedback"
-                    value={value}
-                    precision={1}
-                    onChange={(event, newValue) => {
-                    setValue(newValue);
-                    }}
-                    onChangeActive={(event, newHover) => {
-                    setHover(newHover);
-                    }}
-                />
-  {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-  </div>
+                    <div><Rating
 
-                    
-                    
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+                    />
+                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                    </div>
+
+
+
                 </Grid>
-               
+
                 <Grid item xs={4} className={classes.gitCollab}>
                     <div>
-                        <h1 style={{color: "#162521", fontFamily: "Josefin Sans"}}>Git Collaborations</h1>
+                        <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>Git Collaborations</h1>
 
-                            setValue(newValue);
-                        }}
+                        setValue(newValue);
+
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
                         }}
-                    />
                         {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
                     </div>
+                </Grid>
+            </Grid>
+        </div>
+
 
 
     )
 }
+
 
 export default UserProfile
