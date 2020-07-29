@@ -15,18 +15,6 @@ import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -47,18 +35,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const emailValidator = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email)
+const emailValidator = (email) => /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
 const passwordValidator = (password) => password.length >= 8
 const nonEmptyValidator = (field) => !!field.length
 
 const validationMethods = {
   email: emailValidator,
   password: passwordValidator,
-  firstName: nonEmptyValidator,
-  lastName: nonEmptyValidator
+  firstname: nonEmptyValidator,
+  lastname: nonEmptyValidator
 }
 
-const fields = ['email', 'password', 'firstName', 'lastName']
+const fields = ['email', 'password', 'firstname', 'lastname']
 
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
@@ -66,15 +54,15 @@ export default function SignUp({ loggedIn, onLogin }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    firstName: "",
-    lastName: ""
+    firstname: "",
+    lastname: ""
   });
 
   const [validationData, setValidationData] = useState({
     email: true,
     password: true,
-    firstName: true,
-    lastName: true
+    firstname: true,
+    lastname: true
   })
 
   const validateFields = () => {
@@ -105,8 +93,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        firstname: formData.firstname,
+        lastname: formData.lastname,
         email: formData.email,
         password: formData.password,
       },
@@ -141,18 +129,18 @@ export default function SignUp({ loggedIn, onLogin }) {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="firstname"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="firstname"
                 label="First Name"
 
                 onChange={handleFormInputChange}
-                value={formData.firstName}
+                value={formData.firstname}
                 autoFocus
-                error={!validationData.firstName}
-                helperText={!validationData.firstName && "Must not be empty"}
+                error={!validationData.firstname}
+                helperText={!validationData.firstname && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -160,14 +148,14 @@ export default function SignUp({ loggedIn, onLogin }) {
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
+                id="lastname"
                 label="Last Name"
-                name="lastName"
+                name="lastname"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-                value={formData.lastName}
-                error={!validationData.lastName}
-                helperText={!validationData.lastName && "Must not be empty"}
+                value={formData.lastname}
+                error={!validationData.lastname}
+                helperText={!validationData.lastname && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12}>
@@ -201,12 +189,6 @@ export default function SignUp({ loggedIn, onLogin }) {
                 value={formData.password}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -220,16 +202,14 @@ export default function SignUp({ loggedIn, onLogin }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="../login" variant="body2">
+              <Link href="../login" color="#4F7CAC">
                 Already have an account? Log in
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+  
     </Container>
   );
 }
