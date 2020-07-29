@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
   pageHeading: {
     fontFamily: "Josefin Sans",
     fontSize: "4rem",
-    bottomMargin: "3em",
+    bottomMargin: "5em",
+    border: "2px solid blue",
   },
   icons: {
     width: "5em",
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     border: "1px solid red",
+    maxWidth: "50em",
   },
   cardContent: {
     marginLeft: "20em",
@@ -95,34 +97,32 @@ export default function GitCollaborations() {
         >
           <Grid item xs={12} sm={9} md={10} lg={10}>
             <Paper className={classes.paper}>
-              <Card className={classes.card}>
-                <CardHeader
-                  title={listing.title}
-                  subheader={listing.user_id}
-                  avatar={
-                    <Avatar className={classes.icons}>
-                      <PersonIcon className={classes.icons} />
-                    </Avatar>
-                  }
-                />
-                <CardContent direction="column" className={classes.cardContent}>
-                  <Typography variant="caption">
-                    Date Created: {listing.created_at}
-                  </Typography>
-                  <Typography>
-                    Description of project:
-                    {listing.description}
-                  </Typography>
-                </CardContent>
-                <CardActions disableActionSpacing>
-                  <Grid item>
-                    <IconButton setUserUrlId={listing.user_id}>
-                      <ContactMailIcon setUserUrlId={listing.user_id} />
-                      <Link to={`/users/${listing.user_id}`}>View Profile</Link>
-                    </IconButton>
-                  </Grid>
-                </CardActions>
-              </Card>
+              <CardHeader
+                title={listing.title}
+                subheader={listing.user_id}
+                avatar={
+                  <Avatar className={classes.icons}>
+                    <PersonIcon className={classes.icons} />
+                  </Avatar>
+                }
+              />
+              <CardContent direction="column" className={classes.cardContent}>
+                <Typography variant="caption">
+                  Date Created: {listing.created_at}
+                </Typography>
+                <Typography>
+                  Description of project:
+                  {listing.description}
+                </Typography>
+              </CardContent>
+              <CardActions disableActionSpacing>
+                <Grid item>
+                  <IconButton setUserUrlId={listing.user_id}>
+                    <ContactMailIcon setUserUrlId={listing.user_id} />
+                    <Link to={`/users/${listing.user_id}`}>View Profile</Link>
+                  </IconButton>
+                </Grid>
+              </CardActions>
             </Paper>
           </Grid>
           {/* stop */}
