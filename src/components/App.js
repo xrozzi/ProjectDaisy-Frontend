@@ -13,7 +13,7 @@ import SignUp from "./SignUp";
 import UserProfile from "./UserProfile"
 
 import PrivateRoute from "./PrivateRoute";
-
+import Footer from "../components/ui/Footer";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -107,7 +107,7 @@ function App() {
           />
         </Switch>
       </BrowserRouter>
-      
+      <Footer />
     </ThemeProvider>
   );
 }
