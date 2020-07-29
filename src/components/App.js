@@ -16,7 +16,7 @@ import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import localApi from "../apis/localapi";
-
+import UserSearchBar from "./UserSearchBar";
 function App() {
   const [userToken, setUserToken] = useState(null);
 
@@ -97,7 +97,11 @@ function App() {
           <Route
             exact
             path="/Images"
-            component={() => <div><ImageUpload /></div>}
+            component={() => (
+              <div>
+                <ImageUpload />
+              </div>
+            )}
           />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
@@ -107,16 +111,18 @@ function App() {
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
           />
+          <Route exact path="/userProfile" component={UserProfile} />
           <Route
             exact
-            path="/userProfile"
-            component={UserProfile}
-          />
-          <Route
-            exact path="/users/:id"
-            render={props => (< MemberProfile userId={props.match.params.id} />)}
+            path="/users/:id"
+            render={(props) => <MemberProfile userId={props.match.params.id} />}
           />
 
+          <Route
+            exact
+            path="/usersearch"
+            render={(props) => <UserSearchBar />}
+          />
         </Switch>
       </BrowserRouter>
       <Footer />
