@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import axios from "axios"
+import React, { useState } from "react";
+import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,27 +8,21 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+
 const useStyles = makeStyles((theme) => ({
+ 
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -48,26 +42,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogIn({onLogin, loggedIn}) {
+
+
+export default function LogIn({ onLogin, loggedIn }) {
   const classes = useStyles();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [open, setOpen] = React.useState(false);
 
-  const [emailValue, setEmailValue] = useState("")
-    const [passwordValue, setPasswordValue] = useState("")
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
-    async function getToken(e){
-      e.preventDefault()
+    setOpen(false);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  async function getToken(e) {
+    e.preventDefault();
+    try {
       const res = await axios.post(`http://localhost:3000/user_token`, {
-          auth: {
-              email: emailValue,
-              password: passwordValue
-          }
-        })
-      onLogin(res.data.jwt)
+      auth: {
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    onLogin(res.data.jwt);
+    } catch(e) {
+      console.error(e)
+      setOpen(true)
+    }
+    
   }
 
   if (loggedIn) {
-    return <Redirect to="/CreateGitListing" />
-  }
+    return <Redirect to="/CreateGitListing" />;
+  } 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -87,9 +106,10 @@ export default function LogIn({onLogin, loggedIn}) {
             fullWidth
             id="email"
             label="Email Address"
-            value={emailValue}
-            onChange={e => setEmailValue(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             name="email"
+            type="email"
             autoComplete="email"
             autoFocus
           />
@@ -100,8 +120,8 @@ export default function LogIn({onLogin, loggedIn}) {
             fullWidth
             name="password"
             label="Password"
-            value={passwordValue}
-            onChange={e => setPasswordValue(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -112,8 +132,9 @@ export default function LogIn({onLogin, loggedIn}) {
             label="Remember me"
           />
           <Button
-          onClick={getToken}
+            onClick={getToken}
             type="submit"
+            id="login"
             fullWidth
             variant="contained"
             color="primary"
@@ -121,18 +142,22 @@ export default function LogIn({onLogin, loggedIn}) {
           >
             Log In
           </Button>
+          {/* <AlertMessage/> */}
           <Grid container>
             <Grid item>
-              <Link href="../signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="../signup" color="#4F7CAC">
+                { "Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Invalid password or email
+        </Alert>
+      </Snackbar>
+      
     </Container>
   );
 }
