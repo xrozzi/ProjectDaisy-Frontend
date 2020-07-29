@@ -100,7 +100,7 @@ const UserProfile = () => {
 
                 <Grid item xs={2} className={classes.sidebar}>
                     <div>User image</div>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt="/static/images/avatar/1.jpg" src="" />
                     <br />
 
                     <Grid item>
@@ -219,12 +219,7 @@ const UserProfile = () => {
                     <div>
                         <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>Git Collaborations</h1>
 
-                        setValue(newValue);
 
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
                     </div>
                 </Grid>
             </Grid>
