@@ -8,15 +8,21 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 
 const useStyles = makeStyles((theme) => ({
+ 
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -36,12 +42,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function LogIn({ onLogin, loggedIn }) {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -52,18 +69,24 @@ export default function LogIn({ onLogin, loggedIn }) {
 
   async function getToken(e) {
     e.preventDefault();
-    const res = await axios.post(`http://localhost:3000/user_token`, {
+    try {
+      const res = await axios.post(`http://localhost:3000/user_token`, {
       auth: {
         email: formData.email,
         password: formData.password,
       },
     });
     onLogin(res.data.jwt);
+    } catch(e) {
+      console.error(e)
+      setOpen(true)
+    }
+    
   }
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
-  }
+  } 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -119,6 +142,7 @@ export default function LogIn({ onLogin, loggedIn }) {
           >
             Log In
           </Button>
+          {/* <AlertMessage/> */}
           <Grid container>
             <Grid item>
               <Link href="../signup" color="#4F7CAC">
@@ -128,6 +152,11 @@ export default function LogIn({ onLogin, loggedIn }) {
           </Grid>
         </form>
       </div>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Invalid password or email
+        </Alert>
+      </Snackbar>
       
     </Container>
   );

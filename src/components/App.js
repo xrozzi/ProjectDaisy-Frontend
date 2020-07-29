@@ -18,6 +18,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
+import UserSearchBar from "./UserSearchBar";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -39,6 +40,13 @@ function App() {
     setUserToken(null);
     localStorage.removeItem("token");
   };
+
+  // TEST
+
+ 
+
+  // TEST
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,7 +88,15 @@ function App() {
           />
 
           <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
-
+          <Route
+            exact
+            path="/searchbar"
+            component={() => (
+              <div>
+                <UserSearchBar />
+              </div>
+            )}
+          />
           <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
           <Route
             exact
