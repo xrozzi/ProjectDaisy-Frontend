@@ -1,6 +1,9 @@
-import React, {
-    useState
-} from "react";
+import React, { useState } from "react";
+import App from "./App";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import localApi from "../apis/localapi";
 
 export default class NewItemForm extends React.Component {
 
@@ -8,50 +11,37 @@ export default class NewItemForm extends React.Component {
         image: {}
     }
 
-    onChange = (e) => {
-        e.persist()
+    onChange = (event) => {
+        event.persist()
         this.setState(() => {
             return {
-                [e.target.name]: e.target.file[0]
+                image: event.target.files[0]
             }
         })
     }
 
-    onSubmit = (e) => {
-        e.preventDefault()
-        const form = new FormData()
-        form.append("image", this.state.image)
-        fetch(`http://localhost:4000/items`, {
-            method: "POST",
-            body: form
-        })
-    }
+    onSubmit = (event) => {
+        event.preventDefault()
 
+        console.log(this.state.image.value)
+        const formData = new FormData()
+        formData.set("image", this.state.image)
+
+        localApi.post(`/images`,
+            formData
+        )
+    }
     render() {
         return (
-
-            <
-            div className = "form" >
-            <
-            h1 > New Upload < /h1>   <
-            form onSubmit = {
-                this.onSubmit
-            } >
-
-            <
-            label > Image Upload < /label>   <
-            input type = "file"
-            name = "image"
-            onChange = {
-                this.onChange
-            }
-            /> 
-
-            <
-            input type = "submit" / >
-            <
-            /form>   < /
-            div >
+            <div className="form">
+                <h1>Upload Profile Picture</h1>
+                <form onSubmit={this.onSubmit}>
+                    <label>Image Upload</label>
+                    <input type="file" name="image" onChange={this.onChange} />
+                    <br />
+                    <input type="submit" />
+                </form>
+            </div>
         )
     }
 }

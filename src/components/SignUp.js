@@ -70,7 +70,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     lastName: ""
   });
 
-  const [ validationData, setValidationData ] = useState({
+  const [validationData, setValidationData] = useState({
     email: true,
     password: true,
     firstName: true,
@@ -100,9 +100,9 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   async function handleSignUp(e) {
     e.preventDefault();
-      if (!validateFields()) {
-        return
-      }
+    if (!validateFields()) {
+      return
+    }
     const response = await axios.post(`http://localhost:3000/users`, {
       user: {
         firstName: formData.firstName,
@@ -119,8 +119,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
-  // }
-}
+    // }
+  }
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -147,7 +147,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                
+
                 onChange={handleFormInputChange}
                 value={formData.firstName}
                 autoFocus
@@ -195,7 +195,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 type="password"
                 id="password"
                 error={!validationData.password}
-              helperText={!validationData.password && "Password must be at least 8 characters"}
+                helperText={!validationData.password && "Password must be at least 8 characters"}
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}
