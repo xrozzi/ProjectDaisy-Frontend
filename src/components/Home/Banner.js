@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, useHistroy, Redirect } from "react-router-dom";
+
 import {
   Paper,
   Grid,
@@ -38,7 +40,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
     },
   },
   bannerImage: {
-    height: "500px",
+    height: "300px",
   },
   title: {
     fontFamily: "Josefin Sans",
@@ -70,35 +72,50 @@ const Banner = () => {
             Project Daisy
           </Box>
         </h1>
-        Connecting with other women in tech made easy
-        <Icon fontSize="small"> </Icon>
-        <span className="ml-4">
-          <Button className={classes.gradiantButton}>Sign up</Button>
+        <Grid item justify="center" alignItems="center">
+          <Grid item>
+            <Icon className="mr-2" color="secondary">
+              <ComputerRoundedIcon />
+            </Icon>
+            Git Collaborations
+          </Grid>
+          <Grid item>
+            <Icon className="mr-2" color="secondary">
+              <ComputerRoundedIcon />
+            </Icon>
+            Connect with other Women
+          </Grid>
+          <Grid item>
+            <Icon className="m2" color="secondary">
+              <ComputerRoundedIcon />
+            </Icon>
+            All inclusive
+          </Grid>
+        </Grid>
 
-          <Button className={classes.gradiantButton}>Login</Button>
+        <span className="ml-4">
+          <Button
+            component={Link}
+            to={`/signup`}
+            variant="contained"
+            color="primary"
+          >
+            Sign Up
+          </Button>
+
+          <Button
+            component={Link}
+            to={`/login`}
+            variant="contained"
+            color="primary"
+          >
+            Login
+          </Button>
         </span>
       </Grid>
 
-      <Grid item md={6} align="center" justify="center">
-        <Grid item>
-          <Icon className="mr-2" color="secondary">
-            <ComputerRoundedIcon />
-          </Icon>
-          Git Collaborations
-        </Grid>
-        <Grid item>
-          <Icon className="mr-2" color="secondary">
-            <ComputerRoundedIcon />
-          </Icon>
-          Connect with other Women
-        </Grid>
-        <Grid item>
-          <Icon className="m2" color="secondary">
-            <ComputerRoundedIcon />
-          </Icon>
-          All inclusive
-        </Grid>
-        {/* <img src={homeBanner} className={classes.bannerImage} /> */}
+      <Grid item md={5} align="center" justify="center">
+        <img src={homeBanner} className={classes.bannerImage} />
       </Grid>
     </Grid>
   );
