@@ -15,18 +15,6 @@ import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -201,12 +189,6 @@ export default function SignUp({ loggedIn, onLogin }) {
                 value={formData.password}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -220,16 +202,14 @@ export default function SignUp({ loggedIn, onLogin }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="../login" variant="body2">
+              <Link href="../login" color="#4F7CAC">
                 Already have an account? Log in
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+  
     </Container>
   );
 }

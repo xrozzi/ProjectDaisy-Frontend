@@ -13,6 +13,7 @@ import ImageUpload from "./ImageUpload";
 import UserProfile from "./UserProfile";
 import MemberProfile from "./MemberProfile";
 import PrivateRoute from "./PrivateRoute";
+import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import localApi from "../apis/localapi";
 
@@ -118,6 +119,7 @@ function App() {
 
         </Switch>
       </BrowserRouter>
+      <Footer />
     </ThemeProvider>
   );
 }
