@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistroy, Redirect } from "react-router-dom";
 
 import localapi from "../apis/localapi";
 
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 920,
     minWidth: 800,
     border: "2px solid green",
+    backgroundColor: "#f2f2f2",
   },
   expand: {
     marginLeft: "auto",
@@ -50,9 +51,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GitCollaborations() {
   const [listings, setListings] = useState([]);
-  const [userRoute, setUserRoute] = useState();
+  const [userUrlId, setUserUrlId] = useState();
 
   const classes = useStyles();
+
+  // const redirectToUserProfile = () => {
+  //   console.log("button is clicked!");
+  //   // return <Redirect to={`http://localhost:3001/users/${userUrlId}`} />;
+  //   location.href = `http://localhost:3001/users/${userUrlId}`;
+
+  // };
 
   //this.setState({listing: listing.description});
   console.log(listings);
@@ -71,7 +79,7 @@ export default function GitCollaborations() {
             Github Collaboration Listings
           </Typography>
           <Typography>
-            <Button>Create a Listing</Button>
+            <Link to={`/CreateGitListing`}>Create A Listing</Link>
           </Typography>
         </Grid>
       </Grid>
@@ -101,12 +109,16 @@ export default function GitCollaborations() {
                   <Typography variant="caption">
                     Date Created: {listing.created_at}
                   </Typography>
-                  <Typography>{listing.description}</Typography>
+                  <Typography>
+                    Description of project:
+                    {listing.description}
+                  </Typography>
                 </CardContent>
                 <CardActions disableActionSpacing>
                   <Grid item>
-                    <IconButton label={listing.user_id} value={listing.used_id}>
-                      <ContactMailIcon className={classes.icons} />
+                    <IconButton setUserUrlId={listing.user_id}>
+                      <ContactMailIcon setUserUrlId={listing.user_id} />
+                      <Link to={`/users/${listing.user_id}`}>View Profile</Link>
                     </IconButton>
                   </Grid>
                 </CardActions>
