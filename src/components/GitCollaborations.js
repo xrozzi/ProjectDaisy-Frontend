@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistroy, Redirect } from "react-router-dom";
-import logo from "../assets/icons/woman.svg";
+import searchIcon from "../assets/icons/searchIcon.png";
 
 import localapi from "../apis/localapi";
 
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
     bottomMargin: "5em",
     color: "#4C6099",
+
     // border: "2px solid blue",
   },
   icons: {
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   },
   topHeading: {
     bottomMargin: "4em",
+  },
+  BannerIcon: {
+    width: "10em",
   },
 }));
 
@@ -83,14 +87,21 @@ export default function GitCollaborations() {
       <Grid
         container
         direction="column"
-        alignItems="left"
+        alignItems="center"
         className={classes.topHeading}
       >
-        <Grid item>
-          <Typography className={classes.pageHeading}>
-            Github Collaboration Listings
-          </Typography>
-          <Typography>
+        <Grid container direction="row" alignItems="center">
+          <Grid item>
+            <Typography className={classes.pageHeading}>
+              Github Collaboration Listings
+            </Typography>
+          </Grid>
+
+          <Grid item>
+            <img src={searchIcon} className={classes.BannerIcon} />
+          </Grid>
+
+          <Grid item>
             <Button
               component={Link}
               to={`/CreateGitListing`}
@@ -99,7 +110,7 @@ export default function GitCollaborations() {
             >
               Create A Listing To Connect
             </Button>
-          </Typography>
+          </Grid>
         </Grid>
 
         {listings.map((listing) => (
@@ -133,20 +144,19 @@ export default function GitCollaborations() {
                   </Typography>
                 </CardContent>
                 <CardActions disableActionSpacing>
-                  <Grid item>
-                    <IconButton setUserUrlId={listing.user_id}>
-                      <Button
-                        component={Link}
-                        to={`/users/${listing.user_id}`}
-                        variant="contained"
-                        color="primary"
-                      >
-                        About Page
-                      </Button>
+                  <IconButton setUserUrlId={listing.user_id}>
+                    <Button
+                      borderColor="secondary"
+                      component={Link}
+                      to={`/users/${listing.user_id}`}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Go To User {listing.user_id} profile
+                    </Button>
 
-                      {/* <Link to={`/users/${listing.user_id}`}>View Profile</Link> */}
-                    </IconButton>
-                  </Grid>
+                    {/* <Link to={`/users/${listing.user_id}`}>View Profile</Link> */}
+                  </IconButton>
                 </CardActions>
               </Paper>
             </Grid>
