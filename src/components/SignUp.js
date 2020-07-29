@@ -63,6 +63,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     password: true,
     firstname: true,
     lastname: true
+
   })
 
   const validateFields = () => {
@@ -88,6 +89,7 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   async function handleSignUp(e) {
     e.preventDefault();
+
     if (!validateFields()) {
       return
     }
@@ -109,6 +111,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     onLogin(res.data.jwt);
     // }
   }
+
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -137,8 +140,9 @@ export default function SignUp({ loggedIn, onLogin }) {
                 label="First Name"
 
                 onChange={handleFormInputChange}
-                value={formData.firstname}
+                value={formData.firstName}
                 autoFocus
+
                 error={!validationData.firstname}
                 helperText={!validationData.firstname && "Must not be empty"}
               />
@@ -153,6 +157,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastname"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
+
                 value={formData.lastname}
                 error={!validationData.lastname}
                 helperText={!validationData.lastname && "Must not be empty"}
