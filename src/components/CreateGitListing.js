@@ -299,14 +299,6 @@ export default function CreateGitListing(props) {
                 component={Link}
                 to={`/Gitcollaborations`}
               >
-                {/* <Button
-                  // borderColor="secondary"
-                  
-                  variant="contained"
-                  className={classes.sendButton}
-                >
-                  Go back to viewing Collaborations
-                </Button> */}
                 <img src={binIcon} className={classes.Icons} />
               </Grid>
             </Grid>
