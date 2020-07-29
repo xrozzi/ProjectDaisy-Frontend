@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 const styles = (theme) => ({
   card: {
     maxWidth: 322,
+
+    backgroundColor: "#FCF8FC",
   },
   media: {
     width: 322,
@@ -21,18 +23,6 @@ const styles = (theme) => ({
     textAlign: "center",
   },
 });
-
-const cardImages = [
-  {
-    img: "",
-    desc: "Campsite",
-  },
-  {
-    img:
-      "https://images.unsplash.com/photo-1564198879220-63f2734f7cec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2072&q=80",
-    desc: "Space",
-  },
-];
 
 const ImageCard = withStyles(styles)(({ classes }, props) => (
   <Card className={classes.card}>

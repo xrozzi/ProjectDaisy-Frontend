@@ -12,6 +12,8 @@ import Avatar from "react-avatar";
 import lightBulbIcon from "../../assets/icons/lightBulbIcon.png";
 import binIcon from "../../assets/icons/binIcon.png";
 
+import homeBanner from "../../assets/img/homeBanner.jpg";
+
 // import featureimg from "./assets/img/2.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
   },
   Icons: {
     height: "100px",
+  },
+  bannerFeatures: {
+    // backgroundColor: "#E6E1FB",
+  },
+  bannerImage: {
+    height: "400px",
+    borderRadius: "40px",
   },
 }));
 
@@ -131,6 +140,7 @@ export default function Features(props) {
         justify="center"
         style={{ marginTop: "15em", marginBottom: "20em" }}
         className={classes.rowContainer}
+        className={classes.bannerFeatures}
       >
         <Grid
           item
@@ -176,7 +186,8 @@ export default function Features(props) {
 
       <Grid item container direction="row" className={classes.rowContainer}>
         <Grid item container direction="column" alignItems="center">
-          <Avatar githubHandle="" size={150} round="20px" />
+          {/* <Avatar githubHandle="" size={150} round="20px" /> */}
+          <img src={homeBanner} className={classes.bannerImage} />
 
           <Grid item className={classes.itemContainer}>
             <Typography variant="h4" align="center" gutterBottom>

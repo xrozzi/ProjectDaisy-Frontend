@@ -19,6 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import buttonImg from "../../assets/img/buttonImg.png";
 import homeBanner from "../../assets/img/homeBanner.jpg";
+import FlagIcon from "../../assets/icons/flagIcon.png";
 
 import clsx from "clsx";
 
@@ -26,7 +27,6 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
   introWrapper: {
     padding: "5rem 0px !important",
     // overflow: "visible !important",
-    border: "2px solid red",
 
     [theme.breakpoints.down("sm")]: {
       padding: "1rem 0 !important",
@@ -35,22 +35,23 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        // border: "2px solid pink",
       },
     },
   },
   bannerImage: {
-    height: "300px",
+    height: "400px",
   },
   title: {
     fontFamily: "Josefin Sans",
     fontWeight: "700",
     fontSize: "6rem",
-    color: "#D3459E",
-    border: "2px solid green",
+    color: "#47558C",
   },
   gradiantButton: {
     // backgroundImage: "url(" + buttonImg + ")",
+  },
+  icons: {
+    height: "40px",
   },
 }));
 
@@ -74,48 +75,44 @@ const Banner = () => {
         </h1>
         <Grid item justify="center" alignItems="center">
           <Grid item>
-            <Icon className="mr-2" color="secondary">
-              <ComputerRoundedIcon />
-            </Icon>
+            <img src={FlagIcon} className={classes.icons} />
             Git Collaborations
           </Grid>
           <Grid item>
-            <Icon className="mr-2" color="secondary">
-              <ComputerRoundedIcon />
-            </Icon>
+            <img src={FlagIcon} className={classes.icons} />
             Connect with other Women
           </Grid>
           <Grid item>
-            <Icon className="m2" color="secondary">
-              <ComputerRoundedIcon />
-            </Icon>
+            <img src={FlagIcon} className={classes.icons} />
             All inclusive
           </Grid>
         </Grid>
-
-        <span className="ml-4">
-          <Button
-            component={Link}
-            to={`/signup`}
-            variant="contained"
-            color="primary"
-          >
-            Sign Up
-          </Button>
-
-          <Button
-            component={Link}
-            to={`/login`}
-            variant="contained"
-            color="primary"
-          >
-            Login
-          </Button>
-        </span>
+        <Grid container direction="row">
+          <Grid item lg={3} justify="center" alignItems="center">
+            <Button
+              component={Link}
+              to={`/signup`}
+              variant="contained"
+              color="primary"
+            >
+              Sign Up
+            </Button>
+          </Grid>
+          <Grid item lg={3}>
+            <Button
+              component={Link}
+              to={`/login`}
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item md={5} align="center" justify="center">
-        <img src={homeBanner} className={classes.bannerImage} />
+        {/* <img src={homeBanner} className={classes.bannerImage} /> */}
       </Grid>
     </Grid>
   );
