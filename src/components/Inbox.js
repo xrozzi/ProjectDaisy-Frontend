@@ -145,7 +145,7 @@ const Inbox = () => {
         <Grid item>
           <Button
             color="secondary"
-            onClick={() => {}}
+            onClick={() => { }}
             variant="outlined"
             component={Link}
             to={{ pathname: `/Profile` }}

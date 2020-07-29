@@ -16,7 +16,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import localApi from "../apis/localapi";
 
-
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'grid',
@@ -27,33 +26,31 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        // border: '1px solid',
         borderRadius: 10,
-        // borderColor: '#AF3B6E',
-        backgroundColor: '#F8F2F6',
+        borderColor: '#fff',
+        backgroundColor: '#f2f2f2',
         alignItems: "center"
     },
     skills: {
         height: '50vh',
         display: 'flex',
         flexDirection: 'column',
-        margin: theme.spacing(1, 5),
-        // border: '1px solid',
+        margin: theme.spacing(1, 1),
+        border: 1,
         borderRadius: 10,
-        // borderColor: '#AF3B6E',
-        backgroundColor: '#F8F2F6',
+        borderColor: '#fff',
+        backgroundColor: '#f2f2f2',
         alignItems: "center"
 
     },
     gitCollab: {
-        height: '50vh',
+        eight: '50vh',
         display: 'flex',
         flexDirection: 'column',
         margin: theme.spacing(1, 1),
         borderRadius: 10,
-        // border: '1px solid',
-        // borderColor: '#AF3B6E',
-        backgroundColor: '#F8F2F6',
+        borderColor: '#fff',
+        backgroundColor: '#f2f2f2',
         alignItems: "center",
     },
     divider: {
@@ -64,31 +61,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const labels = {
-
-    1: 'Complete Beginner',
+    // 0.5: 'Complete Beginner',
+    1: 'Complete Beginner+',
+    // 1.5: 'Beginner',
+    2: 'Beginner',
+    // 2.5: 'Ok',
+    3: 'Intermediate',
+    // 3.5: 'Good',
     4: 'Good',
+    // 4.5: 'Excellent',
     5: 'Excellent',
 };
 
+const MemberProfile = (props) => {
 
-const UserProfile = () => {
     const classes = useStyles()
     const [value, setValue] = React.useState(2);
     const [hover, setHover] = React.useState(-1);
     const [currentUser, setCurrentUser] = useState(null)
 
-    const [open, setOpen] = useState(false);
+    const [user, setUser] = useState([])
 
     useEffect(() => {
-        localApi.get("/myprofile")
+        localApi.get(`/users/${props.userId}`)
             .then((response) => {
-                setCurrentUser(response.data)
+                setUser(response.data)
             })
     }, [])
 
-
-
     return (
+
         <div>
 
             <Grid container spacing={2}>
@@ -115,7 +117,7 @@ const UserProfile = () => {
 
 
 
-                    {currentUser && <div> {currentUser.email} </div>}
+                    {user && <div> {user.email} </div>}
                     <br />
                     <div>Short description</div>
 
@@ -123,14 +125,13 @@ const UserProfile = () => {
 
                 <Grid item xs={3} className={classes.skills}>
                     <div align="center">
-                        <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>Skills</h1>
-                    </div>
+                        Skills
+                        </div>
                     <br />
-                    <div><Rating
-
+                    <Rating
                         name="hover-feedback"
                         value={value}
-                        precision={1}
+                        precision={0.5}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
@@ -138,68 +139,33 @@ const UserProfile = () => {
                             setHover(newHover);
                         }}
                     />
-                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-                    </div>
+                    {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
-                    <div><Rating
 
-                        name="hover-feedback"
-                        value={value}
-                        precision={1}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                    />
-                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-                    </div>
-
-                    <div><Rating
-
-                        name="hover-feedback"
-                        value={value}
-                        precision={1}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                    />
-                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-                    </div>
-
-                    <div><Rating
-
-                        name="hover-feedback"
-                        value={value}
-                        precision={1}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                    />
-                        {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-                    </div>
 
 
 
                 </Grid>
+                <Grid item xs={2} className={classes.skills} >
 
+                    <div>
+                        Blogs posted
+                    </div>
+                </Grid>
                 <Grid item xs={4} className={classes.gitCollab}>
                     <div>
-                        <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>Git Collaborations</h1>
+                        Git collaborations
                     </div>
                 </Grid>
             </Grid>
 
 
         </div>
+
+
     )
+
+
 }
 
-export default UserProfile
+export default MemberProfile;

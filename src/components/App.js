@@ -5,15 +5,17 @@ import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
 import Homepage from "./Home/Homepage";
 import Inbox from "./Inbox";
-
 import theme from "./ui/Theme";
 import Header from "../components/ui/Header";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-import UserProfile from "./UserProfile"
-
+import ImageUpload from "./ImageUpload";
+import UserProfile from "./UserProfile";
+import MemberProfile from "./MemberProfile";
 import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import localApi from "../apis/localapi";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -92,6 +94,11 @@ function App() {
               <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
+          <Route
+            exact
+            path="/Images"
+            component={() => <div><ImageUpload /></div>}
+          />
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
           </PrivateRoute>
@@ -105,6 +112,11 @@ function App() {
             path="/userProfile"
             component={UserProfile}
           />
+          <Route
+            exact path="/users/:id"
+            render={props => (< MemberProfile userId={props.match.params.id} />)}
+          />
+
         </Switch>
       </BrowserRouter>
       <Footer />
