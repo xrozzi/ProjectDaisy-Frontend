@@ -7,6 +7,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+
 import ComputerRoundedIcon from "@material-ui/icons/ComputerRounded";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -22,7 +24,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
   introWrapper: {
     padding: "5rem 0px !important",
     // overflow: "visible !important",
-    // border: "2px solid green",
+    border: "2px solid red",
 
     [theme.breakpoints.down("sm")]: {
       padding: "1rem 0 !important",
@@ -40,8 +42,10 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
   },
   title: {
     fontFamily: "Josefin Sans",
+    fontWeight: "700",
     fontSize: "6rem",
     color: "#D3459E",
+    border: "2px solid green",
   },
   gradiantButton: {
     // backgroundImage: "url(" + buttonImg + ")",
@@ -60,11 +64,22 @@ const Banner = () => {
       justify="center"
       alignItems="center"
     >
-      <Grid item md={6}>
+      <Grid item md={6} justify="center" alignItems="center">
         <h1 className={clsx("text-48 mb-6 text-primary", classes.title)}>
-          Project Daisy
+          <Box letterSpacing={20} m={1}>
+            Project Daisy
+          </Box>
         </h1>
         Connecting with other women in tech made easy
+        <Icon fontSize="small"> </Icon>
+        <span className="ml-4">
+          <Button className={classes.gradiantButton}>Sign up</Button>
+
+          <Button className={classes.gradiantButton}>Login</Button>
+        </span>
+      </Grid>
+
+      <Grid item md={6} align="center" justify="center">
         <Grid item>
           <Icon className="mr-2" color="secondary">
             <ComputerRoundedIcon />
@@ -83,21 +98,6 @@ const Banner = () => {
           </Icon>
           All inclusive
         </Grid>
-        <Icon fontSize="small"> </Icon>
-        <span className="ml-4">
-          <Button className={classes.gradiantButton}>Sign up</Button>
-
-          <Button className={classes.gradiantButton}>Login</Button>
-        </span>
-      </Grid>
-
-      <Grid
-        item
-        md={6}
-        align="center"
-        justify="center"
-        // style={{ border: "2px solid green" }}
-      >
         {/* <img src={homeBanner} className={classes.bannerImage} /> */}
       </Grid>
     </Grid>
