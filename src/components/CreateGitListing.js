@@ -236,6 +236,7 @@ export default function CreateGitListing(props) {
                 // InputProps={{ disableUnderline: true }}
                 value={description}
                 className={classes.description}
+                label="Enter a Description of your project. Please include the programming languages"
                 multiline
                 fullWidth
                 helperText={descriptionHelper}

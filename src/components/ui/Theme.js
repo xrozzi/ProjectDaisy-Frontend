@@ -53,4 +53,12 @@ export default createMuiTheme({
       },
     },
   },
+  pageHeading: {
+    fontFamily: "Josefin Sans",
+    fontSize: "4rem",
+    bottomMargin: "5em",
+    color: "#4C6099",
+
+    // border: "2px solid blue",
+  },
 });
