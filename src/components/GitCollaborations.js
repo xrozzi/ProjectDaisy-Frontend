@@ -135,13 +135,14 @@ export default function GitCollaborations() {
                   }
                 />
                 <CardContent direction="column" className={classes.cardContent}>
-                  <Typography variant="caption">
-                    Date Created: {listing.created_at}
-                  </Typography>
                   <Typography>
                     Description of project:
                     {listing.description}
                   </Typography>
+                  <Typography variant="caption">
+                    Date Created: {listing.created_at}
+                  </Typography>
+                  {/* card content */}
                 </CardContent>
                 <CardActions disableActionSpacing>
                   <IconButton setUserUrlId={listing.user_id}>
