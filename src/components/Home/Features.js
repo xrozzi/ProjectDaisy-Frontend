@@ -9,6 +9,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Hidden from "@material-ui/core/Hidden";
 import ImageCard from "./ImageCard";
 import Avatar from "react-avatar";
+import lightBulbIcon from "../../assets/icons/lightBulbIcon.png";
 
 // import featureimg from "./assets/img/2.svg";
 
@@ -187,7 +188,7 @@ export default function Features(props) {
           <Grid item container direction="column" md>
             <Grid item>
               <Typography variant="h4" align={matchesSM ? "center" : undefined}>
-                Digital world at yr handsss
+                Connect in a world that is disconnected right now
               </Typography>
             </Grid>
             <Grid item>
@@ -204,8 +205,6 @@ export default function Features(props) {
                 align={matchesSM ? "center" : undefined}
               >
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
               </Typography>
               <Typography
                 variant="body1"
@@ -213,12 +212,11 @@ export default function Features(props) {
                 align={matchesSM ? "center" : undefined}
               >
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               </Typography>
             </Grid>
           </Grid>
           <Grid item md>
-            <Avatar githubHandle="" size={150} round="20px" />
+            <Avatar githubHandle="" size={50} round="20px" />
           </Grid>
         </Grid>
         <Grid
@@ -228,13 +226,13 @@ export default function Features(props) {
           direction={matchesSM ? "column" : "row"}
           md
         >
-          <Grid item md>
-            <Avatar githubHandle="" size={150} round="20px" />
-          </Grid>
           <Grid item container direction="column" md>
             <Grid item>
               <Typography variant="h4" align={matchesSM ? "center" : "right"}>
                 Things t... needs
+                <Grid item md>
+                  <Avatar githubHandle="" size={50} round="20px" />
+                </Grid>
               </Typography>
             </Grid>
             <Grid item>

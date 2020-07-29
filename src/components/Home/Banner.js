@@ -9,8 +9,12 @@ import {
 } from "@material-ui/core";
 import ComputerRoundedIcon from "@material-ui/icons/ComputerRounded";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 import { withStyles } from "@material-ui/core/styles";
+
+import buttonImg from "../../assets/img/buttonImg.png";
+import homeBanner from "../../assets/img/homeBanner.jpg";
 
 import clsx from "clsx";
 
@@ -18,7 +22,7 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
   introWrapper: {
     padding: "5rem 0px !important",
     // overflow: "visible !important",
-    border: "2px solid green",
+    // border: "2px solid green",
 
     [theme.breakpoints.down("sm")]: {
       padding: "1rem 0 !important",
@@ -27,28 +31,37 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        border: "2px solid pink",
+        // border: "2px solid pink",
       },
     },
+  },
+  bannerImage: {
+    height: "500px",
   },
   title: {
     fontFamily: "Josefin Sans",
     fontSize: "6rem",
+    color: "#D3459E",
+  },
+  gradiantButton: {
+    backgroundImage: "url(" + buttonImg + ")",
+    color: "white",
   },
 }));
 
 const Banner = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <Grid
       container
       className={classes.banner}
-      spacing={4}
+      // spacing={4}
       justify="center"
       alignItems="center"
     >
-      <Grid item md={5}>
+      <Grid item md={6}>
         <h1 className={clsx("text-48 mb-6 text-primary", classes.title)}>
           Project Daisy
         </h1>
@@ -71,18 +84,22 @@ const Banner = () => {
           </Icon>
           All inclusive
         </Grid>
-        <Button className="bg-secondary rounded text-13 px-7 py-11px">
-          <Icon fontSize="small">
-            {" "}
-            <WbSunnyIcon />
-          </Icon>
-          <span className="ml-2">
-            <Button>Sign up today</Button>
-          </span>
-        </Button>
+        <Icon fontSize="small"> </Icon>
+        <span className="ml-4">
+          <Button className={classes.gradiantButton}>Sign up</Button>
+
+          <Button className={classes.gradiantButton}>Login</Button>
+        </span>
       </Grid>
-      <Grid item md={5}>
-        PLACE FOR IMAGE
+
+      <Grid
+        item
+        md={6}
+        align="center"
+        justify="center"
+        // style={{ border: "2px solid green" }}
+      >
+        <img src={homeBanner} className={classes.bannerImage} />
       </Grid>
     </Grid>
   );
