@@ -5,7 +5,7 @@ import Features from "./Features";
 function Homepage() {
   return (
     <>
-      {/* <Banner /> */}
+      <Banner />
       <Features />
     </>
   );

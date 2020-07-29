@@ -30,9 +30,6 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
         border: "2px solid pink",
       },
     },
-    banner: {
-      fontFamily: "Josefin Sans",
-    },
   },
   title: {
     fontFamily: "Josefin Sans",
@@ -55,7 +52,7 @@ const Banner = () => {
         <h1 className={clsx("text-48 mb-6 text-primary", classes.title)}>
           Project Daisy
         </h1>
-        Connecting is easy with Project Daisy
+        Connecting with other women in tech made easy
         <Grid item>
           <Icon className="mr-2" color="secondary">
             <ComputerRoundedIcon />
@@ -66,13 +63,13 @@ const Banner = () => {
           <Icon className="mr-2" color="secondary">
             <ComputerRoundedIcon />
           </Icon>
-          Unlimited forums
+          Connect with other Women
         </Grid>
         <Grid item>
           <Icon className="m2" color="secondary">
             <ComputerRoundedIcon />
           </Icon>
-          Find Meetups
+          All inclusive
         </Grid>
         <Button className="bg-secondary rounded text-13 px-7 py-11px">
           <Icon fontSize="small">
@@ -84,7 +81,7 @@ const Banner = () => {
           </span>
         </Button>
       </Grid>
-      <Grid item md={7}>
+      <Grid item md={5}>
         PLACE FOR IMAGE
       </Grid>
     </Grid>

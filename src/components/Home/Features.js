@@ -102,52 +102,7 @@ export default function Features(props) {
             </IconButton>
           </Grid>
         </Hidden>
-        <Grid item container direction="column" className={classes.heading}>
-          <Grid item>
-            <Typography align={matchesMD ? "center" : undefined} variant="h2">
-              Project Daisy
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              Whether we’re replacing old software or inventing new solutions,
-              Arc Development is here to help your business tackle technology.
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum."
-            </Typography>
-            <Typography
-              align={matchesMD ? "center" : undefined}
-              variant="body1"
-              paragraph
-            >
-              <Button>Signup</Button>
-              <Button>Signin</Button>
-            </Typography>
-          </Grid>
-        </Grid>
+
         <Hidden mdDown>
           <Grid item className={classes.arrowContainer}>
             <IconButton
