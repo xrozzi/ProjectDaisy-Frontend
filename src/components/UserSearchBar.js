@@ -34,30 +34,36 @@ export class UserSearchBar extends Component {
 
   render() {
     return (
-      <div style={{ padding: "20px" }}>
-        <Autocomplete
-          className="pding"
-          onChange={this.state.UserIdd.id}
-          id="combo-box-demo"
-          options={this.state.UserData}
-          getOptionLabel={(option) => option.email}
-          style={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Auto Complete"
-              variant="outlined"
-              fullWidth
-            />
-          )}
-        />
-        <Button>Find User</Button>
-      </div>
+      <>
+        <div style={{ padding: "20px" }}>
+          <Autocomplete
+            className="pding"
+            onChange={this.state.UserIdd.id}
+            id="combo-box-demo"
+            options={this.state.UserData}
+            getOptionLabel={(option) => option.email}
+            style={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Auto Complete"
+                variant="outlined"
+                fullWidth
+              />
+            )}
+          />
+          <Button>Find User</Button>
+        </div>
+      </>
     );
   }
 }
 
 export default UserSearchBar;
+
+///////////////////////////////////////////
+///////  SCROLL BAR
+////////////////////////////////////////
 
 // import React, { useState } from "react";
 // import { List as VirtualList, AutoSizer } from "react-virtualized";
@@ -109,3 +115,7 @@ export default UserSearchBar;
 //     </Paper>
 //   );
 // }
+
+///////////////////////////////////////////
+/////// END SCROLL BAR
+////////////////////////////////////////
