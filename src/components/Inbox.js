@@ -145,7 +145,7 @@ const Inbox = () => {
         <Grid item>
           <Button
             color="secondary"
-            onClick={() => {}}
+            onClick={() => { }}
             variant="outlined"
             component={Link}
             to={{ pathname: `/Profile` }}
@@ -215,42 +215,6 @@ const Inbox = () => {
             <List className={classes.messageArea}>
               <ListItem button key="1">
                 <Grid container>
-<<<<<<< HEAD
-                  {currentMessages.map((message) => {
-                    return (
-                      <Grid item xs={12}>
-                        <ListItemText
-                          align="right"
-                          primary={message.text}
-                        ></ListItemText>
-                      </Grid>
-                    );
-                  })}
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      primary="Hey girl!"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      secondary="09:30"
-                    ></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem key="2">
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="left"
-                    // primary="Wanna collab?"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText align="left" secondary="04:21"></ListItemText>
-=======
                   <Grid
                     container
                     component={Paper}
@@ -268,7 +232,6 @@ const Inbox = () => {
                         </Grid>
                       );
                     })}
->>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
                   </Grid>
                 </Grid>
               </ListItem>
