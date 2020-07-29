@@ -84,14 +84,10 @@ const UserProfile = () => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-
         localApi.get("/myprofile")
             .then((response) => {
                 setCurrentUser(response.data)
             })
-
-
-
     }, [])
 
 
