@@ -27,31 +27,38 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        // border: '1px solid',
         borderRadius: 10,
-        borderColor: '#fff',
-        backgroundColor: '#f2f2f2',
+        // borderColor: '#AF3B6E',
+        backgroundColor: '#F8F2F6',
         alignItems: "center"
     },
     skills: {
         height: '50vh',
         display: 'flex',
         flexDirection: 'column',
+<<<<<<< HEAD
         margin: theme.spacing(1, 1),
         border: 1,
+=======
+        margin: theme.spacing(1,5),
+        // border: '1px solid',
+>>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
         borderRadius: 10,
-        borderColor: '#fff',
-        backgroundColor: '#f2f2f2',
+        // borderColor: '#AF3B6E',
+        backgroundColor: '#F8F2F6',
         alignItems: "center"
 
     },
     gitCollab: {
-        eight: '50vh',
+        height: '50vh',
         display: 'flex',
         flexDirection: 'column',
         margin: theme.spacing(1, 1),
         borderRadius: 10,
-        borderColor: '#fff',
-        backgroundColor: '#f2f2f2',
+        // border: '1px solid',
+        // borderColor: '#AF3B6E',
+        backgroundColor: '#F8F2F6',
         alignItems: "center",
     },
     divider: {
@@ -61,16 +68,19 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+<<<<<<< HEAD
 const labels = {
     // 0.5: 'Complete Beginner',
     1: 'Complete Beginner+',
     // 1.5: 'Beginner',
+=======
+  const labels = {
+    
+    1: 'Complete Beginner',
+>>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
     2: 'Beginner',
-    // 2.5: 'Ok',
     3: 'Intermediate',
-    // 3.5: 'Good',
     4: 'Good',
-    // 4.5: 'Excellent',
     5: 'Excellent',
 };
 
@@ -127,8 +137,9 @@ const UserProfile = () => {
 
                 <Grid item xs={3} className={classes.skills}>
                     <div align="center">
-                        Skills
+                        <h1 style={{color: "#162521", fontFamily: "Josefin Sans"}}>Skills</h1>
                         </div>
+<<<<<<< HEAD
                     <br />
                     <Rating
                         name="hover-feedback"
@@ -153,10 +164,76 @@ const UserProfile = () => {
                     <div>
                         Blogs posted
                     </div>
+=======
+                         <br/>
+                    <div><Rating
+                    
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                        setHover(newHover);
+                        }}
+                    />
+      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+      </div>
+
+      <div><Rating
+                    
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                        setHover(newHover);
+                        }}
+                    />
+      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+      </div>
+
+      <div><Rating
+                    
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                        setHover(newHover);
+                        }}
+                    />
+      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+      </div>
+
+      <div><Rating
+                    
+                    name="hover-feedback"
+                    value={value}
+                    precision={1}
+                    onChange={(event, newValue) => {
+                    setValue(newValue);
+                    }}
+                    onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                    }}
+                />
+  {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+  </div>
+
+                    
+                    
+>>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
                 </Grid>
+               
                 <Grid item xs={4} className={classes.gitCollab}>
                     <div>
-                        Git collaborations
+                        <h1 style={{color: "#162521", fontFamily: "Josefin Sans"}}>Git Collaborations</h1>
                     </div>
                 </Grid>
             </Grid>

@@ -215,7 +215,7 @@ export default function CreateGitListing(props) {
                 }}
               >
                 <TextField
-                  label="title"
+                  label="Please Enter a Collaboration Name"
                   direction="column"
                   id="title"
                   fullWidth
@@ -223,8 +223,8 @@ export default function CreateGitListing(props) {
                   error={titleHelper.length !== 0}
                   helperText={titleHelper}
                   onChange={onChange}
-                />{" "}
-              </Grid>{" "}
+                />
+              </Grid>
             </Grid>
             <Grid
               item
@@ -365,11 +365,7 @@ export default function CreateGitListing(props) {
               >
                 Confirm Post{" "}
               </Button>{" "}
-
-              {}{" "}
-
-              {/* {isCreated && <Redirect to="/" />} */}{" "}
-
+              {} {/* {isCreated && <Redirect to="/" />} */}{" "}
             </Grid>{" "}
           </Grid>{" "}
         </DialogContent>{" "}

@@ -49,9 +49,20 @@ const useStyles = makeStyles((theme) => ({
 
 const emailValidator = (email) => /(.+)@(.+){2,}\.(.+){2,}/.test(email)
 const passwordValidator = (password) => password.length >= 8
+const nonEmptyValidator = (field) => !!field.length
+
+const validationMethods = {
+  email: emailValidator,
+  password: passwordValidator,
+  firstName: nonEmptyValidator,
+  lastName: nonEmptyValidator
+}
+
+const fields = ['email', 'password', 'firstName', 'lastName']
 
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
+  //const [isFormValid, setFormValid] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -61,8 +72,18 @@ export default function SignUp({ loggedIn, onLogin }) {
 
   const [validationData, setValidationData] = useState({
     email: true,
-    password: true
+    password: true,
+    firstName: true,
+    lastName: true
   })
+
+  const validateFields = () => {
+    const validationResult = fields.reduce((acc, val) => (
+      { ...acc, [val]: validationMethods[val](formData[val]) }
+    ), {})
+    setValidationData(validationResult)
+    return Object.values(validationResult).every(res => res)
+  }
 
   const handleFormInputChange = (e) => {
     setFormData({
@@ -77,17 +98,9 @@ export default function SignUp({ loggedIn, onLogin }) {
     }
   };
 
-  const validateFields = () => {
-    setValidationData({
-      email: emailValidator(formData.email),
-      password: passwordValidator(formData.password)
-    })
-  }
-
-  const isFormValid = () => (validationData.email && validationData.password)
-
-  async function handleSingUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
+<<<<<<< HEAD
     validateFields()
     if (!isFormValid()) {
       return
@@ -96,6 +109,15 @@ export default function SignUp({ loggedIn, onLogin }) {
       user: {
         firstname: formData.firstName,
         lastname: formData.lastName,
+=======
+      if (!validateFields()) {
+        return
+      }
+    const response = await axios.post(`http://localhost:3000/users`, {
+      user: {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+>>>>>>> 52a22e30f6637065501f3f63b3532bb587fe0f27
         email: formData.email,
         password: formData.password,
       },
@@ -108,7 +130,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     });
     console.log("response", res);
     onLogin(res.data.jwt);
-  }
+  // }
+}
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -137,8 +160,10 @@ export default function SignUp({ loggedIn, onLogin }) {
                 label="First Name"
 
                 onChange={handleFormInputChange}
-                value={formData.firstname}
+                value={formData.firstName}
                 autoFocus
+                error={!validationData.firstName}
+                helperText={!validationData.firstName && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -151,7 +176,9 @@ export default function SignUp({ loggedIn, onLogin }) {
                 name="lastName"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-                value={formData.lastname}
+                value={formData.lastName}
+                error={!validationData.lastName}
+                helperText={!validationData.lastName && "Must not be empty"}
               />
             </Grid>
             <Grid item xs={12}>
@@ -198,7 +225,7 @@ export default function SignUp({ loggedIn, onLogin }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSingUp}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>
