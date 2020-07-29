@@ -15,6 +15,8 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+
 import Paper from "@material-ui/core/Paper";
 import PersonIcon from "@material-ui/icons/Person";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
@@ -22,6 +24,7 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+// Styles for Page
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 920,
@@ -45,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     border: "1px solid red",
     maxWidth: "50em",
+    // backgroundColor: "blue",
   },
   cardContent: {
     marginLeft: "20em",
@@ -57,14 +61,6 @@ export default function GitCollaborations() {
 
   const classes = useStyles();
 
-  // const redirectToUserProfile = () => {
-  //   console.log("button is clicked!");
-  //   // return <Redirect to={`http://localhost:3001/users/${userUrlId}`} />;
-  //   location.href = `http://localhost:3001/users/${userUrlId}`;
-
-  // };
-
-  //this.setState({listing: listing.description});
   console.log(listings);
 
   useEffect(() => {
@@ -84,50 +80,52 @@ export default function GitCollaborations() {
             <Link to={`/CreateGitListing`}>Create A Listing</Link>
           </Typography>
         </Grid>
-      </Grid>
-      {listings.map((listing) => (
-        <Grid
-          container
-          spacing={1}
-          container
-          direction="row"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: "20vh" }}
-        >
-          <Grid item xs={12} sm={9} md={10} lg={10}>
-            <Paper className={classes.paper}>
-              <CardHeader
-                title={listing.title}
-                subheader={listing.user_id}
-                avatar={
-                  <Avatar className={classes.icons}>
-                    <PersonIcon className={classes.icons} />
-                  </Avatar>
-                }
-              />
-              <CardContent direction="column" className={classes.cardContent}>
-                <Typography variant="caption">
-                  Date Created: {listing.created_at}
-                </Typography>
-                <Typography>
-                  Description of project:
-                  {listing.description}
-                </Typography>
-              </CardContent>
-              <CardActions disableActionSpacing>
-                <Grid item>
-                  <IconButton setUserUrlId={listing.user_id}>
-                    <ContactMailIcon setUserUrlId={listing.user_id} />
-                    <Link to={`/users/${listing.user_id}`}>View Profile</Link>
-                  </IconButton>
-                </Grid>
-              </CardActions>
-            </Paper>
+
+        {listings.map((listing) => (
+          <Grid
+            container
+            spacing={1}
+            container
+            direction="row"
+            alignItems="center"
+            justify="center"
+            // style={{ minHeight: "20vh" }}
+          >
+            <Grid alignItems="center" item xs={12} sm={9} md={10} lg={5}>
+              <Paper className={classes.paper}>
+                <CardHeader
+                  title={listing.title}
+                  subheader={listing.user_id}
+                  avatar={
+                    <Avatar className={classes.icons}>
+                      <PersonIcon className={classes.icons} />
+                    </Avatar>
+                  }
+                />
+                <CardContent direction="column" className={classes.cardContent}>
+                  <Typography variant="caption">
+                    Date Created: {listing.created_at}
+                  </Typography>
+                  <Typography>
+                    Description of project:
+                    {listing.description}
+                  </Typography>
+                </CardContent>
+                <CardActions disableActionSpacing>
+                  <Grid item>
+                    <IconButton setUserUrlId={listing.user_id}>
+                      <ContactMailIcon setUserUrlId={listing.user_id} />
+                      <Divider />
+                      <Link to={`/users/${listing.user_id}`}>View Profile</Link>
+                    </IconButton>
+                  </Grid>
+                </CardActions>
+              </Paper>
+            </Grid>
+            {/* stop */}
           </Grid>
-          {/* stop */}
-        </Grid>
-      ))}
+        ))}
+      </Grid>
     </>
   );
 }
