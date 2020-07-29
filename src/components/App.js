@@ -14,6 +14,7 @@ import UserProfile from "./UserProfile"
 
 import PrivateRoute from "./PrivateRoute";
 
+
 function App() {
   const [userToken, setUserToken] = useState(null);
 
@@ -106,6 +107,7 @@ function App() {
           />
         </Switch>
       </BrowserRouter>
+      
     </ThemeProvider>
   );
 }

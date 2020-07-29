@@ -20,8 +20,8 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
+        Project Daisy 🌼
+      </Link>{""}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -133,8 +133,8 @@ export default function LogIn({ onLogin, loggedIn }) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="../signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="../signup" color="#4F7CAC">
+                { "Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
