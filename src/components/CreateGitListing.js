@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import App from "./App";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
+
+import binIcon from "../assets/icons/binIcon.png";
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +15,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import axios from "axios";
-
 import localApi from "../apis/localapi";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,21 +22,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: "60em",
     width: "100%",
-  },
-  description: {
-    border: `2px solid ${theme.palette.common.arcOrange}`,
+    // backgroundColor: "#FFF7F8",
     marginTop: "5em",
     borderRadius: 5,
-    minWidth: 400,
-    maxWidth: 700,
+  },
+  description: {
+    // border: `2px solid ${theme.palette.common.arcOrange}`,
+    marginTop: "5em",
+    borderRadius: 5,
   },
   sendButton: {
     borderRadius: 50,
     height: 45,
     width: "25em",
-    fontSize: "1rem",
+    // fontSize: "1rem",
     backgroundColor: theme.palette.common.arcOrange,
     "&:hover": {
       backgroundColor: theme.palette.secondary,
@@ -58,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
   },
   containerBackground: {
     backgroundColor: "#fffff",
+  },
+  Icons: {
+    width: "70px",
   },
 }));
 
@@ -121,14 +126,16 @@ export default function CreateGitListing(props) {
   return (
     <Grid
       container
-      direction="column"
+      direction="row"
       alignItems="center"
       justify="center"
       style={{
-        minHeight: "100vh",
+        minHeight: "80vh",
+        // border: "2px solid green",
+        backgroundColor: "#FFF7F8",
       }}
-      lg={12}
-      xl={12}
+      lg={10}
+      xl={10}
     >
       <Grid
         item
@@ -137,52 +144,55 @@ export default function CreateGitListing(props) {
         className={classes.background}
         alignItems="center"
         justify={matchesMD ? "center" : undefined}
-        lg={8}
-        xl={9}
+        lg={6}
+        xl={6}
+        sm={4}
+        style={{
+          minHeight: "5vh",
+          // border: "2px solid red",
+        }}
       >
         <Grid
           item
           style={{
             marginLeft: matchesMD ? 0 : "3em",
             textAlign: matchesMD ? "center" : "inherit",
+            // border: "2px solid pink",
           }}
         >
-          <Grid container direction="column">
-            <Grid item>
-              <Typography align={matchesMD ? "center" : undefined} variant="h2">
-                Creat A <br />
-                Git Collaboration{" "}
-              </Typography>{" "}
-              <Typography
-                align={matchesMD ? "center" : undefined}
-                variant="subtitle2"
-                style={{
-                  fontSize: "1.5rem",
-                }}
+          <Grid item>
+            <Typography align={matchesMD ? "center" : undefined} variant="h2">
+              Creat A <br />
+              Git Collaboration{" "}
+            </Typography>{" "}
+            <Typography
+              align={matchesMD ? "center" : undefined}
+              variant="subtitle2"
+              style={{
+                fontSize: "1.5rem",
+              }}
+            >
+              Connect with like minded coders for projects{" "}
+            </Typography>{" "}
+            <Grid container justify={matchesMD ? "center" : undefined} item>
+              <Button
+                component={Link}
+                to="/AboutGitCollabs"
+                variant="outlined"
+                className={classes.learnButton}
+                // onClick={Redirect to='/AboutGitCollabs'}
               >
-                Connect with like minded coders for projects{" "}
-              </Typography>{" "}
-              <Grid container justify={matchesMD ? "center" : undefined} item>
-                <Button
-                  component={Link}
-                  to="/revolution"
-                  variant="outlined"
-                  className={classes.learnButton}
-                  // onClick={Redirect to='/AboutGitCollabs'}
+                <span
+                  style={{
+                    marginRight: 10,
+                  }}
                 >
-                  <span
-                    style={{
-                      marginRight: 5,
-                    }}
-                  >
-                    {" "}
-                    Learn More{" "}
-                  </span>{" "}
-                </Button>{" "}
-              </Grid>{" "}
-            </Grid>{" "}
-          </Grid>{" "}
-        </Grid>{" "}
+                  Learn More
+                </span>
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid
         item
@@ -191,14 +201,25 @@ export default function CreateGitListing(props) {
         justify="center"
         alignItems="center"
         style={{
-          marginBottom: matchesMD ? "5em" : 0,
-          marginTop: matchesSM ? "1em" : matchesMD ? "5em" : 0,
+          marginBottom: matchesMD ? "6em" : 0,
+          marginTop: matchesSM ? "1em" : matchesMD ? "6em" : 0,
+          // border: "2px solid orange",
+          backgroundColor: "#EBDEF8",
         }}
-        lg={4}
-        xl={3}
+        lg={6}
+        xl={6}
       >
         <Grid item>
-          <Grid container justify="center" direction="column">
+          <Grid
+            container
+            justify="center"
+            direction="column"
+            style={{
+              width: "25em",
+              // border: "1px solid purple",
+            }}
+            lg={12}
+          >
             <Grid
               item
               container
@@ -206,6 +227,8 @@ export default function CreateGitListing(props) {
               justify="center"
               style={{
                 width: "25em",
+                marginTop: "45px",
+                // border: "1px solid blue",
               }}
             >
               <Grid
@@ -217,6 +240,7 @@ export default function CreateGitListing(props) {
                 <TextField
                   label="Please Enter a Collaboration Name"
                   direction="column"
+                  variant="outlined"
                   id="title"
                   fullWidth
                   value={title}
@@ -228,6 +252,7 @@ export default function CreateGitListing(props) {
             </Grid>
             <Grid
               item
+              justify="center"
               style={{
                 width: "25em",
               }}
@@ -236,10 +261,13 @@ export default function CreateGitListing(props) {
                 // InputProps={{ disableUnderline: true }}
                 value={description}
                 className={classes.description}
+                label="Enter a Description of your project. Please include the programming languages"
                 multiline
-                fullWidth
                 helperText={descriptionHelper}
                 error={descriptionHelper.length !== 0}
+                style={{
+                  width: "100%",
+                }}
                 rows={10}
                 id="description"
                 onChange={onChange}
@@ -250,6 +278,7 @@ export default function CreateGitListing(props) {
               container
               style={{
                 marginTop: "2em",
+                marginBottom: "2em",
               }}
             >
               <Button
@@ -257,53 +286,84 @@ export default function CreateGitListing(props) {
                 variant="contained"
                 className={classes.sendButton}
                 onClick={() => setOpen(true)}
+                style={{
+                  marginTop: "2em",
+                  marginBottom: "2em",
+                }}
               >
-                Post Collaboration{" "}
-              </Button>{" "}
-            </Grid>{" "}
-          </Grid>{" "}
-        </Grid>{" "}
-      </Grid>{" "}
+                Post Collaboration
+              </Button>
+              <Grid
+                item
+                justify="center"
+                component={Link}
+                to={`/Gitcollaborations`}
+              >
+                {/* <Button
+                  // borderColor="secondary"
+                  
+                  variant="contained"
+                  className={classes.sendButton}
+                >
+                  Go back to viewing Collaborations
+                </Button> */}
+                <img src={binIcon} className={classes.Icons} />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
       <Dialog
         style={{
           zIndex: 1302,
         }}
         open={open}
-        fullScreen={matchesXS}
+        // fullScreen={matchesXS}
         onClose={() => setOpen(false)}
-        PaperProps={{
-          style: {
-            paddingTop: matchesXS ? "1em" : "5em",
-            paddingBottom: matchesXS ? "1em" : "5em",
-            paddingLeft: matchesXS
-              ? 0
-              : matchesSM
-              ? "5em"
-              : matchesMD
-              ? "10em"
-              : "20em",
-            paddingRight: matchesXS
-              ? 0
-              : matchesSM
-              ? "5em"
-              : matchesMD
-              ? "10em"
-              : "20em",
-          },
-        }}
+        PaperProps={
+          {
+            // style: {
+            //   paddingTop: matchesXS ? "1em" : "15em",
+            //   paddingBottom: matchesXS ? "1em" : "16em",
+            //   paddingLeft: matchesXS
+            //     ? 0
+            //     : matchesSM
+            //     ? "5em"
+            //     : matchesMD
+            //     ? "10em"
+            //     : "20em",
+            //   paddingRight: matchesXS
+            //     ? 0
+            //     : matchesSM
+            //     ? "5em"
+            //     : matchesMD
+            //     ? "10em"
+            //     : "20em",
+            //   border: "2px solid red",
+            // },
+          }
+        }
       >
         <DialogContent>
-          <Grid container direction="column">
+          <Grid
+            container
+            direction="column"
+            style={
+              {
+                // border: "2px solid green",
+              }
+            }
+          >
             <Grid item>
               <Typography align="center" variant="h4" gutterBottom>
-                {" "}
-                Confirm Git Post{" "}
-              </Typography>{" "}
+                Confirm Git Post
+              </Typography>
             </Grid>
             <Grid
               item
               style={{
                 marginBottom: "0.5em",
+                // border: "2px solid orange",
               }}
             >
               <TextField
@@ -315,13 +375,19 @@ export default function CreateGitListing(props) {
                 error={titleHelper.length !== 0}
                 helperText={titleHelper}
                 onChange={onChange}
-              />{" "}
-            </Grid>{" "}
+                style={
+                  {
+                    // border: "2px solid orange",
+                  }
+                }
+              />
+            </Grid>
           </Grid>
           <Grid
             item
             style={{
               width: matchesXS ? "80%" : "20em",
+              // border: "2px solid orange",
             }}
           >
             <TextField
@@ -349,9 +415,9 @@ export default function CreateGitListing(props) {
                 align="center"
                 onClick={() => setOpen(false)}
               >
-                Cancel{" "}
-              </Button>{" "}
-            </Grid>{" "}
+                Cancel
+              </Button>
+            </Grid>
             <Grid item>
               <Button
                 disabled={description.length === 0 || titleHelper === 0}
@@ -363,13 +429,12 @@ export default function CreateGitListing(props) {
                 className={classes.sendButton}
                 onClick={createGitPost}
               >
-                Confirm Post{" "}
-              </Button>{" "}
-              {} {/* {isCreated && <Redirect to="/" />} */}{" "}
-            </Grid>{" "}
-          </Grid>{" "}
-        </DialogContent>{" "}
-      </Dialog>{" "}
+                Confirm Post
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 }
