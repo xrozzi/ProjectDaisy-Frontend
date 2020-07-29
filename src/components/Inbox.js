@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import ConversationList from "./ConversationList";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -13,6 +15,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+import CreateIcon from "@material-ui/icons/Create";
 import Avatar from "react-avatar";
 import MessageIcon from "@material-ui/icons/Message";
 import localApi from "../apis/localapi.js";
@@ -23,6 +26,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
   table: {
@@ -35,12 +40,18 @@ const useStyles = makeStyles({
   headBG: {
     backgroundColor: "#e0e0e0",
   },
-  borderRight500: {
+  userSidePanel: {
     borderRight: "1px solid #e0e0e0",
   },
   messageArea: {
     height: "70vh",
     overflowY: "auto",
+  },
+  textBubble: {
+    color: "black",
+    backgroundColor: "#F4F4F8",
+    borderRadius: "15px",
+    width: "20em",
   },
 });
 
@@ -66,13 +77,33 @@ const Inbox = () => {
   };
 
   useEffect(() => {
+    if (currentMessages) {
+      const tempConversationId = currentConversation;
+      setTimeout(() => {
+        localApi
+          .get(`/messages?conversation_id=${currentConversation}`, {})
+          .then((res) => {
+            if (tempConversationId === currentConversation) {
+              setCurrentMessages(res.data);
+              console.log(res.data);
+            }
+          });
+      }, 3000);
+    }
+  }, [currentMessages]);
+
+  const getMessages = () => {
+    localApi
+      .get(`/messages?conversation_id=${currentConversation}`, {})
+      .then((res) => {
+        setCurrentMessages(res.data);
+        console.log(res.data);
+      });
+  };
+
+  useEffect(() => {
     if (currentConversation) {
-      localApi
-        .get(`/messages?conversation_id=${currentConversation}`, {})
-        .then((res) => {
-          setCurrentMessages(res.data);
-          console.log(res.data);
-        });
+      getMessages();
     }
   }, [currentConversation]);
 
@@ -99,7 +130,11 @@ const Inbox = () => {
           text,
         },
       })
-      .then(() => setIsCreated(true))
+      .then((res) => {
+        setCurrentMessages([...currentMessages, res.data]);
+
+        setIsCreated(true);
+      })
       .catch(() => setErrorMessage(""));
   }
 
@@ -107,10 +142,25 @@ const Inbox = () => {
   return (
     <div>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item>
+          <Button
+            color="secondary"
+            onClick={() => {}}
+            variant="outlined"
+            component={Link}
+            to={{ pathname: `/Profile` }}
+          >
+            <ArrowBackIosIcon />
+          </Button>
+        </Grid>
+        <Grid item xs={12}></Grid>
+      </Grid>
+      <Grid container component={Paper} className={classes.chatSection}>
+        <Grid item xs={3} className={classes.userSidePanel}>
+          {/* INPUT CREATEINBOX MSG */}
           <Typography variant="h5" className="header-message">
             <Button color="secondary" align="center" onClick={handleClickOpen}>
-              <MessageIcon />
+              Write a message <CreateIcon />
             </Button>
             <Dialog
               open={open}
@@ -146,21 +196,17 @@ const Inbox = () => {
                 <Button onClick={handleClose} color="secondary">
                   Cancel
                 </Button>
+
                 <Button onClick={createConversation} color="secondary">
                   Send Message
                 </Button>
               </DialogActions>
             </Dialog>
-            Chat
           </Typography>
-        </Grid>
-      </Grid>
-      <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item xs={3} className={classes.borderRight500}>
-          iiii
           <Divider />
           <ConversationList
             onSelectConversation={(id) => {
+              setCurrentMessages([]);
               setCurrentConversation(id);
             }}
           />
@@ -169,47 +215,27 @@ const Inbox = () => {
         {currentConversation && (
           <Grid item xs={9}>
             <List className={classes.messageArea}>
-              <ListItem key="1">
+              <ListItem button key="1">
                 <Grid container>
-                  {currentMessages.map((message) => {
-                    return (
-                      <Grid item xs={12}>
-                        <ListItemText
-                          align="right"
-                          primary={message.text}
-                        ></ListItemText>
-                      </Grid>
-                    );
-                  })}
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      primary="Hey girl!"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      secondary="09:30"
-                    ></ListItemText>
+                  <Grid
+                    container
+                    component={Paper}
+                    className={classes.chatSection}
+                  >
+                    {currentMessages.map((message) => {
+                      return (
+                        <Grid item xs={12}>
+                          <ListItemText
+                            className={classes.textBubble}
+                            align="center"
+                            primary={message.text}
+                            secondary={message.created_at}
+                          ></ListItemText>
+                        </Grid>
+                      );
+                    })}
                   </Grid>
                 </Grid>
-              </ListItem>
-              <ListItem key="2">
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="left"
-                    // primary="Wanna collab?"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText align="left" secondary="04:21"></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem key="3">
-                <Grid container></Grid>
               </ListItem>
             </List>
             <Divider />
@@ -225,7 +251,7 @@ const Inbox = () => {
               <Grid xs={1} align="right">
                 <Fab color="primary" aria-label="add">
                   <Button
-                    color="primary"
+                    color="secondary"
                     align="center"
                     onClick={createMessage}
                   >
