@@ -70,19 +70,16 @@ export default function LogIn({ onLogin, loggedIn }) {
   async function getToken(e) {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `https://projectdaisy.herokuapp.com/user_token`,
-        {
-          auth: {
-            email: formData.email,
-            password: formData.password,
-          },
-        }
-      );
-      onLogin(res.data.jwt);
-    } catch (e) {
-      console.error(e);
-      setOpen(true);
+      const res = await axios.post(`https://projectdaisy.herokuapp.com/user_token`, {
+      auth: {
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    onLogin(res.data.jwt);
+    } catch(e) {
+      console.error(e)
+      setOpen(true)
     }
   }
   // redirects the user if they are logged in

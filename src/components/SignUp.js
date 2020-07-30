@@ -100,6 +100,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     if (!validateFields()) {
       return;
     }
+
     const response = await axios.post(
       `https://projectdaisy.herokuapp.com/users`,
       {
@@ -111,15 +112,22 @@ export default function SignUp({ loggedIn, onLogin }) {
         },
       }
     );
-    const res = await axios.post(
-      `https://projectdaisy.herokuapp.com/user_token`,
-      {
-        auth: {
-          email: formData.email,
-          password: formData.password,
-        },
-      }
-    );
+
+    const response = await axios.post(`https://projectdaisy.herokuapp.com/users`, {
+      user: {
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+    const res = await axios.post(`https://projectdaisy.herokuapp.com/user_token`, {
+      auth: {
+        email: formData.email,
+        password: formData.password,
+      },
+    });
+
     console.log("response", res);
     onLogin(res.data.jwt);
   }
