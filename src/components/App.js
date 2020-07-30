@@ -44,7 +44,7 @@ function App() {
 
   // TEST
 
- 
+
 
   // TEST
 
@@ -130,7 +130,7 @@ function App() {
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
           />
-          <Route exact path="/userProfile" component={UserProfile} />
+          <Route exact path="/Profile" component={UserProfile} />
           <Route
             exact
             path="/users/:id"
