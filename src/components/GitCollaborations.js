@@ -27,6 +27,7 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+
 // Styles for Page
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -123,7 +124,7 @@ export default function GitCollaborations() {
             direction="row"
             alignItems="center"
             justify="center"
-            // style={{ minHeight: "20vh" }}
+          // style={{ minHeight: "20vh" }}
           >
             <Grid alignItems="center" item xs={12} sm={9} md={10} lg={10}>
               <Paper className={classes.paper}>
