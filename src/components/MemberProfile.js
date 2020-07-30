@@ -76,74 +76,80 @@ const MemberProfile = (props) => {
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
+  const [isCreated, setIsCreated] = useState(false);
 
   useEffect(() => {
     localApi.get(`/users/${props.userId}`).then((response) => {
       setUser(response.data);
+      console.log(response.data.id);
     });
   }, []);
 
-  function renderMemberCollabs() {
-    console.log(user.git_collaborations);
-    const memberCollabs = user.git_collaborations;
-    return memberCollabs.map((collab, index) => {
-      return (
-        <div key={index}>
-          <div>{collab.title}</div>
-          <div>{collab.description}</div>
-        </div>
-      );
-    });
+  function sendMessageToUser() {
+    localApi
+      .post(`/conversations`, {
+        conversation: {
+          title: `Git Collab with${user.email}`,
+          reciever_email: user.email,
+        },
+      })
+      .then((res) => {
+        setIsCreated(true);
+        window.location = "/Inbox";
+      })
+      .catch(() => setErrorMessage("The convo was not created"));
   }
 
   return (
     <div>
-      {user && (
-        <div>
-          <Grid container spacing={2}>
-            <Grid item xs={2} className={classes.sidebar}>
-              <br />
-              <Avatar
-                alt="Member profile picture"
-                src={"/static/images/avatar/1.jpg" && user.image}
-              />
-              <h3> {user.firstname} </h3>
+      <Grid container spacing={2}>
+        <Grid item xs={2} className={classes.sidebar}>
+          <br />
+          <Avatar alt="/static/images/avatar/1.jpg" src={user.image} />
+          <h3> {user.firstname} </h3>
 
-              {user && <div> {user.email} </div>}
-              <br />
-              <div>Short description</div>
-            </Grid>
+          {user && <div> {user.email}</div>}
+          <br />
+          <div>Short description</div>
+          <Button
+            variant="contained"
+            color="primary"
+            id="convostarte"
+            id="msgbutton"
+            onClick={sendMessageToUser}
+          >
+            Send Conversation Starter
+          </Button>
+        </Grid>
 
-            <Grid item xs={3} className={classes.skills}>
-              <div align="center">Skills</div>
-              <br />
-              <Rating
-                name="hover-feedback"
-                value={value}
-                precision={0.5}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-                onChangeActive={(event, newHover) => {
-                  setHover(newHover);
-                }}
-              />
-              {value !== null && (
-                <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
-              )}
-            </Grid>
-            <Grid item xs={2} className={classes.skills}>
-              <div>Blogs posted</div>
-            </Grid>
-            <Grid item xs={4} className={classes.gitCollab}>
-              <div>Git collaborations</div>
-              <div>{renderMemberCollabs()}</div>
-            </Grid>
-          </Grid>
-        </div>
-      )}
+        <Grid item xs={3} className={classes.skills}>
+          <div align="center">Skills</div>
+          <br />
+          <Rating
+            name="hover-feedback"
+            value={value}
+            precision={0.5}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            onChangeActive={(event, newHover) => {
+              setHover(newHover);
+            }}
+          />
+          {value !== null && (
+            <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
+          )}
+        </Grid>
+        <Grid item xs={2} className={classes.skills}>
+          <div>Blogs posted</div>
+        </Grid>
+        <Grid item xs={4} className={classes.gitCollab}>
+          <div>Git collaborations</div>
+        </Grid>
+      </Grid>
     </div>
   );
 };
