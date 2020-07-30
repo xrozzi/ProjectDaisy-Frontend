@@ -15,4 +15,3 @@ it("completes git listing", () => {
 it("confirms git listing", () => {
   cy.get("[type='confirm']").click();
 });
-s;

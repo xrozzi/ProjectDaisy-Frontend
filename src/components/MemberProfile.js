@@ -15,6 +15,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import localApi from "../apis/localapi";
+import { useTheme } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -75,14 +76,32 @@ const MemberProfile = (props) => {
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [user, setUser] = useState([]);
+  const [isCreated, setIsCreated] = useState(false);
 
   useEffect(() => {
     localApi.get(`/users/${props.userId}`).then((response) => {
       setUser(response.data);
+      console.log(response.data.id);
     });
   }, []);
+
+  function sendMessageToUser() {
+    localApi
+      .post(`/conversations`, {
+        conversation: {
+          title: `Git Collab with${user.email}`,
+          reciever_email: user.email,
+        },
+      })
+      .then((res) => {
+        setIsCreated(true);
+        window.location = "/Inbox";
+      })
+      .catch(() => setErrorMessage("The convo was not created"));
+  }
 
   return (
     <div>
@@ -92,9 +111,18 @@ const MemberProfile = (props) => {
           <Avatar alt="/static/images/avatar/1.jpg" src={user.image} />
           <h3> {user.firstname} </h3>
 
-          {user && <div> {user.email} </div>}
+          {user && <div> {user.email}</div>}
           <br />
           <div>Short description</div>
+          <Button
+            variant="contained"
+            color="primary"
+            id="convostarter"
+            id="msgbutton"
+            onClick={sendMessageToUser}
+          >
+            Send Conversation Starter
+          </Button>
         </Grid>
 
         <Grid item xs={3} className={classes.skills}>
