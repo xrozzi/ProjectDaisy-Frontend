@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,9 +11,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect } from "react-router-dom";
+
 import axios from "axios";
 
+// styles for the page
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// validates the email for the user
 const emailValidator = (email) =>
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
     email
@@ -51,13 +55,14 @@ const fields = ["email", "password", "firstname", "lastname"];
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
   //const [isFormValid, setFormValid] = useState(false)
+  // sets the form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     firstname: "",
     lastname: "",
   });
-
+  // sets the validation data
   const [validationData, setValidationData] = useState({
     email: true,
     password: true,
@@ -65,6 +70,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     lastname: true,
   });
 
+  // function to validate the form data
   const validateFields = () => {
     const validationResult = fields.reduce(
       (acc, val) => ({ ...acc, [val]: validationMethods[val](formData[val]) }),
@@ -73,7 +79,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     setValidationData(validationResult);
     return Object.values(validationResult).every((res) => res);
   };
-
+  // sets value target for handling input change
   const handleFormInputChange = (e) => {
     setFormData({
       ...formData,
@@ -87,29 +93,35 @@ export default function SignUp({ loggedIn, onLogin }) {
     }
   };
 
+  // method to send post request when user signs up, takes thier firstname, lastname, email and password
   async function handleSignUp(e) {
     e.preventDefault();
 
     if (!validateFields()) {
       return;
     }
-    const response = await axios.post(`https://projectdaisy.herokuapp.com/users`, {
-      user: {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        email: formData.email,
-        password: formData.password,
-      },
-    });
-    const res = await axios.post(`https://projectdaisy.herokuapp.com/user_token`, {
-      auth: {
-        email: formData.email,
-        password: formData.password,
-      },
-    });
+    const response = await axios.post(
+      `https://projectdaisy.herokuapp.com/users`,
+      {
+        user: {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          email: formData.email,
+          password: formData.password,
+        },
+      }
+    );
+    const res = await axios.post(
+      `https://projectdaisy.herokuapp.com/user_token`,
+      {
+        auth: {
+          email: formData.email,
+          password: formData.password,
+        },
+      }
+    );
     console.log("response", res);
     onLogin(res.data.jwt);
-    // }
   }
 
   if (loggedIn) {

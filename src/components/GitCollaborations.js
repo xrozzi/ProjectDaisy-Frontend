@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link, useHistroy, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import searchIcon from "../assets/icons/searchIcon.png";
 
 import localapi from "../apis/localapi";
 
 import { makeStyles, useTheme } from "@material-ui/styles";
-import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
 import CardHeader from "@material-ui/core/CardHeader";
@@ -17,14 +15,9 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
 
 import Paper from "@material-ui/core/Paper";
 import PersonIcon from "@material-ui/icons/Person";
-import ContactMailIcon from "@material-ui/icons/ContactMail";
-import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 // Styles for Page
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GitCollaborations() {
   const [listings, setListings] = useState([]);
-  const [userUrlId, setUserUrlId] = useState();
 
   const classes = useStyles();
 
@@ -78,6 +70,7 @@ export default function GitCollaborations() {
     });
   }, []);
 
+  // Returns the git collabs in a list
   return (
     <>
       <Grid
@@ -118,7 +111,6 @@ export default function GitCollaborations() {
             direction="row"
             alignItems="center"
             justify="center"
-            // style={{ minHeight: "20vh" }}
           >
             <Grid alignItems="center" item xs={12} sm={9} md={10} lg={10}>
               <Paper className={classes.paper}>
@@ -153,8 +145,6 @@ export default function GitCollaborations() {
                     >
                       Go To User {listing.user_id} profile
                     </Button>
-
-                    {/* <Link to={`/users/${listing.user_id}`}>View Profile</Link> */}
                   </IconButton>
                 </CardActions>
               </Paper>

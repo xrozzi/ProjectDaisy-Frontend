@@ -24,6 +24,7 @@ import Popper from "@material-ui/core/Popper";
 import MenuList from "@material-ui/core/MenuList";
 import logo from "../../assets/logo.svg";
 
+// function for elevation scroll material-ui
 function ElevationScroll(props) {
   const { children } = props;
 
@@ -36,6 +37,7 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0,
   });
 }
+//styles for the header
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
@@ -134,16 +136,13 @@ export default function Header(props) {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  // handles the change of the page size being altered
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
+  // opens the hamburger bar
   const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
-    setOpenMenu(true);
-  };
-
-  const userClick = (e) => {
     setAnchorEl(e.currentTarget);
     setOpenMenu(true);
   };
@@ -153,19 +152,20 @@ export default function Header(props) {
     setOpenMenu(false);
     setSelectedIndex(i);
   };
-
+  // handles the close of the navbar
   const handleClose = (e) => {
     setAnchorEl(null);
     setOpenMenu(false);
   };
 
+  // handles when mouse isnt on drop down menu
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
       setOpenDrawer(false);
     }
   }
-
+  // declares all the menu options and their respected index
   const menuOptions = [
     {
       name: "Git Collaborations",
@@ -186,7 +186,7 @@ export default function Header(props) {
       selectedIndex: 2,
     },
   ];
-
+  // the routes and how the mouse moves the git collabs menu down
   const routes = [
     { name: "Home", link: "/", activeIndex: 0 },
     {
@@ -202,6 +202,7 @@ export default function Header(props) {
     // { name: "Meetups", link: "/Meetups", activeIndex: 3 },
   ];
 
+  // renders out the routes and their links
   useEffect(() => {
     [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
@@ -257,7 +258,8 @@ export default function Header(props) {
           </Button>
         </Link>
       )}
-
+      {/*  // handles popping out the hamburger menu from the left side
+       */}
       <Popper
         open={openMenu}
         anchorEl={anchorEl}

@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import { useTheme } from "@material-ui/styles";
 
 import localApi from "../apis/localapi";
 
+// styles for the user profile page
 const useStyles = makeStyles((theme) => ({
   containers: {
     borderRadius: "3em",
@@ -37,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// labels for the star system
 const labels = {
   1: "Complete Beginner",
   2: "Beginner",
@@ -46,28 +43,31 @@ const labels = {
 };
 
 const UserProfile = () => {
+  const theme = useTheme();
+
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState({});
   const [userCollabs, setUserCollabs] = useState([]);
-  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
+  //sends a get reauest for the current users data
   useEffect(() => {
     localApi.get("/myprofile").then((response) => {
       setCurrentUser(response.data);
     });
   }, []);
 
+  // renders the users current collabs
   useEffect(() => {
     localApi.get("/usercollabs").then((response) => {
       setUserCollabs(response.data);
       console.log(response.data);
     });
   }, []);
-
+  // maps out their git collabs on the screen
   const renderGitCollabs = userCollabs.map((collab, index) => {
     return (
       <div key={index}>

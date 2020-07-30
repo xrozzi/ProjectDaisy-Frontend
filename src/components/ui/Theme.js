@@ -1,5 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
+// theme for the whole entire site using material-ui
+
 const arcPurple = "#E6E1FB";
 const arcOrange = "#9330C6";
 
