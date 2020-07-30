@@ -1,7 +1,12 @@
 import axios from "axios"
+let baseURL = "https://projectdaisy.herokuapp.com/"
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    baseURL = "http://localhost:3000/"
+} 
 
 const localApi = axios.create({
-    baseURL: "http://localhost:3000/"
+    baseURL
 })
 
 localApi.interceptors.request.use((request) => {

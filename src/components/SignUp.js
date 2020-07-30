@@ -90,7 +90,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     if (!validateFields()) {
       return
     }
-    const response = await axios.post(`http://localhost:3000/users`, {
+    const response = await axios.post(`https://projectdaisy.herokuapp.com/users`, {
       user: {
         firstname: formData.firstname,
         lastname: formData.lastname,
@@ -98,7 +98,7 @@ export default function SignUp({ loggedIn, onLogin }) {
         password: formData.password,
       },
     });
-    const res = await axios.post(`http://localhost:3000/user_token`, {
+    const res = await axios.post(`https://projectdaisy.herokuapp.com/user_token`, {
       auth: {
         email: formData.email,
         password: formData.password,

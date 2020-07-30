@@ -70,7 +70,7 @@ export default function LogIn({ onLogin, loggedIn }) {
   async function getToken(e) {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:3000/user_token`, {
+      const res = await axios.post(`https://projectdaisy.herokuapp.com/user_token`, {
       auth: {
         email: formData.email,
         password: formData.password,
