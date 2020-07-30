@@ -12,4 +12,8 @@ it("does a signup", () => {
   cy.get("[type='submit']").click();
 
   cy.url().should("eq", "http://localhost:3001/CreateGitListing");
+
+  cy.get("[type='hamburger']").click();
+
+  cy.get("#hambugerlogout").click();
 });
