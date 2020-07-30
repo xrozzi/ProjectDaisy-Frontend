@@ -221,8 +221,17 @@ const UserProfile = () => {
                     Git Collaborations
                   </h1>
                 </div>
-
-
+                <div>
+                  <Button
+                    component={Link}
+                    to={`/CreateGitListing`}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Create New Listing
+            </Button>
+                </div>
+                <br />
                 <div>
                   {renderGitCollabs}
                 </div>
