@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+// import UserSearchBar from "./UserSearchBar";
 import ConversationList from "./ConversationList";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -145,9 +145,7 @@ const Inbox = () => {
         <Grid item>
           <Button
             color="secondary"
-
             onClick={() => {}}
-
             variant="outlined"
             component={Link}
             to={{ pathname: `/Profile` }}
@@ -159,13 +157,13 @@ const Inbox = () => {
       </Grid>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={3} className={classes.userSidePanel}>
-
           {/* INPUT CREATEINBOX MSG */}
 
           <Typography variant="h5" className="header-message">
             <Button color="secondary" align="center" onClick={handleClickOpen}>
               Write a message <CreateIcon />
             </Button>
+
             <Dialog
               open={open}
               onClose={handleClose}
@@ -177,6 +175,8 @@ const Inbox = () => {
                   Find a user to message and then write in a title
                 </DialogContentText>
 
+                {/* <UserSearchBar /> */}
+
                 <TextField
                   autoFocus
                   margin="dense"
@@ -185,7 +185,9 @@ const Inbox = () => {
                   onChange={(e) => setRecieverEmail(e.target.value)}
                   type="text"
                   fullWidth
+                  autoComplete
                 />
+
                 <TextField
                   autoFocus
                   margin="dense"
@@ -274,4 +276,3 @@ const Inbox = () => {
 };
 
 export default Inbox;
-

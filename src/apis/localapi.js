@@ -1,20 +1,17 @@
-import axios from "axios"
+import axios from "axios";
 
 const localApi = axios.create({
-    baseURL: "http://localhost:3000/"
-})
+  baseURL: "http://localhost:3000/",
+});
 
 localApi.interceptors.request.use((request) => {
+  const { token } = localStorage;
 
-    const {
-        token
-    } = localStorage
+  if (token) {
+    request.headers["Authorization"] = `Bearer ${token}`;
+  }
 
-    if (token) {
-        request.headers["Authorization"] = `Bearer ${token}`;
-    }
+  return request;
+});
 
-    return request
-})
-
-export default localApi
+export default localApi;
