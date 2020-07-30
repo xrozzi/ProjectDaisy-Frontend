@@ -10,6 +10,7 @@ export default class NewItemForm extends React.Component {
     image: {},
   };
 
+  // sets a target for image file
   onChange = (event) => {
     event.persist();
     this.setState(() => {
@@ -19,6 +20,7 @@ export default class NewItemForm extends React.Component {
     });
   };
 
+  // post request for image
   onSubmit = (event) => {
     event.preventDefault();
 
@@ -29,6 +31,7 @@ export default class NewItemForm extends React.Component {
 
     localApi.post(`/images`, formData);
   };
+  // returns image and submits
   render() {
     return (
       <div className="form">

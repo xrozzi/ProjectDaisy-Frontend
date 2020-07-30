@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -10,13 +9,14 @@ import Avatar from "@material-ui/core/Avatar";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import localApi from "../apis/localapi";
 import { useTheme } from "@material-ui/styles";
 
+import localApi from "../apis/localapi";
+
+// styles for member profile
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "grid",
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// labels for star system
 const labels = {
   // 0.5: 'Complete Beginner',
   1: "Complete Beginner+",
@@ -73,14 +74,17 @@ const labels = {
 
 const MemberProfile = (props) => {
   const classes = useStyles();
+
+  // set state for the users data
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const [currentUser, setCurrentUser] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-
   const [user, setUser] = useState([]);
+
+  const [errorMessage, setErrorMessage] = useState("");
   const [isCreated, setIsCreated] = useState(false);
 
+  // get request for the id of user from the dynamic route and renders their info
   useEffect(() => {
     localApi.get(`/users/${props.userId}`).then((response) => {
       setUser(response.data);
@@ -88,6 +92,7 @@ const MemberProfile = (props) => {
     });
   }, []);
 
+  // function to create a conversation with the user
   function sendMessageToUser() {
     localApi
       .post(`/conversations`, {
@@ -102,7 +107,7 @@ const MemberProfile = (props) => {
       })
       .catch(() => setErrorMessage("The convo was not created"));
   }
-
+  // renders out the user data
   return (
     <div>
       <Grid container spacing={2}>

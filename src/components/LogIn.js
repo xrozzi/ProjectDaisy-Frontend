@@ -13,16 +13,15 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-
+// styles for signup page
 const useStyles = makeStyles((theme) => ({
- 
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -42,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
+// functions
 export default function LogIn({ onLogin, loggedIn }) {
   const classes = useStyles();
+
+  //creates a piece of state for the form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -53,7 +53,7 @@ export default function LogIn({ onLogin, loggedIn }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -66,7 +66,7 @@ export default function LogIn({ onLogin, loggedIn }) {
       [e.target.name]: e.target.value,
     });
   };
-
+  // axios post request for the user token, stores the email and password
   async function getToken(e) {
     e.preventDefault();
     try {
@@ -81,13 +81,12 @@ export default function LogIn({ onLogin, loggedIn }) {
       console.error(e)
       setOpen(true)
     }
-    
   }
-
+  // redirects the user if they are logged in
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
-  } 
-
+  }
+  // form
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -146,7 +145,7 @@ export default function LogIn({ onLogin, loggedIn }) {
           <Grid container>
             <Grid item>
               <Link href="../signup" color="#4F7CAC">
-                { "Don't have an account? Sign Up"}
+                {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
@@ -157,7 +156,6 @@ export default function LogIn({ onLogin, loggedIn }) {
           Invalid password or email
         </Alert>
       </Snackbar>
-      
     </Container>
   );
 }

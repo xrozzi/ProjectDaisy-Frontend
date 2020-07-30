@@ -3,16 +3,15 @@ import Banner from "./Banner";
 import Features from "./Features";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Background from "../../assets/img/backgroundImage.jpg";
 
+// styles used
 const useStyles = makeStyles((theme) => ({
   homepageBanner: {
-    // border: "2px solid green",
-
     backgroundColor: "#FDFDFD",
   },
 }));
 
+// renders out home page
 function Homepage() {
   const classes = useStyles();
   const theme = useTheme();

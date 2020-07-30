@@ -12,18 +12,17 @@ import UserProfile from "./UserProfile";
 import MemberProfile from "./MemberProfile";
 import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import localApi from "../apis/localapi";
 
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CreateGitListing from "./CreateGitListing";
 import GitCollaborations from "./GitCollaborations";
-import UserSearchBar from "./UserSearchBar";
+// import UserSearchBar from "./UserSearchBar";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
 
+  // Use Effect to load local storage token for user to stay logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -31,21 +30,20 @@ function App() {
     }
   }, []);
 
+  // handling of user auth
   const handleAuth = (token) => {
     localStorage.setItem("token", token);
     console.log("Auth runs", token);
     setUserToken(token);
   };
 
+  // handles logout
   const handleLogout = () => {
     setUserToken(null);
     localStorage.removeItem("token");
   };
 
-  // TEST
-
-  // TEST
-
+  // Routing of website
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -60,6 +58,7 @@ function App() {
               </div>
             )}
           />
+
           <Route
             exact
             path="/GitCollaborations"
@@ -68,11 +67,6 @@ function App() {
                 <GitCollaborations />
               </div>
             )}
-          />
-          <Route
-            exact
-            path="/Forum"
-            component={() => <div>{/* <ViewForums /> */}</div>}
           />
 
           <Route
@@ -85,17 +79,8 @@ function App() {
             )}
           />
 
-          <Route exact path="/Meetups" component={() => <div>Meetups</div>} />
-          <Route
-            exact
-            path="/searchbar"
-            component={() => (
-              <div>
-                <UserSearchBar />
-              </div>
-            )}
-          />
           <Route exact path="/Inbox" component={() => <div>Inbox</div>} />
+
           <Route
             exact
             path="/Login"
@@ -103,6 +88,7 @@ function App() {
               <LogIn loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
+
           <Route
             exact
             path="/SignUp"
@@ -110,6 +96,7 @@ function App() {
               <SignUp {...props} loggedIn={userToken} onLogin={handleAuth} />
             )}
           />
+
           <Route
             exact
             path="/Images"
@@ -119,15 +106,19 @@ function App() {
               </div>
             )}
           />
+
           <PrivateRoute exact path="/CreateGitListing">
             <CreateGitListing />
           </PrivateRoute>
+
           <Route
             exact
             path="/AboutGitCollabs"
             component={() => <div>What is a Git Collab?</div>}
           />
+
           <Route exact path="/Profile" component={UserProfile} />
+
           <Route
             exact
             path="/users/:id"
