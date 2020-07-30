@@ -40,6 +40,7 @@ const ConversationList = ({ onSelectConversation }) => {
         // <Grid item xs={12} style={{ padding: "10px" }}>
         <List>
           <ListItem
+            id="conversationId"
             button
             onClick={() => {
               onSelectConversation(conversation.id);
