@@ -180,7 +180,7 @@ export default function CreateGitListing(props) {
                 to="/AboutGitCollabs"
                 variant="outlined"
                 className={classes.learnButton}
-                // onClick={Redirect to='/AboutGitCollabs'}
+              // onClick={Redirect to='/AboutGitCollabs'}
               >
                 <span
                   style={{
@@ -188,6 +188,22 @@ export default function CreateGitListing(props) {
                   }}
                 >
                   Learn More
+                </span>
+              </Button>
+
+              <Button
+                component={Link}
+                to="/GitCollaborations"
+                variant="outlined"
+                className={classes.learnButton}
+              // onClick={Redirect to='/AboutGitCollabs'}
+              >
+                <span
+                  style={{
+                    marginRight: 10,
+                  }}
+                >
+                  Current Git Collaborations
                 </span>
               </Button>
             </Grid>
