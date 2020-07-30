@@ -80,7 +80,7 @@ const MemberProfile = (props) => {
     const [hover, setHover] = React.useState(-1);
     const [currentUser, setCurrentUser] = useState(null)
 
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         localApi.get(`/users/${props.userId}`)
@@ -89,59 +89,80 @@ const MemberProfile = (props) => {
             })
     }, [])
 
+    function renderMemberCollabs() {
+        console.log(user.git_collaborations)
+        const memberCollabs = user.git_collaborations
+        return memberCollabs.map((collab, index) => {
+            return (
+                <div key={index}>
+                    <div>{collab.title}</div>
+                    <div>{collab.description}</div>
+                </div>
+
+            )
+        })
+    }
+
     return (
 
         <div>
+            {user && (
 
-            <Grid container spacing={2}>
+                <div>
+                    <Grid container spacing={2}>
+                        <Grid item xs={2} className={classes.sidebar}>
+                            <br />
+                            <Avatar alt="Member profile picture" src={"/static/images/avatar/1.jpg" && user.image} />
+                            <h3> {user.firstname} </h3>
 
+                            {user && <div> {user.email} </div>}
+                            <br />
+                            <div>Short description</div>
 
-                <Grid item xs={2} className={classes.sidebar}>
-                    <br />
-                    <Avatar alt="Member profile picture" src={"/static/images/avatar/1.jpg" && user.image} />
-                    <h3> {user.firstname} </h3>
+                        </Grid>
 
-                    {user && <div> {user.email} </div>}
-                    <br />
-                    <div>Short description</div>
-
-                </Grid>
-
-                <Grid item xs={3} className={classes.skills}>
-                    <div align="center">
-                        Skills
+                        <Grid item xs={3} className={classes.skills}>
+                            <div align="center">
+                                Skills
                         </div>
-                    <br />
-                    <Rating
-                        name="hover-feedback"
-                        value={value}
-                        precision={0.5}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                            setHover(newHover);
-                        }}
-                    />
-                    {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                            <br />
+                            <Rating
+                                name="hover-feedback"
+                                value={value}
+                                precision={0.5}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                                onChangeActive={(event, newHover) => {
+                                    setHover(newHover);
+                                }}
+                            />
+                            {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
 
 
 
 
-                </Grid>
-                <Grid item xs={2} className={classes.skills} >
+                        </Grid>
+                        <Grid item xs={2} className={classes.skills} >
 
-                    <div>
-                        Blogs posted
+                            <div>
+                                Blogs posted
                     </div>
-                </Grid>
-                <Grid item xs={4} className={classes.gitCollab}>
-                    <div>
-                        Git collaborations
+                        </Grid>
+                        <Grid item xs={4} className={classes.gitCollab}>
+                            <div>
+                                Git collaborations
                     </div>
-                </Grid>
-            </Grid>
+                            <div>
+                                {renderMemberCollabs()}
+                            </div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+            )}
+
 
 
         </div>
