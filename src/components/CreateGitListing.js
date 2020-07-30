@@ -119,7 +119,10 @@ export default function CreateGitListing(props) {
           description,
         },
       })
-      .then(() => setIsCreated(true))
+      .then(() => {
+        setIsCreated(true);
+        window.location = "/GitCollaborations";
+      })
       .catch(() => setErrorMessage("The post was not created"));
   }
 
