@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistroy, Redirect } from "react-router-dom";
@@ -68,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     width: "10em",
   },
 }));
-
 
 export default function GitCollaborations() {
   const [listings, setListings] = useState([]);
@@ -154,6 +152,7 @@ export default function GitCollaborations() {
                       to={`/users/${listing.user_id}`}
                       variant="contained"
                       color="primary"
+                      id="userProfileButton"
                     >
                       Go To User {listing.user_id} profile
                     </Button>
