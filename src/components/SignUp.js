@@ -32,18 +32,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const emailValidator = (email) => /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-const passwordValidator = (password) => password.length >= 8
-const nonEmptyValidator = (field) => !!field.length
+const emailValidator = (email) =>
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    email
+  );
+const passwordValidator = (password) => password.length >= 8;
+const nonEmptyValidator = (field) => !!field.length;
 
 const validationMethods = {
   email: emailValidator,
   password: passwordValidator,
   firstname: nonEmptyValidator,
-  lastname: nonEmptyValidator
-}
+  lastname: nonEmptyValidator,
+};
 
-const fields = ['email', 'password', 'firstname', 'lastname']
+const fields = ["email", "password", "firstname", "lastname"];
 
 export default function SignUp({ loggedIn, onLogin }) {
   const classes = useStyles();
@@ -52,24 +55,24 @@ export default function SignUp({ loggedIn, onLogin }) {
     email: "",
     password: "",
     firstname: "",
-    lastname: ""
+    lastname: "",
   });
 
   const [validationData, setValidationData] = useState({
     email: true,
     password: true,
     firstname: true,
-    lastname: true
-
-  })
+    lastname: true,
+  });
 
   const validateFields = () => {
-    const validationResult = fields.reduce((acc, val) => (
-      { ...acc, [val]: validationMethods[val](formData[val]) }
-    ), {})
-    setValidationData(validationResult)
-    return Object.values(validationResult).every(res => res)
-  }
+    const validationResult = fields.reduce(
+      (acc, val) => ({ ...acc, [val]: validationMethods[val](formData[val]) }),
+      {}
+    );
+    setValidationData(validationResult);
+    return Object.values(validationResult).every((res) => res);
+  };
 
   const handleFormInputChange = (e) => {
     setFormData({
@@ -79,8 +82,8 @@ export default function SignUp({ loggedIn, onLogin }) {
     if (!validationData[e.target.name]) {
       setValidationData({
         ...validationData,
-        [e.target.name]: true
-      })
+        [e.target.name]: true,
+      });
     }
   };
 
@@ -88,7 +91,7 @@ export default function SignUp({ loggedIn, onLogin }) {
     e.preventDefault();
 
     if (!validateFields()) {
-      return
+      return;
     }
     const response = await axios.post(`https://projectdaisy.herokuapp.com/users`, {
       user: {
@@ -108,7 +111,6 @@ export default function SignUp({ loggedIn, onLogin }) {
     onLogin(res.data.jwt);
     // }
   }
-
 
   if (loggedIn) {
     return <Redirect to="/CreateGitListing" />;
@@ -134,12 +136,11 @@ export default function SignUp({ loggedIn, onLogin }) {
                 required
                 fullWidth
                 id="firstname"
+                type="firstName"
                 label="First Name"
-
                 onChange={handleFormInputChange}
                 value={formData.firstName}
                 autoFocus
-
                 error={!validationData.firstname}
                 helperText={!validationData.firstname && "Must not be empty"}
               />
@@ -152,9 +153,9 @@ export default function SignUp({ loggedIn, onLogin }) {
                 id="lastname"
                 label="Last Name"
                 name="lastname"
+                type="lastName"
                 autoComplete="lname"
                 onChange={handleFormInputChange}
-
                 value={formData.lastname}
                 error={!validationData.lastname}
                 helperText={!validationData.lastname && "Must not be empty"}
@@ -166,6 +167,7 @@ export default function SignUp({ loggedIn, onLogin }) {
                 required
                 fullWidth
                 id="email"
+                type="email"
                 label="Email Address"
                 name="email"
                 error={!validationData.email}
@@ -185,7 +187,10 @@ export default function SignUp({ loggedIn, onLogin }) {
                 type="password"
                 id="password"
                 error={!validationData.password}
-                helperText={!validationData.password && "Password must be at least 8 characters"}
+                helperText={
+                  !validationData.password &&
+                  "Password must be at least 8 characters"
+                }
                 autoComplete="current-password"
                 onChange={handleFormInputChange}
                 value={formData.password}
@@ -211,7 +216,6 @@ export default function SignUp({ loggedIn, onLogin }) {
           </Grid>
         </form>
       </div>
-  
     </Container>
   );
 }

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistroy, Redirect } from "react-router-dom";
@@ -26,6 +25,7 @@ import ContactMailIcon from "@material-ui/icons/ContactMail";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 
 // Styles for Page
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
     width: "10em",
   },
 }));
-
 
 export default function GitCollaborations() {
   const [listings, setListings] = useState([]);
@@ -123,7 +122,7 @@ export default function GitCollaborations() {
             direction="row"
             alignItems="center"
             justify="center"
-            // style={{ minHeight: "20vh" }}
+          // style={{ minHeight: "20vh" }}
           >
             <Grid alignItems="center" item xs={12} sm={9} md={10} lg={10}>
               <Paper className={classes.paper}>
@@ -154,6 +153,7 @@ export default function GitCollaborations() {
                       to={`/users/${listing.user_id}`}
                       variant="contained"
                       color="primary"
+                      id="userProfileButton"
                     >
                       Go To User {listing.user_id} profile
                     </Button>

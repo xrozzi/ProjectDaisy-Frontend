@@ -142,7 +142,6 @@ export default function Header(props) {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -252,6 +251,7 @@ export default function Header(props) {
       {props.loggedIn ? (
         <Button
           color="secondary"
+          type="logout"
           className={classes.button}
           onClick={props.handleLogout}
         >
@@ -348,15 +348,13 @@ export default function Header(props) {
             </ListItem>
           ))}
 
-
-            
           <ListItem
-            onClick={ (e) => {
+            onClick={(e) => {
               if (props.loggedIn) {
-                e.preventDefault()
-                props.handleLogout()
+                e.preventDefault();
+                props.handleLogout();
                 setOpenDrawer(false);
-                return
+                return;
               }
               setOpenDrawer(false);
               setValue(4);
@@ -369,16 +367,14 @@ export default function Header(props) {
               root: classes.drawItemLogin,
               selected: classes.drawerItemSelected,
             }}
-           
             to="/Login"
             selected={value === 4}
+            id="hambugerlogout"
           >
             <ListItemText className={classes.drawerItem} disableTypography>
-               {props.loggedIn ? "Logout" : "Login"} 
+              {props.loggedIn ? "Logout" : "Login"}
             </ListItemText>
           </ListItem>
-
-
         </List>
       </SwipeableDrawer>
       <IconButton
@@ -386,7 +382,7 @@ export default function Header(props) {
         onClick={() => setOpenDrawer(!openDrawer)}
         disableRipple
       >
-        <MenuIcon className={classes.drawerIcon} />
+        <MenuIcon className={classes.drawerIcon} type="hamburger" />
       </IconButton>
     </React.Fragment>
   );

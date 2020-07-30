@@ -10,16 +10,13 @@ const localApi = axios.create({
 })
 
 localApi.interceptors.request.use((request) => {
+  const { token } = localStorage;
 
-    const {
-        token
-    } = localStorage
+  if (token) {
+    request.headers["Authorization"] = `Bearer ${token}`;
+  }
 
-    if (token) {
-        request.headers["Authorization"] = `Bearer ${token}`;
-    }
+  return request;
+});
 
-    return request
-})
-
-export default localApi
+export default localApi;

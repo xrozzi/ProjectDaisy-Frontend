@@ -49,7 +49,8 @@ const UserProfile = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [userCollabs, setUserCollabs] = useState([]);
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
@@ -58,7 +59,26 @@ const UserProfile = () => {
     localApi.get("/myprofile").then((response) => {
       setCurrentUser(response.data);
     });
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    localApi.get("/usercollabs").then((response) => {
+      setUserCollabs(response.data);
+      console.log(response.data)
+    });
+  }, [])
+
+
+  const renderGitCollabs = userCollabs.map((collab, index) => {
+    return (
+      <div key={index}>
+        <div>{collab.title}</div>
+        <div>{collab.description}</div>
+      </div>
+
+    )
+  })
+
 
   const Container = (props) => <Grid container {...props} />;
   const Item = (props) => <Grid item {...props} />;
@@ -69,10 +89,16 @@ const UserProfile = () => {
         <Container spacing={4}>
           <Item xs={12} sm={6} md={3} className={classes.learnButton}>
             <Paper className={classes.paper}>
-              <div>User image</div>
-              <Avatar alt="/static/images/avatar/1.jpg" src="" />
+
               <br />
               <Grid item>
+
+                <Avatar alt="User profile image" src={"/static/images/avatar/1.jpg" && currentUser.image} />
+                <br />
+                <div>{currentUser.firstname} {currentUser.lastname}</div>
+                <br />
+                {currentUser && <div> {currentUser.email} </div>}
+                <br />
                 <Button
                   component={Link}
                   to="/Images"
@@ -91,7 +117,6 @@ const UserProfile = () => {
                   Check inbox
                 </Button>
               </Grid>
-              {currentUser && <div> {currentUser.email} </div>}
               <br />
               <div>Short description</div>
             </Paper>
@@ -195,6 +220,20 @@ const UserProfile = () => {
                   <h1 style={{ color: "#162521", fontFamily: "Josefin Sans" }}>
                     Git Collaborations
                   </h1>
+                </div>
+                <div>
+                  <Button
+                    component={Link}
+                    to={`/CreateGitListing`}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Create New Listing
+            </Button>
+                </div>
+                <br />
+                <div>
+                  {renderGitCollabs}
                 </div>
               </Grid>
             </Paper>

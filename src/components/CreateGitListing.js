@@ -119,7 +119,10 @@ export default function CreateGitListing(props) {
           description,
         },
       })
-      .then(() => setIsCreated(true))
+      .then(() => {
+        setIsCreated(true);
+        window.location = "/GitCollaborations";
+      })
       .catch(() => setErrorMessage("The post was not created"));
   }
 
@@ -180,7 +183,7 @@ export default function CreateGitListing(props) {
                 to="/AboutGitCollabs"
                 variant="outlined"
                 className={classes.learnButton}
-                // onClick={Redirect to='/AboutGitCollabs'}
+              // onClick={Redirect to='/AboutGitCollabs'}
               >
                 <span
                   style={{
@@ -188,6 +191,22 @@ export default function CreateGitListing(props) {
                   }}
                 >
                   Learn More
+                </span>
+              </Button>
+
+              <Button
+                component={Link}
+                to="/GitCollaborations"
+                variant="outlined"
+                className={classes.learnButton}
+              // onClick={Redirect to='/AboutGitCollabs'}
+              >
+                <span
+                  style={{
+                    marginRight: 10,
+                  }}
+                >
+                  Current Git Collaborations
                 </span>
               </Button>
             </Grid>
@@ -284,6 +303,7 @@ export default function CreateGitListing(props) {
               <Button
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
+                id="postButton"
                 className={classes.sendButton}
                 onClick={() => setOpen(true)}
                 style={{
@@ -412,6 +432,7 @@ export default function CreateGitListing(props) {
             </Grid>
             <Grid item>
               <Button
+                type="confirm"
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
                 style={{
