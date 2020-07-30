@@ -25,10 +25,10 @@ export default class NewItemForm extends React.Component {
 
         console.log(this.state.image.value)
         const formData = new FormData()
-        formData.set("image", this.state.image)
-
+        formData.append("image", this.state.image)
+        console.log(this.state.image)
         localApi.post(`/images`,
-            formData
+        formData
         )
     }
     render() {

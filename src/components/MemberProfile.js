@@ -15,6 +15,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import localApi from "../apis/localapi";
+import { useTheme } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -79,7 +80,7 @@ const MemberProfile = (props) => {
     const [value, setValue] = React.useState(2);
     const [hover, setHover] = React.useState(-1);
     const [currentUser, setCurrentUser] = useState(null)
-
+    const theme = useTheme();
     const [user, setUser] = useState([])
 
     useEffect(() => {

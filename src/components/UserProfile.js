@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
       "10px 10px 30px rgba(174, 174, 192, 0.4), -10px -10px 30px #FFFFFF",
     borderRadius: "10px",
   },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
 }));
 
 const labels = {
@@ -49,7 +53,7 @@ const UserProfile = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
@@ -69,8 +73,9 @@ const UserProfile = () => {
         <Container spacing={4}>
           <Item xs={12} sm={6} md={3} className={classes.learnButton}>
             <Paper className={classes.paper}>
-              <div>User image</div>
-              <Avatar alt="/static/images/avatar/1.jpg" src="" />
+              <div align= "center">
+              <Avatar alt="userimage" src={currentUser.image} className={classes.large}/>
+              </div>
               <br />
               <Grid item>
                 <Button
@@ -90,7 +95,9 @@ const UserProfile = () => {
                 >
                   Check inbox
                 </Button>
+              
               </Grid>
+              <br/>
               {currentUser && <div> {currentUser.email} </div>}
               <br />
               <div>Short description</div>

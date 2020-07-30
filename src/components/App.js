@@ -14,6 +14,7 @@ import PrivateRoute from "./PrivateRoute";
 import Footer from "../components/ui/Footer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import localApi from "../apis/localapi";
+import AboutGitCollabs from "./AboutGitCollabs"
 
 import { ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -128,7 +129,9 @@ function App() {
           <Route
             exact
             path="/AboutGitCollabs"
-            component={() => <div>What is a Git Collab?</div>}
+            component={() => (
+               <div> <AboutGitCollabs/> </div>
+               )}
           />
           <Route exact path="/userProfile" component={UserProfile} />
           <Route
