@@ -59,15 +59,14 @@ const UserProfile = () => {
     localApi.get("/myprofile").then((response) => {
       setCurrentUser(response.data);
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     localApi.get("/usercollabs").then((response) => {
       setUserCollabs(response.data);
-      console.log(response.data)
+      console.log(response.data);
     });
-  }, [])
-
+  }, []);
 
   const renderGitCollabs = userCollabs.map((collab, index) => {
     return (
@@ -75,10 +74,8 @@ const UserProfile = () => {
         <div>{collab.title}</div>
         <div>{collab.description}</div>
       </div>
-
-    )
-  })
-
+    );
+  });
 
   const Container = (props) => <Grid container {...props} />;
   const Item = (props) => <Grid item {...props} />;
@@ -89,13 +86,16 @@ const UserProfile = () => {
         <Container spacing={4}>
           <Item xs={12} sm={6} md={3} className={classes.learnButton}>
             <Paper className={classes.paper}>
-
               <br />
               <Grid item>
-
-                <Avatar alt="User profile image" src={"/static/images/avatar/1.jpg" && currentUser.image} />
+                <Avatar
+                  alt="User profile image"
+                  src={"/static/images/avatar/1.jpg" && currentUser.image}
+                />
                 <br />
-                <div>{currentUser.firstname} {currentUser.lastname}</div>
+                <div>
+                  {currentUser.firstname} {currentUser.lastname}
+                </div>
                 <br />
                 {currentUser && <div> {currentUser.email} </div>}
                 <br />
@@ -105,7 +105,7 @@ const UserProfile = () => {
                   variant="outlined"
                   className={classes.learnButton}
                 >
-                  <span> Upload Image </span>
+                  <span id="uploadImageButton"> Upload Image </span>
                 </Button>
                 <br />
                 <Button
@@ -229,12 +229,10 @@ const UserProfile = () => {
                     color="primary"
                   >
                     Create New Listing
-            </Button>
+                  </Button>
                 </div>
                 <br />
-                <div>
-                  {renderGitCollabs}
-                </div>
+                <div>{renderGitCollabs}</div>
               </Grid>
             </Paper>
           </Item>

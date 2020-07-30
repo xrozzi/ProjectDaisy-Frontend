@@ -58,6 +58,8 @@ const useStyles = makeStyles({
 const Inbox = () => {
   const classes = useStyles();
 
+  const [currentParticipants, setCurrentParticipants] = useState([]);
+
   const [open, setOpen] = React.useState(false);
   const [isCreated, setIsCreated] = useState(false);
   const [title, setTitle] = useState("");
@@ -84,20 +86,22 @@ const Inbox = () => {
           .get(`/messages?conversation_id=${currentConversation}`, {})
           .then((res) => {
             if (tempConversationId === currentConversation) {
-              setCurrentMessages(res.data);
-              console.log(res.data);
+              setCurrentMessages(res.data.messages);
+              setCurrentParticipants(res.data.users);
+              console.log(res.data.messages);
             }
           });
-      }, 3000);
+      }, 0);
     }
-  }, [currentMessages]);
+  }, []);
 
   const getMessages = () => {
     localApi
       .get(`/messages?conversation_id=${currentConversation}`, {})
       .then((res) => {
-        setCurrentMessages(res.data);
-        console.log(res.data);
+        setCurrentMessages(res.data.messages);
+        setCurrentParticipants(res.data.users);
+        console.log(res.data.messages);
       });
   };
 
@@ -118,6 +122,7 @@ const Inbox = () => {
       .then((res) => {
         setIsCreated(true);
         setCurrentConversation(res.data.id);
+        window.location = "/Inbox";
       })
       .catch(() => setErrorMessage("The convo was not created"));
   }
@@ -160,7 +165,12 @@ const Inbox = () => {
           {/* INPUT CREATEINBOX MSG */}
 
           <Typography variant="h5" className="header-message">
-            <Button color="secondary" align="center" onClick={handleClickOpen}>
+            <Button
+              type="messageButton"
+              color="secondary"
+              align="center"
+              onClick={handleClickOpen}
+            >
               Write a message <CreateIcon />
             </Button>
 
@@ -203,7 +213,11 @@ const Inbox = () => {
                   Cancel
                 </Button>
 
-                <Button onClick={createConversation} color="secondary">
+                <Button
+                  id="createmessagesend"
+                  onClick={createConversation}
+                  color="secondary"
+                >
                   Send Message
                 </Button>
               </DialogActions>
@@ -211,6 +225,7 @@ const Inbox = () => {
           </Typography>
           <Divider />
           <ConversationList
+            id="convolist"
             onSelectConversation={(id) => {
               setCurrentMessages([]);
               setCurrentConversation(id);
@@ -232,6 +247,7 @@ const Inbox = () => {
                       return (
                         <Grid item xs={12}>
                           <ListItemText
+                            type="messageTitle"
                             className={classes.textBubble}
                             align="center"
                             primary={message.text}
