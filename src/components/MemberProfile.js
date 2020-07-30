@@ -98,7 +98,7 @@ const MemberProfile = (props) => {
 
                 <Grid item xs={2} className={classes.sidebar}>
                     <br />
-                    <Avatar alt="/static/images/avatar/1.jpg" src={user.image} />
+                    <Avatar alt="Member profile picture" src={"/static/images/avatar/1.jpg" && user.image} />
                     <h3> {user.firstname} </h3>
 
                     {user && <div> {user.email} </div>}
