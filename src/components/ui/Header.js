@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CustomizedMenus from "./ProfileMenu";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
@@ -8,7 +7,6 @@ import Tabs from "@material-ui/core/tabs";
 import Tab from "@material-ui/core/tab";
 import Button from "@material-ui/core/button";
 import { Link } from "react-router-dom";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/styles";
@@ -18,12 +16,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-// import Grid from "@material-ui/icons/Grid";
-import ExpandMoreIcon from "@material-ui/icons";
 
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";

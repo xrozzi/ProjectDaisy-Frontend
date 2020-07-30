@@ -14,8 +14,7 @@ import binIcon from "../../assets/icons/binIcon.png";
 
 import homeBanner from "../../assets/img/homeBanner.jpg";
 
-// import featureimg from "./assets/img/2.svg";
-
+// styles for features page of website
 const useStyles = makeStyles((theme) => ({
   heading: {
     maxWidth: "40em",
@@ -54,42 +53,7 @@ export default function Features(props) {
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const documentsOptions = {
-    loop: true,
-    autoplay: false,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const scaleOptions = {
-    loop: true,
-    autoplay: false,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const automationOptions = {
-    loop: true,
-    autoplay: false,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const uxOptions = {
-    loop: true,
-    autoplay: false,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
+  // renders out features of homepage
   return (
     <Grid container direction="column">
       <Grid
@@ -118,19 +82,7 @@ export default function Features(props) {
         </Hidden>
 
         <Hidden mdDown>
-          <Grid item className={classes.arrowContainer}>
-            <IconButton
-              style={{ backgroundColor: "transparent" }}
-              component={Link}
-              to="/mobileapps"
-              onClick={() => props.setSelectedIndex(2)}
-            >
-              {/* <img
-                // src={forwardArrow}
-                alt="Forward to iOS/Android App Development Page"
-              /> */}
-            </IconButton>
-          </Grid>
+          <Grid item className={classes.arrowContainer}></Grid>
         </Hidden>
       </Grid>
       <Grid

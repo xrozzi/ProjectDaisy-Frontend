@@ -26,7 +26,6 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-
 // Styles for Page
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,15 +42,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4rem",
     bottomMargin: "5em",
     color: "#4C6099",
-
-    // border: "2px solid blue",
   },
   icons: {
     width: "5em",
     height: "5em",
   },
   paper: {
-    // border: "1px solid red",
     maxWidth: "100em",
     maxHeight: "30em",
     borderRadius: "10px",
@@ -75,8 +71,7 @@ export default function GitCollaborations() {
 
   const classes = useStyles();
 
-  console.log(listings);
-
+  // API REQUEST TO GET THE GIT COLLABORATIONS
   useEffect(() => {
     localapi.get(`/git_collaborations`).then((response) => {
       setListings(response.data);
@@ -114,6 +109,7 @@ export default function GitCollaborations() {
           </Grid>
         </Grid>
 
+        {/* MAPPING OF THE LISTINGS */}
         {listings.map((listing) => (
           <Grid
             container
@@ -122,7 +118,7 @@ export default function GitCollaborations() {
             direction="row"
             alignItems="center"
             justify="center"
-          // style={{ minHeight: "20vh" }}
+            // style={{ minHeight: "20vh" }}
           >
             <Grid alignItems="center" item xs={12} sm={9} md={10} lg={10}>
               <Paper className={classes.paper}>

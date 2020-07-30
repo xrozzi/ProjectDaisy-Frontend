@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import UserSearchBar from "./UserSearchBar";
+
 import ConversationList from "./ConversationList";
+import localApi from "../apis/localapi.js";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -16,17 +17,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
 import CreateIcon from "@material-ui/icons/Create";
-import Avatar from "react-avatar";
-import MessageIcon from "@material-ui/icons/Message";
-import localApi from "../apis/localapi.js";
 import Button from "@material-ui/core/Button";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
@@ -58,8 +54,6 @@ const useStyles = makeStyles({
 const Inbox = () => {
   const classes = useStyles();
 
-  const [currentParticipants, setCurrentParticipants] = useState([]);
-
   const [open, setOpen] = React.useState(false);
   const [isCreated, setIsCreated] = useState(false);
   const [title, setTitle] = useState("");
@@ -78,6 +72,8 @@ const Inbox = () => {
     setOpen(false);
   };
 
+  // users create a conversation and then can write messages in that conversation
+  // uploads the current conversations
   useEffect(() => {
     if (currentMessages) {
       const tempConversationId = currentConversation;
@@ -86,31 +82,31 @@ const Inbox = () => {
           .get(`/messages?conversation_id=${currentConversation}`, {})
           .then((res) => {
             if (tempConversationId === currentConversation) {
-              setCurrentMessages(res.data.messages);
-              setCurrentParticipants(res.data.users);
-              console.log(res.data.messages);
+              setCurrentMessages(res.data);
+              console.log(res.data);
             }
           });
-      }, 0);
+      }, 6000);
     }
-  }, []);
+  }, [currentMessages]);
 
+  // request to get the messages of the current coversation
   const getMessages = () => {
     localApi
       .get(`/messages?conversation_id=${currentConversation}`, {})
       .then((res) => {
-        setCurrentMessages(res.data.messages);
-        setCurrentParticipants(res.data.users);
-        console.log(res.data.messages);
+        setCurrentMessages(res.data);
+        console.log(res.data);
       });
   };
-
+  // when a user clicks on a conversation it will render the messages
   useEffect(() => {
     if (currentConversation) {
       getMessages();
     }
   }, [currentConversation]);
 
+  // to create a conversation
   function createConversation() {
     localApi
       .post(`/conversations`, {
@@ -122,11 +118,11 @@ const Inbox = () => {
       .then((res) => {
         setIsCreated(true);
         setCurrentConversation(res.data.id);
-        window.location = "/Inbox";
       })
       .catch(() => setErrorMessage("The convo was not created"));
   }
 
+  // function to create messages
   function createMessage() {
     localApi
       .post(`/messages`, {
@@ -143,7 +139,7 @@ const Inbox = () => {
       .catch(() => setErrorMessage(""));
   }
 
-  console.log(currentConversation);
+  // returns the chat inbox and renders a dialog box
   return (
     <div>
       <Grid container>
@@ -165,12 +161,7 @@ const Inbox = () => {
           {/* INPUT CREATEINBOX MSG */}
 
           <Typography variant="h5" className="header-message">
-            <Button
-              type="messageButton"
-              color="secondary"
-              align="center"
-              onClick={handleClickOpen}
-            >
+            <Button color="secondary" align="center" onClick={handleClickOpen}>
               Write a message <CreateIcon />
             </Button>
 
@@ -213,11 +204,7 @@ const Inbox = () => {
                   Cancel
                 </Button>
 
-                <Button
-                  id="createmessagesend"
-                  onClick={createConversation}
-                  color="secondary"
-                >
+                <Button onClick={createConversation} color="secondary">
                   Send Message
                 </Button>
               </DialogActions>
@@ -225,7 +212,6 @@ const Inbox = () => {
           </Typography>
           <Divider />
           <ConversationList
-            id="convolist"
             onSelectConversation={(id) => {
               setCurrentMessages([]);
               setCurrentConversation(id);
@@ -247,7 +233,6 @@ const Inbox = () => {
                       return (
                         <Grid item xs={12}>
                           <ListItemText
-                            type="messageTitle"
                             className={classes.textBubble}
                             align="center"
                             primary={message.text}
@@ -285,7 +270,7 @@ const Inbox = () => {
           </Grid>
         )}
 
-        {/* MESSAGE AREA */}
+        {/* end MESSAGE AREA */}
       </Grid>
     </div>
   );

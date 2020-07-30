@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import App from "./App";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import binIcon from "../assets/icons/binIcon.png";
@@ -14,21 +12,19 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 
-import axios from "axios";
 import localApi from "../apis/localapi";
 
+/// styling for the git listing form
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     width: "100%",
-    // backgroundColor: "#FFF7F8",
     marginTop: "5em",
     borderRadius: 5,
   },
   description: {
-    // border: `2px solid ${theme.palette.common.arcOrange}`,
     marginTop: "5em",
     borderRadius: 5,
   },
@@ -36,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 50,
     height: 45,
     width: "25em",
-    // fontSize: "1rem",
+
     backgroundColor: theme.palette.common.arcOrange,
     "&:hover": {
       backgroundColor: theme.palette.secondary,
@@ -76,15 +72,18 @@ export default function CreateGitListing(props) {
   const [description, setDescription] = useState("");
   const [descriptionHelper, setDescriptionHelper] = useState("");
 
+  // for dialog box
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isCreated, setIsCreated] = useState(false);
 
+  // media queries for theme and mobile
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
   const [loading, setLoading] = useState(false);
 
+  // validation for the git form
   const onChange = (event) => {
     let valid;
 
@@ -111,6 +110,7 @@ export default function CreateGitListing(props) {
     }
   };
 
+  // function to create the git post
   function createGitPost() {
     localApi
       .post(`/git_collaborations`, {
@@ -125,7 +125,7 @@ export default function CreateGitListing(props) {
       })
       .catch(() => setErrorMessage("The post was not created"));
   }
-
+  // rendering of page
   return (
     <Grid
       container
@@ -134,7 +134,6 @@ export default function CreateGitListing(props) {
       justify="center"
       style={{
         minHeight: "80vh",
-        // border: "2px solid green",
         backgroundColor: "#FFF7F8",
       }}
       lg={10}
@@ -152,7 +151,6 @@ export default function CreateGitListing(props) {
         sm={4}
         style={{
           minHeight: "5vh",
-          // border: "2px solid red",
         }}
       >
         <Grid
@@ -160,14 +158,13 @@ export default function CreateGitListing(props) {
           style={{
             marginLeft: matchesMD ? 0 : "3em",
             textAlign: matchesMD ? "center" : "inherit",
-            // border: "2px solid pink",
           }}
         >
           <Grid item>
             <Typography align={matchesMD ? "center" : undefined} variant="h2">
               Creat A <br />
-              Git Collaboration{" "}
-            </Typography>{" "}
+              Git Collaboration
+            </Typography>
             <Typography
               align={matchesMD ? "center" : undefined}
               variant="subtitle2"
@@ -175,15 +172,14 @@ export default function CreateGitListing(props) {
                 fontSize: "1.5rem",
               }}
             >
-              Connect with like minded coders for projects{" "}
-            </Typography>{" "}
+              Connect with like minded coders for projects
+            </Typography>
             <Grid container justify={matchesMD ? "center" : undefined} item>
               <Button
                 component={Link}
                 to="/AboutGitCollabs"
                 variant="outlined"
                 className={classes.learnButton}
-              // onClick={Redirect to='/AboutGitCollabs'}
               >
                 <span
                   style={{
@@ -199,7 +195,6 @@ export default function CreateGitListing(props) {
                 to="/GitCollaborations"
                 variant="outlined"
                 className={classes.learnButton}
-              // onClick={Redirect to='/AboutGitCollabs'}
               >
                 <span
                   style={{
@@ -222,7 +217,6 @@ export default function CreateGitListing(props) {
         style={{
           marginBottom: matchesMD ? "6em" : 0,
           marginTop: matchesSM ? "1em" : matchesMD ? "6em" : 0,
-          // border: "2px solid orange",
           backgroundColor: "#EBDEF8",
         }}
         lg={6}
@@ -235,7 +229,6 @@ export default function CreateGitListing(props) {
             direction="column"
             style={{
               width: "25em",
-              // border: "1px solid purple",
             }}
             lg={12}
           >
@@ -247,7 +240,6 @@ export default function CreateGitListing(props) {
               style={{
                 width: "25em",
                 marginTop: "45px",
-                // border: "1px solid blue",
               }}
             >
               <Grid
@@ -277,7 +269,6 @@ export default function CreateGitListing(props) {
               }}
             >
               <TextField
-                // InputProps={{ disableUnderline: true }}
                 value={description}
                 className={classes.description}
                 label="Enter a Description of your project. Please include the programming languages"
