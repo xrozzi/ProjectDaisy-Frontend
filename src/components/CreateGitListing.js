@@ -119,7 +119,10 @@ export default function CreateGitListing(props) {
           description,
         },
       })
-      .then(() => setIsCreated(true))
+      .then(() => {
+        setIsCreated(true);
+        window.location = "/GitCollaborations";
+      })
       .catch(() => setErrorMessage("The post was not created"));
   }
 
@@ -300,6 +303,7 @@ export default function CreateGitListing(props) {
               <Button
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
+                id="postButton"
                 className={classes.sendButton}
                 onClick={() => setOpen(true)}
                 style={{
@@ -428,6 +432,7 @@ export default function CreateGitListing(props) {
             </Grid>
             <Grid item>
               <Button
+                type="confirm"
                 disabled={description.length === 0 || titleHelper === 0}
                 variant="contained"
                 style={{
